@@ -27,7 +27,7 @@ Node 20+ is required by Next 16.
 | `/` | Home — hero carousel, mission, service index, contact |
 | `/about` | Hero carousel + in-preparation notice |
 | `/visa-and-tours` | Live: Tour360, TRAVELCredit, VISA-Assist247, LESS 20.0, timeline, gallery |
-| `/business-services` | Hero carousel + in-preparation notice |
+| `/business-services` | Live: four service lines, seven sectors, funding support, eight instruments, two-path CTA |
 | `/cargo-and-freight` | Live: platform, air and sea, scroll-drawn route, cargo desk, quote form |
 | `/integrated-farms` | Live: story, 16-facility grid, values band, location, enquiry |
 | `/engineering` | Live: four capabilities, three sectors, delivery approach, project records, CTA |
@@ -35,8 +35,8 @@ Node 20+ is required by Next 16.
 | `/styleguide` | Dev only. Returns 404 in production. |
 
 Every route opens with the same `<HeroCarousel>`: 4–6 slides, 6s autoplay, and
-that page's accent. `/about` and `/business-services` land in later phases and
-show an honest notice and a way to reach a person until then.
+that page's accent. `/about` lands in a later phase and shows an honest notice
+and a way to reach a person until then.
 
 `/visa-and-tours` is assembled from `src/components/sections/tours/`:
 `tour360-section`, `travelcredit-section`, `visaassist-section`,
@@ -63,6 +63,20 @@ build, maintain on the slate band), `engineering-portfolio` (six empty project
 records) and `engineering-cta` (the amber closing band). Copy lives in
 `src/content/engineering.ts`.
 
+`/business-services` is assembled from `src/components/sections/business/`:
+`business-intro` (the positioning and four service lines), `business-sectors`
+(seven sectors as a ruled index), `business-funding` (the deep green band and
+the HYP project types), `business-instruments` (eight documents and the
+due-diligence note) and `business-cta` (the two enquiry paths). Copy lives in
+`src/content/business-services.ts`.
+
+**Business Services is the only page that carries a subject into `/contact`.**
+Both closing cards and one hero slide link to `/contact?service=…`; the contact
+page reads that value in `sections/contact/service-intent.tsx` and writes it into
+the WhatsApp message and the email subject. Keep the label and the `value` in
+`businessIntents` in step, and keep the component inside its `Suspense` boundary
+so `/contact` stays static.
+
 **Engineering is built from verified facts only.** The client supplied four
 service lines and three sectors. Every other detail a buyer would expect, such
 as project names, dates, photographs, certifications, equipment or headcount,
@@ -87,7 +101,8 @@ src/
     carousel/          hero-carousel
     layout/            header, mobile menu, footer, WhatsApp FAB, page transition
     sections/          stub page, stub notice, accent scope, enquiry band,
-                       tours/*, farms/*, freight/*, engineering/*
+                       tours/*, farms/*, freight/*, engineering/*, business/*,
+                       contact/*
     ui/                button, card, section, container, typography,
                        reveal, parallax, smart image, geometric pattern
   config/site.ts       single source of truth: brand facts, nav, contact
@@ -120,6 +135,13 @@ the timeline, the gallery and `SmartImage`.
   Add real project records in `src/content/images.ts` and swap the literal
   marker in `components/sections/engineering/engineering-portfolio.tsx` for the
   supplied name. Do not add a claim that is not in `CLIENT_TODO.md` as answered.
+- **Business Services copy:** `src/content/business-services.ts`. The four
+  service lines, seven sectors, funding paragraph, seven HYP project types, eight
+  instruments, the exact due-diligence note and the two enquiry intents. The
+  instruments are listed by name and family only; do not add a rate, return or
+  eligibility claim. `businessIntents` is shared by the closing cards, the hero
+  and the contact page, so edit a label, `value`, card line or WhatsApp message
+  there once.
 - **Images:** add the file under `public/images/...`, then point its manifest
   entry in `src/content/images.ts` at the path. `<SmartImage>` shows a branded
   placeholder until the file exists, so a missing image is never a broken one.

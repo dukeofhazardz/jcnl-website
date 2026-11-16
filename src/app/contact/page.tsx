@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
 import { ArrowUpRight, Mail, MessageCircle, Phone } from "lucide-react";
+import { Suspense } from "react";
 
 import { HeroCarousel } from "@/components/carousel/hero-carousel";
 import { AccentScope } from "@/components/sections/accent-scope";
+import { ServiceIntent } from "@/components/sections/contact/service-intent";
 import { Container } from "@/components/ui/container";
 import { Reveal } from "@/components/ui/reveal";
 import { Section } from "@/components/ui/section";
@@ -77,7 +79,13 @@ export default function ContactPage() {
         </Container>
       </Section>
 
-      <Section tone="sand" spacing="md" topDivider="dune" labelledBy="channels-heading">
+      <Section
+        id="channels"
+        tone="sand"
+        spacing="md"
+        topDivider="dune"
+        labelledBy="channels-heading"
+      >
         <Container>
           <div className="grid gap-10 lg:grid-cols-12 lg:gap-8">
             <div className="lg:col-span-4">
@@ -94,6 +102,10 @@ export default function ContactPage() {
             </div>
 
             <div className="lg:col-span-8">
+              <Suspense fallback={null}>
+                <ServiceIntent />
+              </Suspense>
+
               <Reveal delay={0.08}>
                 <dl className="border-t border-ink-900/15">
                   <div className="grid gap-1 border-b border-ink-900/15 py-5 sm:grid-cols-[10rem_1fr] sm:gap-6">

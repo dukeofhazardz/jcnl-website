@@ -75,7 +75,7 @@ export const nav: readonly NavItem[] = [
   {
     label: "Business Services",
     href: "/business-services",
-    blurb: "Designs, operational training and facility services.",
+    blurb: "Designs, training, hospitality and facilities.",
     accent: "business",
   },
   {

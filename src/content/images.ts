@@ -62,7 +62,7 @@ export const heroImages = {
     skyline: hero("business-services", "city-skyline", "Lagos business district skyline"),
     handshake: hero("business-services", "handshake", "Handshake at a contract signing"),
     charts: hero("business-services", "finance-charts", "Finance charts and a laptop"),
-    hospitality: hero("business-services", "hospitality", "Hotel lobby, staff at the desk"),
+    power: hero("business-services", "power-and-energy", "Solar array and power infrastructure"),
   },
   freight: {
     aircraft: hero("cargo-and-freight", "cargo-aircraft", "Cargo aircraft being loaded"),

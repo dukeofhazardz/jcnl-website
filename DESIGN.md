@@ -74,7 +74,8 @@ Resolved at runtime, so a page can switch accent without regenerating utilities:
 
 `--accent-bright` is the variant of the accent that survives on a dark
 photographic field (progress bar, active dot, placeholder marker). It is not used
-for text on light grounds.
+for text on light grounds. On `/business-services` it resolves to gold-400, which
+is only legible on that page's deep green field.
 
 Utilities: `bg-surface`, `text-ink`, `text-ink-muted`, `border-line`,
 `bg-accent`, `text-accent-text`, `bg-accent-soft`, `bg-accent-bright`, `bg-field`,
@@ -201,7 +202,7 @@ play/pause control under reduced motion; manual navigation stays available.
 
 | Component | Path | Notes |
 |---|---|---|
-| `Button` | `components/ui/button.tsx` | primary / dark / ghost; sm, md, lg; renders `<button>`, `<Link>` or `<a>` |
+| `Button` | `components/ui/button.tsx` | primary / dark / slate / ghost; sm, md, lg; renders `<button>`, `<Link>` or `<a>` |
 | `Card` | `components/ui/card.tsx` | surface / raised / sand / ink / outline; optional hover lift |
 | `Section` | `components/ui/section.tsx` | tone, spacing, top divider, patterned field |
 | `SectionDivider` | `components/ui/section.tsx` | arch, dune, blade, wave |
@@ -220,6 +221,8 @@ play/pause control under reduced motion; manual navigation stays available.
 | `Tour360Section` … `TourEnquiry` | `components/sections/tours/*` | the `/visa-and-tours` body: four products, timeline, gallery, closing band |
 | `EnquiryBand` | `components/sections/enquiry-band.tsx` | shared closing band; `textTone` ink or ivory |
 | `FarmStory` … `FarmEnquiry` | `components/sections/farms/*` | the `/integrated-farms` body: story, facilities, clay values, location, closing band |
+| `BusinessIntro` … `BusinessCta` | `components/sections/business/*` | the `/business-services` body: service lines, sectors, funding, instruments, two-path CTA |
+| `ServiceIntent` | `components/sections/contact/service-intent.tsx` | reads `?service=` on `/contact` and carries the subject into WhatsApp and email |
 
 ### Hero carousel
 
@@ -372,6 +375,51 @@ or client is implied. The outstanding items are itemised in `CLIENT_TODO.md`.
 Each capability card is a `Reveal` inside its list item, staggered by 50ms and
 capped at 200ms. The sectors list reveals each row at 60ms. The approach keeps
 its numerals `aria-hidden` because the `ol` already carries the order.
+
+---
+
+### Business Services composition
+
+`/business-services` carries the `business` accent: deep green `#123c2e` as the
+ground and the accent text, gold-400 as the bright note, `accent-soft` (#e3e9dc)
+for tinted surfaces. Order: positioning and the four service lines (ivory,
+`arch`), seven sectors (sand, `dune`), funding support (deep green, `blade`),
+eight instruments (ivory) and the two enquiry paths (sand, `wave`).
+
+Measured pairs:
+
+- gold-400 on deep green — **5.07** (funding eyebrow, numerals, rules)
+- ivory-50 on deep green — **11.48**
+- ivory-100 on deep green — **10.72**
+- deep green on ivory-50 — **11.48**
+- deep green on accent-soft — **9.91**
+- gold-400 on ivory-50 — **2.26**, so gold is never text on ivory and never a
+  meaningful UI boundary there. On light grounds the accent-text deep green does
+  that work.
+
+The funding band is the page's one dark section and the only place gold appears
+as type. `--accent-bright` for this scope was changed from a pale green to
+gold-400, which is where the carousel progress bar, the active dot and the
+placeholder marker pick it up. Gold-400 is 6.77 on jungle-950, so the hero
+placeholder stays legible.
+
+The four service lines and the eight instruments are ruled indexes rather than
+cards: a number, a name, one line. The funding list is split into two `<ol>`
+elements (four and three) so each column rules itself and a wrapped label cannot
+knock the opposite column's hairlines out of step. Visible numbers are
+`aria-hidden`; the `ol` carries the order.
+
+The closing section is two cards with different grounds: deep green carrying
+`accent-ink` (ivory) and ivory-50 carrying ink. Each card's link text is the
+client's exact label, and the card is stretched with `after:absolute` so there is
+one link, one accessible name and a full-card target. The gold hairline appears
+only on the deep green card.
+
+The two paths append `?service=` to `/contact` and land on `#channels`. The
+contact page reads the value in `service-intent.tsx` inside a `Suspense`
+boundary, so the route stays static and the subject only appears when the
+parameter matches `businessIntents`. The component writes the subject into the
+WhatsApp message and the `mailto:` subject; it never echoes arbitrary input.
 
 ---
 

@@ -1,4 +1,9 @@
 import { contact, offices, site, whatsappHref } from "@/config/site";
+import {
+  businessIntents,
+  intentHref,
+  type BusinessIntentId,
+} from "@/content/business-services";
 import { heroImages } from "@/content/images";
 
 /**
@@ -50,6 +55,14 @@ const discussProject: SlideCta = {
 const requestQuote: SlideCta = { label: "Request a quote", href: "#quote" };
 
 const planATrip: SlideCta = { label: "Plan this trip", href: "/contact" };
+
+/** A hero CTA that carries one of the Business Services enquiry subjects. */
+function businessCtaFor(id: BusinessIntentId): SlideCta {
+  const intent = businessIntents.find((entry) => entry.id === id);
+  return intent
+    ? { label: intent.label, href: intentHref(intent) }
+    : talkToUs;
+}
 
 const whatsappUs: SlideCta = {
   label: "WhatsApp us",
@@ -207,40 +220,40 @@ export const heroSlides: Record<HeroPageKey, readonly Slide[]> = {
       id: "business-boardroom",
       image: heroImages.business.boardroom.src,
       alt: "Boardroom table with daylight through floor-to-ceiling glass",
-      headline: "Designs that survive operations.",
-      sub: "Service designs, operational training and facility service management.",
-      cta: talkToUs,
-    },
-    {
-      id: "business-charts",
-      image: heroImages.business.charts.src,
-      alt: "Printed finance charts beside an open laptop",
-      headline: "A design you can cost.",
-      sub: "Work costed with the client before anything is promised.",
-      cta: talkToUs,
-    },
-    {
-      id: "business-handshake",
-      image: heroImages.business.handshake.src,
-      alt: "Two people shaking hands over a signed contract",
-      headline: "Training by the people who do the work.",
-      sub: "Operational training for the teams who run the service.",
+      headline: "Business services, built to hold.",
+      sub: "Designs, operational training, hospitality and facility service management.",
       cta: talkToUs,
     },
     {
       id: "business-skyline",
       image: heroImages.business.skyline.src,
       alt: "Office towers in the Lagos business district",
-      headline: "Facility service management.",
-      sub: "Facilities run under one contract, for private and public sector clients.",
+      headline: "Seven sectors, one company.",
+      sub: "From manufacturing and oil and gas to finance and power.",
       cta: talkToUs,
     },
     {
-      id: "business-hospitality",
-      image: heroImages.business.hospitality.src,
-      alt: "Hotel staff behind a lobby desk",
-      headline: "Hospitality, handled.",
-      sub: "Hospitality as one of the service lines, alongside facilities and training.",
+      id: "business-handshake",
+      image: heroImages.business.handshake.src,
+      alt: "Two people shaking hands over a signed contract",
+      headline: "Funding for structured projects.",
+      sub: "Investor introductions for projects that meet due diligence and contractual quality criteria.",
+      cta: businessCtaFor("investment-collaboration"),
+    },
+    {
+      id: "business-charts",
+      image: heroImages.business.charts.src,
+      alt: "Printed finance charts beside an open laptop",
+      headline: "Trade finance, in the documents providers use.",
+      sub: "BG/SBLC, Usance LC, performance guarantees and related instruments.",
+      cta: { label: "See the instruments", href: "#instruments" },
+    },
+    {
+      id: "business-power",
+      image: heroImages.business.power.src,
+      alt: "Solar array and power infrastructure beside a commercial building",
+      headline: "Power, property, transit.",
+      sub: "High-yield projects across real estate, transit, farming, housing, schools and parks.",
       cta: talkToUs,
     },
   ],

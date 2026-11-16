@@ -208,7 +208,9 @@
   --accent-text: #123c2e;
   --accent-soft: #e3e9dc;
   --accent-ink: var(--color-ivory-50);
-  --accent-bright: #a6c3ae;
+  /* The gold note is only legible on the deep green field (5.07:1), so it is
+     exposed as the bright variant and never used as text on ivory (2.26:1). */
+  --accent-bright: var(--color-gold-400);
   --field: var(--color-jungle-950);
 }
 
@@ -277,6 +279,12 @@
   @media (prefers-reduced-motion: reduce) {
     html {
       scroll-behavior: auto;
+    }
+
+    /* The skip link still needs to appear on focus, but it can do so without
+       sliding. */
+    .skip-link {
+      transition: none;
     }
 
     /* Reveals are inline-styled by Motion, so the override has to win with

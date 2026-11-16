@@ -84,7 +84,7 @@ and leave the top third calm enough that the product caption can sit over it.
 | 2 | `business-services/city-skyline.jpg` | 1920×1080 | 16:9 | Lagos business district skyline |
 | 3 | `business-services/handshake.jpg` | 1920×1080 | 16:9 | Handshake at a contract signing |
 | 4 | `business-services/finance-charts.jpg` | 1920×1080 | 16:9 | Finance charts and a laptop |
-| 5 | `business-services/hospitality.jpg` | 1920×1080 | 16:9 | Hotel lobby, staff at the desk |
+| 5 | `business-services/power-and-energy.jpg` | 1920×1080 | 16:9 | Solar array and power infrastructure |
 
 ### Cargo & Freight — `/cargo-and-freight`
 
