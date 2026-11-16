@@ -70,10 +70,15 @@ Resolved at runtime, so a page can switch accent without regenerating utilities:
 
 `--surface`, `--surface-raised`, `--surface-sunken`, `--line`, `--ink`,
 `--ink-muted`, `--accent`, `--accent-strong`, `--accent-text`, `--accent-soft`,
-`--accent-ink`, `--field`.
+`--accent-ink`, `--accent-bright`, `--field`.
+
+`--accent-bright` is the variant of the accent that survives on a dark
+photographic field (progress bar, active dot, placeholder marker). It is not used
+for text on light grounds.
 
 Utilities: `bg-surface`, `text-ink`, `text-ink-muted`, `border-line`,
-`bg-accent`, `text-accent-text`, `bg-accent-soft`, `bg-field`, `fill-accent`.
+`bg-accent`, `text-accent-text`, `bg-accent-soft`, `bg-accent-bright`, `bg-field`,
+`fill-accent`.
 
 ### Accent scopes
 
@@ -158,14 +163,37 @@ Implemented with `motion` (`motion/react`), transform and opacity only.
 | Route fade | 340ms | `cubic-bezier(0.16, 1, 0.3, 1)` |
 | Scroll reveal | 620ms | `cubic-bezier(0.16, 1, 0.3, 1)` |
 | Mobile menu stagger | 400ms, 35ms per item | `cubic-bezier(0.16, 1, 0.3, 1)` |
+| Carousel slide | 720ms | `cubic-bezier(0.23, 1, 0.32, 1)` |
+| Carousel copy stagger | 600ms, 75ms per item | `cubic-bezier(0.23, 1, 0.32, 1)` |
+| Carousel Ken-Burns | 9s, linear-ish, 1.02 → 1.06 | `cubic-bezier(0.16, 1, 0.3, 1)` |
+| Carousel progress | 6s | linear |
 
-- Reveals travel 22px, fire once, and are skipped entirely under
-  `prefers-reduced-motion`.
+- Reveals travel 22px, fire once.
 - No animation may block reading: the page is legible before the transition ends.
 - Magnetic buttons move at most 5px and only for `pointerType === "mouse"`.
 - Hover styles are gated behind `hover-fine` (`hover: hover` + `pointer: fine`)
   so touch devices do not keep a stuck state.
 - With JavaScript disabled, a `<noscript>` rule forces `[data-reveal]` visible.
+
+### Reduced motion
+
+The server cannot read a media query, so any component that branches its markup
+on `useReducedMotion()` produces different server and client trees and breaks
+hydration. Two rules follow:
+
+1. **Preference in CSS where markup would change.** The route fade
+   (`.page-enter`) lives in `@media (prefers-reduced-motion: no-preference)`, and
+   reduced motion forces `[data-reveal]` visible with `!important` instead of
+   skipping the animation in JS. Both look identical on the server and client.
+2. **`usePrefersReducedMotion()` where only props change.** It is a
+   `useSyncExternalStore` hook with a server snapshot of `false`, so the first
+   client render matches the server and the real value arrives immediately after
+   hydration. Use it instead of Motion's `useReducedMotion` anywhere the value
+   reaches a style or a prop (`Button`, `Parallax`, `MobileMenu`, `WhatsAppFab`,
+   `HeroCarousel`).
+
+The carousel additionally stops its timer, hides its progress bar and hides the
+play/pause control under reduced motion; manual navigation stays available.
 
 ---
 
@@ -187,7 +215,71 @@ Implemented with `motion` (`motion/react`), transform and opacity only.
 | `MobileMenu` | `components/layout/mobile-menu.tsx` | full-screen dialog, focus trap, Escape |
 | `Footer` | `components/layout/footer.tsx` | tagline, nav, both offices, channels |
 | `WhatsAppFab` | `components/layout/whatsapp-fab.tsx` | appears after 420px of scroll |
-| `PageIntro` | `components/sections/page-intro.tsx` | dark opening band; hero carousel replaces it in phase 2 |
+| `PageTransition` | `components/layout/page-transition.tsx` | CSS route fade, 340ms |
+| `HeroCarousel` | `components/carousel/hero-carousel.tsx` | full-bleed hero, 4–6 slides per page |
+| `Tour360Section` … `TourEnquiry` | `components/sections/tours/*` | the `/visa-and-tours` body: four products, timeline, gallery, closing band |
+
+### Hero carousel
+
+`<HeroCarousel slides={heroSlides[page]} eyebrow={…} label={…} accent={…} />`.
+The slides come from `src/content/slides.ts`, the image paths resolve through
+`src/content/images.ts`, and both are typed. Adding a slide is a data change.
+
+- Frame: `min-h-[88svh]`, full width, copy set at the bottom-left over
+  `.scrim-hero`. Header padding is subtracted with `--header-h`, so the headline
+  never sits under the fixed header.
+- Media: all slides stay mounted and stacked, opacity 0 when inactive, so the
+  next image is already decoded. Only the first slide is `priority`.
+- Motion: the incoming slide travels 6% and fades in over 720ms; the copy block
+  remounts and staggers 75ms per line. Ken-Burns runs inside the slide layer.
+- Controls: previous, next, one dot per slide (`aria-current="true"` on the
+  active one), counter, and a pause/play button. A 3px progress bar shows time to
+  the next slide and is decorative (`aria-hidden`).
+- Clock: 6s. The CSS progress animation and the JS timeout are paused and
+  resumed together, so the bar never drifts. Hover, focus and a hidden tab pause
+  it; an explicit play/pause choice overrides hover so the button cannot trap the
+  visitor in a paused state.
+- Input: pointer swipe (48px horizontal threshold, ignored when the gesture
+  starts on a control), arrow keys, and buttons. A swipe does not activate a link
+  it ends on.
+- Accessibility: `role="region"`, `aria-roledescription="carousel"`, a named
+  region, slides labelled "n of N", all but the active slide `aria-hidden`, and a
+  live region that is `polite` while paused and `off` while autoplaying. A slide
+  change that destroys the focused CTA moves focus to the new slide's CTA.
+- The hero carries the page's only `h1`; its text is prefixed with a screen
+  reader-only page label so the heading still says which page it belongs to.
+
+### Placeholder modes
+
+`<SmartImage>` has two placeholder temperaments. `variant="default"` is the
+shot-list card: framing marks, label line and the subject in display type.
+`variant="background"` is the quiet one used behind the hero copy and the gallery
+captions: a single small `role · subject · dimensions` label in the top-right, no
+framing marks, and the accent gradient moved to the wrapper so a slow or missing
+file never shows an empty box.
+
+`fill` means the parent owns the frame. The wrapper gets `h-full` rather than
+`absolute inset-0`, so it cannot escape a parent that is not a containing block;
+the parent must have a height, which in practice is an aspect-ratio box.
+
+The branded field is painted from the first frame and stays until the file
+paints, not only after a failure, so a slow image is never a bare gradient. When
+the file does paint, the field is removed; while it is loading it is
+`aria-hidden` and the image's `alt` carries the meaning. A failed file drops the
+`<img>` entirely, so the placeholder label is not announced twice.
+
+### Visa & Tours composition
+
+`/visa-and-tours` alternates tone to give each product its own register:
+Tour360 (sand, image left of the argument), TRAVELCredit (jungle, the 76,000+
+figure set large), VISA-Assist247 (ivory, two check lists and a protection
+card), LESS 20.0 (sand, a 14-item icon grid). The Tour360 timeline is a
+scroll-linked rail: the connector is a `scaleY` transform on the compositor, the
+steps fade and rise once, and the rail sits outside the `<ol>` because a list may
+only contain list items. The gallery pairs a 7/5 and a square frame to share one
+height, then a full-width 21/9. The lightbox is a `document.body` portal (the
+section's `isolation: isolate` would otherwise clip it), traps focus, returns
+focus to the thumbnail that opened it, and is loaded on demand.
 
 ---
 
@@ -216,6 +308,9 @@ Implemented with `motion` (`motion/react`), transform and opacity only.
   element.
 - Decorative graphics `aria-hidden`; every meaningful image has alt text.
 - External links announce "(opens in a new tab)".
-- `prefers-reduced-motion` removes reveals, parallax, magnetic pull and the
-  page transition.
+- The hero carousel is keyboard operable (arrow keys), swipeable on touch, and
+  announces slide changes through a live region. Autoplay is off under reduced
+  motion, and its own controls can stop it in one click.
+- `prefers-reduced-motion` removes reveals, parallax, magnetic pull, the page
+  transition, the carousel autoplay, Ken-Burns and the progress bar.
 - Text must pass 4.5:1; 3:1 only for ≥24px or ≥19px bold.

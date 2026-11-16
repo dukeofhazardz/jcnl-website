@@ -24,15 +24,26 @@ Node 20+ is required by Next 16.
 
 | Route | Status |
 |---|---|
-| `/` | Home — intro band, mission, service index, contact |
-| `/about` | Stub — in preparation |
-| `/visa-and-tours` | Stub — in preparation |
-| `/business-services` | Stub — in preparation |
-| `/cargo-and-freight` | Stub — in preparation |
-| `/integrated-farms` | Stub — in preparation |
-| `/engineering` | Stub — in preparation |
+| `/` | Home — hero carousel, mission, service index, contact |
+| `/about` | Hero carousel + in-preparation notice |
+| `/visa-and-tours` | Live: Tour360, TRAVELCredit, VISA-Assist247, LESS 20.0, timeline, gallery |
+| `/business-services` | Hero carousel + in-preparation notice |
+| `/cargo-and-freight` | Hero carousel + in-preparation notice |
+| `/integrated-farms` | Hero carousel + in-preparation notice |
+| `/engineering` | Hero carousel + in-preparation notice |
 | `/contact` | Live: both offices and every published channel |
 | `/styleguide` | Dev only. Returns 404 in production. |
+
+Every route opens with the same `<HeroCarousel>`: 4–6 slides, 6s autoplay, and
+that page's accent. `/visa-and-tours` is built out; the other service routes
+land in later phases and show an honest notice and a way to reach a person
+until then.
+
+`/visa-and-tours` is assembled from `src/components/sections/tours/`:
+`tour360-section`, `travelcredit-section`, `visaassist-section`,
+`less20-section`, `tour-timeline`, `tour-gallery` (with a lazily loaded,
+focus-trapped lightbox) and `tour-enquiry`. All of its copy lives in
+`src/content/tours.ts`.
 
 ## Structure
 
@@ -40,27 +51,32 @@ Node 20+ is required by Next 16.
 src/
   app/                 routes, layout, template, sitemap, robots, 404, loading
   components/
+    carousel/          hero-carousel
     layout/            header, mobile menu, footer, WhatsApp FAB, page transition
-    sections/          page intro, stub notice, accent scope
+    sections/          stub page, stub notice, accent scope, tours/*
     ui/                button, card, section, container, typography,
                        reveal, parallax, smart image, geometric pattern
   config/site.ts       single source of truth: brand facts, nav, contact
-  content/             typed page copy and image manifests
-  lib/                 cn, motion tokens, scroll hook, structured data
+  content/             slides, page metadata, tours copy, typed image manifests
+  lib/                 cn, motion tokens, media/visibility hooks, structured data
 ```
 
 Server components by default. `"use client"` is limited to the header, mobile
-menu, WhatsApp FAB, button (magnetic pull), reveals, parallax and the page
-transition.
+menu, WhatsApp FAB, button (magnetic pull), reveals, parallax, the carousel,
+the timeline, the gallery and `SmartImage`.
 
 ## Editing content
 
 - **Contact details, nav, socials:** `src/config/site.ts`. Nothing else should
   contain a phone number, email or address.
-- **Page headings:** `src/content/page-copy.ts`.
+- **Hero slides:** `src/content/slides.ts`. One entry per slide: `id`, `image`,
+  `alt`, `headline`, `sub`, `cta`. Page-level framing (label, eyebrow, accent)
+  is in `src/content/page-copy.ts`.
+- **Visa & Tours copy:** `src/content/tours.ts`. Four products, the 14 LESS 20.0
+  services, the four Tour360 steps, the gallery entries and the anchor list.
 - **Images:** add the file under `public/images/...`, then point its manifest
   entry in `src/content/images.ts` at the path. `<SmartImage>` shows a branded
-  placeholder until the file exists.
+  placeholder until the file exists, so a missing image is never a broken one.
 - **Colour, type, motion:** `src/app/globals.css` and `DESIGN.md`.
 
 ## Accessibility
@@ -69,6 +85,10 @@ Semantic landmarks, skip link, visible focus, keyboard-operable menu with focus
 trap, alt text on every meaningful image, WCAG AA contrast (measured, see
 `DESIGN.md`), and full support for `prefers-reduced-motion`. Without JavaScript,
 reveal-animated content is forced visible.
+
+The hero carousel is a named region with `aria-roledescription="carousel"`,
+arrow-key and swipe navigation, a live region for slide changes, and no autoplay
+under reduced motion.
 
 ## Environment
 
