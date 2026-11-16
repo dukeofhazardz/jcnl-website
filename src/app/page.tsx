@@ -2,14 +2,15 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowUpRight, MessageCircle } from "lucide-react";
 
+import { HeroCarousel } from "@/components/carousel/hero-carousel";
 import { AccentScope } from "@/components/sections/accent-scope";
-import { PageIntro } from "@/components/sections/page-intro";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
 import { Reveal } from "@/components/ui/reveal";
 import { Section } from "@/components/ui/section";
 import { Eyebrow, Heading } from "@/components/ui/typography";
-import { homeServices, pageIntro } from "@/content/page-copy";
+import { homeServices, pageMeta } from "@/content/page-copy";
+import { heroSlides } from "@/content/slides";
 import { contact, site, taglineDisplay, whatsappHref } from "@/config/site";
 
 export const metadata: Metadata = {
@@ -20,31 +21,15 @@ export const metadata: Metadata = {
 const sectors = ["Energy", "Transport", "Construction", "TMC"] as const;
 
 export default function HomePage() {
-  const intro = pageIntro.home;
+  const meta = pageMeta.home;
 
   return (
-    <AccentScope accent={intro.accent}>
-      <PageIntro
-        eyebrow={intro.eyebrow}
-        title={intro.title}
-        sub={intro.sub}
-        size="home"
-        actions={
-          <>
-            <Button
-              href={whatsappHref()}
-              external
-              variant="primary"
-              icon={<MessageCircle aria-hidden="true" size={17} strokeWidth={1.75} />}
-              iconPosition="start"
-            >
-              WhatsApp us
-            </Button>
-            <Button href="#services" variant="ghost" className="text-ivory-50">
-              Service lines
-            </Button>
-          </>
-        }
+    <AccentScope accent={meta.accent}>
+      <HeroCarousel
+        slides={heroSlides.home}
+        eyebrow={meta.eyebrow}
+        label={meta.label}
+        accent={meta.accent}
       />
 
       <Section tone="ivory" topDivider="arch" spacing="md">

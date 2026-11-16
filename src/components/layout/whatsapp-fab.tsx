@@ -1,9 +1,10 @@
 "use client";
 
-import { AnimatePresence, motion, useReducedMotion } from "motion/react";
+import { AnimatePresence, motion } from "motion/react";
 import { MessageCircle } from "lucide-react";
 
 import { whatsappHref } from "@/config/site";
+import { usePrefersReducedMotion } from "@/lib/use-prefers-reduced-motion";
 import { useScrolled } from "@/lib/use-scrolled";
 
 /**
@@ -12,7 +13,7 @@ import { useScrolled } from "@/lib/use-scrolled";
  */
 export function WhatsAppFab() {
   const visible = useScrolled(420);
-  const reduceMotion = useReducedMotion();
+  const reduceMotion = usePrefersReducedMotion();
 
   return (
     <AnimatePresence>

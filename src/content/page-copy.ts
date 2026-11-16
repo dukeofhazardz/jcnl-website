@@ -1,66 +1,62 @@
 import type { AccentKey } from "@/config/site";
+import { site } from "@/config/site";
+import type { HeroPageKey } from "@/content/slides";
 
-export type PageIntroCopy = {
+export type PageMeta = {
+  /** Page name, used for the carousel region label and the stub notice. */
+  label: string;
+  /** Small overline above the hero headline. */
   eyebrow: string;
-  title: string;
-  sub: string;
+  /** Page accent, applied through <AccentScope>. */
   accent: AccentKey;
 };
 
 /**
- * Phase 1 page headings. All statements are taken from the brief; anything
- * that still needs confirming is left out rather than invented.
+ * Page-level framing. The headline and supporting line now live in the hero
+ * slides (`src/content/slides.ts`); everything here is stable per page.
  */
-export const pageIntro: Record<string, PageIntroCopy> = {
+export const pageMeta: Record<HeroPageKey, PageMeta> = {
   home: {
-    eyebrow: "Established 2003, Lagos, Nigeria",
-    title: "Evolve – Innovate – Relax",
-    sub: "A logistics and business services company, serving private and public sector clients from offices in Lagos and Abuja.",
+    label: "JCNL",
+    eyebrow: `Established ${site.established}, Lagos, Nigeria`,
     accent: "tours",
   },
   about: {
+    label: "About",
     eyebrow: "About",
-    title: "Indigenous Nigerian. Established 2003.",
-    sub: "JCNL serves private and public sector clients across energy, transport, construction, TMC and related business services.",
     accent: "brand",
   },
-  "visa-and-tours": {
+  tours: {
+    label: "Visa & Tours",
     eyebrow: "Visa & Tours",
-    title: "Travel logistics and tours.",
-    sub: "One of the JCNL business lines. Talk to the team about the travel you have in mind.",
     accent: "tours",
   },
-  "business-services": {
+  business: {
+    label: "Business Services",
     eyebrow: "Business Services",
-    title: "Designs, training and facilities.",
-    sub: "Operational training, facility service management, hospitality and related business services for private and public sector clients.",
     accent: "business",
   },
-  "cargo-and-freight": {
+  freight: {
+    label: "Cargo & Freight",
     eyebrow: "Cargo & Freight",
-    title: "Cargo and freight.",
-    sub: "Send cargo enquiries to the dedicated addresses, or call the office and speak to the team.",
     accent: "freight",
   },
-  "integrated-farms": {
+  farms: {
+    label: "Integrated Farms",
     eyebrow: "Integrated Farms",
-    title: "Integrated farms.",
-    sub: "A JCNL business line. Contact the team for current information.",
     accent: "farms",
   },
   engineering: {
+    label: "Engineering",
     eyebrow: "Engineering",
-    title: "Civil engineering works.",
-    sub: "Civil engineering works and construction, delivered as part of the JCNL service range.",
     accent: "engineering",
   },
   contact: {
+    label: "Contact",
     eyebrow: "Contact",
-    title: "Two offices. Three ways to reach us.",
-    sub: "Call, WhatsApp or email. Cargo enquiries have their own addresses.",
     accent: "brand",
   },
-} as const;
+};
 
 /** Service lines featured on the home page, in navigation order. */
 export const homeServices = [

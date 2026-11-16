@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 
 import { StubPage } from "@/components/sections/stub-page";
-import { pageIntro } from "@/content/page-copy";
 
 export const metadata: Metadata = {
   title: "Integrated Farms",
@@ -11,5 +10,5 @@ export const metadata: Metadata = {
 };
 
 export default function IntegratedFarmsPage() {
-  return <StubPage intro={pageIntro["integrated-farms"]} service="Integrated Farms" />;
+  return <StubPage page="farms" />;
 }

@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 
 import { StubPage } from "@/components/sections/stub-page";
-import { pageIntro } from "@/content/page-copy";
 import { site } from "@/config/site";
 
 export const metadata: Metadata = {
@@ -11,5 +10,5 @@ export const metadata: Metadata = {
 };
 
 export default function AboutPage() {
-  return <StubPage intro={pageIntro.about} service="About" />;
+  return <StubPage page="about" />;
 }

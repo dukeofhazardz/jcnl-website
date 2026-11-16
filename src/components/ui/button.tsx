@@ -5,13 +5,13 @@ import {
   motion,
   useMotionTemplate,
   useMotionValue,
-  useReducedMotion,
   useSpring,
 } from "motion/react";
 import type { ButtonHTMLAttributes, ReactNode } from "react";
 import type { AnchorHTMLAttributes } from "react";
 
 import { cn } from "@/lib/cn";
+import { usePrefersReducedMotion } from "@/lib/use-prefers-reduced-motion";
 
 type ButtonVariant = "primary" | "dark" | "ghost";
 type ButtonSize = "sm" | "md" | "lg";
@@ -65,7 +65,7 @@ export function Button({
   disabled,
   ...rest
 }: ButtonProps) {
-  const reduceMotion = useReducedMotion();
+  const reduceMotion = usePrefersReducedMotion();
   const rawX = useMotionValue(0);
   const rawY = useMotionValue(0);
   const x = useSpring(rawX, { stiffness: 340, damping: 26, mass: 0.4 });

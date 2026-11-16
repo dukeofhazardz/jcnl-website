@@ -125,6 +125,7 @@
   --color-accent-text: var(--accent-text);
   --color-accent-soft: var(--accent-soft);
   --color-accent-ink: var(--accent-ink);
+  --color-accent-bright: var(--accent-bright);
   --color-field: var(--field);
 }
 
@@ -146,6 +147,8 @@
   --accent-text: #8a5a0e;
   --accent-soft: #f4e4bf;
   --accent-ink: var(--color-ink-900);
+  /* Accent that stays visible on a dark photographic field. */
+  --accent-bright: var(--color-saffron-400);
   --field: var(--color-teal-900);
 
   --page-max: 82.5rem;
@@ -165,6 +168,7 @@
   --accent-text: #8a5a0e;
   --accent-soft: #f4e4bf;
   --accent-ink: var(--color-ink-900);
+  --accent-bright: var(--color-saffron-400);
   --field: var(--color-teal-900);
 }
 
@@ -174,6 +178,7 @@
   --accent-text: #3f6630;
   --accent-soft: #e7ebd9;
   --accent-ink: var(--color-ivory-50);
+  --accent-bright: #a9c98a;
   --field: #2e4a24;
 }
 
@@ -183,6 +188,7 @@
   --accent-text: #102e4a;
   --accent-soft: #dde8ef;
   --accent-ink: var(--color-ivory-50);
+  --accent-bright: var(--color-sky-300);
   --field: #0a2237;
 }
 
@@ -192,6 +198,7 @@
   --accent-text: #7a5606;
   --accent-soft: #f6e7c4;
   --accent-ink: var(--color-ink-900);
+  --accent-bright: var(--color-amber-500);
   --field: var(--color-slate-900);
 }
 
@@ -201,6 +208,7 @@
   --accent-text: #123c2e;
   --accent-soft: #e3e9dc;
   --accent-ink: var(--color-ivory-50);
+  --accent-bright: #a6c3ae;
   --field: var(--color-jungle-950);
 }
 
@@ -210,6 +218,7 @@
   --accent-text: #8a5a0e;
   --accent-soft: #f4e4bf;
   --accent-ink: var(--color-ink-900);
+  --accent-bright: var(--color-saffron-400);
   --field: var(--color-jungle-950);
 }
 
@@ -221,6 +230,8 @@
   html {
     -webkit-text-size-adjust: 100%;
     scroll-behavior: smooth;
+    /* Every fragment target clears the fixed header. This is the only offset:
+       a matching `scroll-margin-top` on [id] would apply it twice. */
     scroll-padding-top: calc(var(--header-h) + 1.5rem);
     color-scheme: light;
   }
@@ -263,14 +274,17 @@
     color: var(--accent-ink);
   }
 
-  /* Anchors sit below the fixed header. */
-  [id] {
-    scroll-margin-top: calc(var(--header-h) + 1.5rem);
-  }
-
   @media (prefers-reduced-motion: reduce) {
     html {
       scroll-behavior: auto;
+    }
+
+    /* Reveals are inline-styled by Motion, so the override has to win with
+       !important. This keeps reduced-motion visitors from seeing content that
+       never becomes visible. */
+    [data-reveal] {
+      opacity: 1 !important;
+      transform: none !important;
     }
   }
 }
@@ -334,6 +348,25 @@
     );
   }
 
+  /* Hero scrim: heavy at the bottom-left where the copy sits, softer at the
+     top so the transparent header still reads over a bright photograph. */
+  .scrim-hero {
+    background-image:
+      linear-gradient(
+        to top,
+        rgb(6 18 14 / 0.93) 0%,
+        rgb(6 18 14 / 0.62) 30%,
+        rgb(6 18 14 / 0.18) 62%,
+        rgb(6 18 14 / 0.44) 100%
+      ),
+      linear-gradient(
+        to right,
+        rgb(6 18 14 / 0.55) 0%,
+        rgb(6 18 14 / 0.12) 55%,
+        transparent 78%
+      );
+  }
+
   .text-pretty-balance {
     text-wrap: balance;
     text-wrap: pretty;
@@ -347,5 +380,53 @@
   }
   to {
     transform: translateX(320%);
+  }
+}
+
+/* Route enter fade. CSS rather than JS: the server cannot read the media
+   query, so the markup has to be identical on both sides and the motion
+   preference handled in the stylesheet. */
+@keyframes page-enter {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Hero carousel. The 6s progress animation must stay in step with ROTATE_MS
+   in components/carousel/hero-carousel.tsx. Both are paused and resumed
+   together, so the bar and the timer never drift. */
+@keyframes hero-progress {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes hero-ken-burns {
+  from {
+    transform: scale(1.02);
+  }
+  to {
+    transform: scale(1.06);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .page-enter {
+    animation: page-enter 340ms var(--ease-soft) both;
+  }
+
+  .hero-progress-fill {
+    transform-origin: left center;
+    animation: hero-progress 6s linear both;
+  }
+
+  .hero-zoom {
+    animation: hero-ken-burns 9s var(--ease-soft) both;
   }
 }

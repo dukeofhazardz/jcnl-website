@@ -20,6 +20,8 @@ type SmartImageProps = {
   height?: number;
   /** Width / height. Defaults to width / height, then 16 / 9. */
   ratio?: number;
+  /** Let the parent size the frame; skips the aspect-ratio box. */
+  fill?: boolean;
   /** Maps to next/image sizes. */
   sizes?: string;
   priority?: boolean;
@@ -29,6 +31,11 @@ type SmartImageProps = {
   imageClassName?: string;
   /** Optional caption rendered over the image. */
   caption?: string;
+  /**
+   * `background` keeps the placeholder quiet: no huge subject label, just a
+   * small shot-list note in the top corner. Used behind the hero copy.
+   */
+  variant?: "default" | "background";
 };
 
 /**
@@ -44,91 +51,123 @@ export function SmartImage({
   width,
   height,
   ratio,
+  fill = false,
   sizes = "100vw",
   priority = false,
   className,
   imageClassName,
   caption,
+  variant = "default",
 }: SmartImageProps) {
   const [failed, setFailed] = useState(false);
+  const [loaded, setLoaded] = useState(false);
 
   const aspectRatio =
     ratio ?? (width && height ? width / height : 16 / 9);
   const showPlaceholder = !src || failed;
+  /**
+   * The branded field is visible before the file loads, not only after it
+   * fails: a missing or slow image should never leave a bare gradient on
+   * screen. When the real file paints, the field is removed.
+   */
+  const showField = showPlaceholder || !loaded;
 
-  const label = [role, subject].filter(Boolean).join(" · ");
   const dimensions = width && height ? `${width}×${height}` : undefined;
+  // One line, as in the shot list: role · subject · dimensions.
+  const label = [role, subject, dimensions].filter(Boolean).join(" · ");
 
   return (
     <div
       className={cn(
         "relative isolate w-full overflow-hidden bg-jungle-950",
+        // `fill` means "the parent owns the frame". The next/image inside is
+        // absolutely positioned, so the wrapper needs its own height: `h-full`
+        // takes it from the parent, which must have one (an aspect box or a
+        // sized frame). It stays `relative`, never `absolute`, so it cannot
+        // escape a parent that forgot to be a containing block.
+        fill && "h-full",
         className,
       )}
-      style={{ aspectRatio }}
+      style={{
+        ...(fill ? {} : { aspectRatio }),
+        // Present before a file loads, so a slow or missing image still shows
+        // the branded field rather than a blank box.
+        backgroundImage:
+          "linear-gradient(155deg, color-mix(in oklab, var(--field) 88%, var(--color-ivory-50)) 0%, var(--field) 62%, color-mix(in oklab, var(--field) 82%, var(--color-ink-900)) 100%)",
+      }}
     >
-      {showPlaceholder ? (
-        <div
-          className="absolute inset-0 flex flex-col justify-between p-5 sm:p-6"
-          role="img"
-          aria-label={
-            subject
-              ? `Placeholder for: ${subject}${dimensions ? `, ${dimensions}` : ""}`
-              : alt
-          }
-        >
-          <div
-            className="absolute inset-0"
-            style={{
-              backgroundImage:
-                "linear-gradient(155deg, color-mix(in oklab, var(--field) 88%, var(--color-ivory-50)) 0%, var(--field) 62%, color-mix(in oklab, var(--field) 82%, var(--color-ink-900)) 100%)",
-            }}
-          />
-          <GeometricPattern
-            variant="lattice"
-            className="absolute inset-0 text-[var(--accent-soft)] opacity-[0.14]"
-          />
-
-          {/* Framing marks: a shot-list cue, not decoration. */}
-          <span
-            aria-hidden="true"
-            className="absolute left-4 top-4 h-6 w-6 border-l border-t border-ivory-50/35"
-          />
-          <span
-            aria-hidden="true"
-            className="absolute bottom-4 right-4 h-6 w-6 border-b border-r border-ivory-50/35"
-          />
-
-          <div className="relative flex items-center gap-2 text-micro font-medium uppercase text-ivory-50/80">
-            <span
-              aria-hidden="true"
-              className="h-1.5 w-1.5 rounded-full bg-[var(--accent)]"
-            />
-            {label || "Image placeholder"}
-          </div>
-
-          <div className="relative max-w-[26ch]">
-            <p className="font-display text-[clamp(1.125rem,2.4vw,1.825rem)] leading-[1.08] tracking-[-0.02em] text-ivory-50">
-              {subject ?? alt}
-            </p>
-            {dimensions ? (
-              <p className="mt-2 text-micro uppercase text-ivory-50/75">
-                {dimensions}
-              </p>
-            ) : null}
-          </div>
-        </div>
-      ) : (
+      {src && !failed ? (
         <Image
           src={src}
           alt={alt}
           fill
           sizes={sizes}
           priority={priority}
+          onLoad={() => setLoaded(true)}
           onError={() => setFailed(true)}
-          className={cn("object-cover", imageClassName)}
+          className={cn(
+            "object-cover transition-opacity duration-300",
+            loaded ? "opacity-100" : "opacity-0",
+            imageClassName,
+          )}
         />
-      )}
+      ) : null}
+
+      {showField ? (
+        <div
+          className="absolute inset-0"
+          role={showPlaceholder ? "img" : undefined}
+          aria-label={
+            showPlaceholder
+              ? subject
+                ? `Placeholder for: ${subject}${dimensions ? `, ${dimensions}` : ""}`
+                : alt
+              : undefined
+          }
+          aria-hidden={showPlaceholder ? undefined : true}
+        >
+          <GeometricPattern
+            variant="lattice"
+            className="absolute inset-0 text-[var(--accent-soft)] opacity-[0.14]"
+          />
+
+          {variant === "background" ? (
+            <div className="absolute right-[9%] top-[15%] flex max-w-[24ch] items-start justify-end gap-2 text-right text-[0.6875rem] font-medium uppercase leading-[1.5] tracking-[0.12em] text-ivory-50/70">
+              <span
+                aria-hidden="true"
+                className="mt-[0.45em] h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--accent-bright)]"
+              />
+              <span className="min-w-0 break-words">{label || "Image placeholder"}</span>
+            </div>
+          ) : (
+            <div className="flex h-full flex-col justify-between p-5 sm:p-6">
+              {/* Framing marks: a shot-list cue, not decoration. */}
+              <span
+                aria-hidden="true"
+                className="absolute left-4 top-4 h-6 w-6 border-l border-t border-ivory-50/35"
+              />
+              <span
+                aria-hidden="true"
+                className="absolute bottom-4 right-4 h-6 w-6 border-b border-r border-ivory-50/35"
+              />
+
+              <div className="relative flex items-center gap-2 text-micro font-medium uppercase text-ivory-50/80">
+                <span
+                  aria-hidden="true"
+                  className="h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--accent-bright)]"
+                />
+                <span className="min-w-0 break-words">{label || "Image placeholder"}</span>
+              </div>
+
+              <div className="relative max-w-[26ch]">
+                <p className="font-display text-[clamp(1.125rem,2.4vw,1.825rem)] leading-[1.08] tracking-[-0.02em] text-ivory-50">
+                  {subject ?? alt}
+                </p>
+              </div>
+            </div>
+          )}
+        </div>
+      ) : null}
 
       {caption ? (
         <p className="scrim-photo absolute inset-x-0 bottom-0 p-4 text-small text-ivory-50">

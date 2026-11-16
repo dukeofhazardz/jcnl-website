@@ -1,13 +1,17 @@
 "use client";
 
-import { motion, useReducedMotion } from "motion/react";
+import { motion } from "motion/react";
 import type { ReactNode } from "react";
 
 import { revealTransition, revealViewport } from "@/lib/motion";
 
 /**
- * Scroll reveal. Under reduced motion the content is rendered untouched, and a
- * <noscript> rule in the root layout forces it visible when JS never runs.
+ * Scroll reveal.
+ *
+ * The element is always a `motion.div`, because the server cannot read the
+ * reduced-motion media query; branching here would break hydration. Reduced
+ * motion is handled in CSS, which forces these elements visible, and a
+ * `<noscript>` rule in the root layout does the same when JS never runs.
  */
 export function Reveal({
   children,
@@ -21,12 +25,6 @@ export function Reveal({
   y?: number;
   className?: string;
 }) {
-  const reduceMotion = useReducedMotion();
-
-  if (reduceMotion) {
-    return <div className={className}>{children}</div>;
-  }
-
   return (
     <motion.div
       data-reveal=""

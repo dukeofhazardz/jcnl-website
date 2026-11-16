@@ -1,14 +1,14 @@
 import type { Metadata } from "next";
 import { ArrowUpRight, Mail, MessageCircle, Phone } from "lucide-react";
 
+import { HeroCarousel } from "@/components/carousel/hero-carousel";
 import { AccentScope } from "@/components/sections/accent-scope";
-import { PageIntro } from "@/components/sections/page-intro";
-import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
 import { Reveal } from "@/components/ui/reveal";
 import { Section } from "@/components/ui/section";
 import { Eyebrow, Heading } from "@/components/ui/typography";
-import { pageIntro } from "@/content/page-copy";
+import { pageMeta } from "@/content/page-copy";
+import { heroSlides } from "@/content/slides";
 import {
   contact,
   mailHref,
@@ -26,25 +26,15 @@ export const metadata: Metadata = {
 };
 
 export default function ContactPage() {
-  const intro = pageIntro.contact;
+  const meta = pageMeta.contact;
 
   return (
-    <AccentScope accent={intro.accent}>
-      <PageIntro
-        eyebrow={intro.eyebrow}
-        title={intro.title}
-        sub={intro.sub}
-        actions={
-          <Button
-            href={whatsappHref()}
-            external
-            variant="primary"
-            icon={<MessageCircle aria-hidden="true" size={17} strokeWidth={1.75} />}
-            iconPosition="start"
-          >
-            WhatsApp us
-          </Button>
-        }
+    <AccentScope accent={meta.accent}>
+      <HeroCarousel
+        slides={heroSlides.contact}
+        eyebrow={meta.eyebrow}
+        label={meta.label}
+        accent={meta.accent}
       />
 
       <Section tone="ivory" topDivider="arch" spacing="md" labelledBy="offices-heading">
