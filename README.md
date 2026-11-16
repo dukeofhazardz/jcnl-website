@@ -28,7 +28,7 @@ Node 20+ is required by Next 16.
 | `/about` | Hero carousel + in-preparation notice |
 | `/visa-and-tours` | Live: Tour360, TRAVELCredit, VISA-Assist247, LESS 20.0, timeline, gallery |
 | `/business-services` | Hero carousel + in-preparation notice |
-| `/cargo-and-freight` | Hero carousel + in-preparation notice |
+| `/cargo-and-freight` | Live: platform, air and sea, scroll-drawn route, cargo desk, quote form |
 | `/integrated-farms` | Live: story, 16-facility grid, values band, location, enquiry |
 | `/engineering` | Hero carousel + in-preparation notice |
 | `/contact` | Live: both offices and every published channel |
@@ -51,6 +51,20 @@ focus-trapped lightbox) and `tour-enquiry`. All of its copy lives in
 facility list live in `src/content/farms.ts`. Both service pages close with the
 shared `components/sections/enquiry-band.tsx`.
 
+`/cargo-and-freight` is assembled from `src/components/sections/freight/`:
+`freight-intro` (the platform and its three traits), `freight-modes` (air
+against sea), `freight-route` (the four steps on a line that draws as you
+scroll), `freight-contact` (the cargo desk) and `freight-quote`. Copy lives in
+`src/content/freight.ts`.
+
+The quote form posts to `src/app/api/contact/route.ts`. **That route is a stub:**
+it validates the six fields, refuses bad JSON, an unknown mode and oversized
+values, then returns `{ ok: true }` and logs nothing but the mode. No email is
+sent, and nothing is stored. To connect a provider, replace the marked block in
+the `POST` handler and keep the `{ ok: true }` response so the form does not
+change. The same details can always be sent by hand from the WhatsApp button,
+which prefills the message from whatever is in the form.
+
 ## Structure
 
 ```
@@ -60,7 +74,7 @@ src/
     carousel/          hero-carousel
     layout/            header, mobile menu, footer, WhatsApp FAB, page transition
     sections/          stub page, stub notice, accent scope, enquiry band,
-                       tours/*, farms/*
+                       tours/*, farms/*, freight/*
     ui/                button, card, section, container, typography,
                        reveal, parallax, smart image, geometric pattern
   config/site.ts       single source of truth: brand facts, nav, contact
@@ -83,6 +97,11 @@ the timeline, the gallery and `SmartImage`.
   services, the four Tour360 steps, the gallery entries and the anchor list.
 - **Integrated Farms copy:** `src/content/farms.ts`. The farm record, the sixteen
   facilities in the client's order and the three values.
+- **Cargo & Freight copy:** `src/content/freight.ts`. The platform paragraph and
+  traits, the two modes, the four route steps, the cargo desk and the quote form
+  states. The form's own labels and validation messages sit in
+  `components/sections/freight/freight-quote.tsx`, next to the fields they
+  describe.
 - **Images:** add the file under `public/images/...`, then point its manifest
   entry in `src/content/images.ts` at the path. `<SmartImage>` shows a branded
   placeholder until the file exists, so a missing image is never a broken one.

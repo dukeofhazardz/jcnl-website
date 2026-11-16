@@ -309,6 +309,38 @@ The pin is clay and the button opens a Google Maps search in a new tab.
 
 ---
 
+### Cargo & Freight composition
+
+`/cargo-and-freight` carries the `freight` accent: navy-900 ink, sky-300 as the
+bright note, `accent-soft` for tinted surfaces. Order: platform (ivory, `arch`,
+traits on a hairline list), air against sea (sand, `dune`), the route band
+(navy, the only accent-filled section), the cargo desk (ivory, compact) and the
+quote form (sand).
+
+The two mode panels are the page's one contrast pair: Air is `ivory-50` on
+`ink-900/15` and Sea is `navy-900` carrying `ivory-50`. Body copy on navy is
+**12.14:1** and the sky rule and label on navy is **8.23:1**. Both panels push
+their footer tag to the same baseline with `mt-auto`, so the hairline rules line
+up however the copy wraps.
+
+The route line is a single SVG path across 75% of the container, drawn by
+`pathLength` from scroll progress between `start 85%` and `end 60%` of the
+wrapper. `motion` writes `pathLength` as the `stroke-dasharray` attribute, so an
+assertion has to read the attribute, not `style`. Under reduced motion the
+component renders a plain path with no dash at all. On a phone the same four
+stations run down a vertical rail: one `w-px` segment per station, `group-last`
+on the final item so the line stops at the last dot.
+
+The quote form validates in the browser, posts JSON to `/api/contact`, and shows
+four states: idle, submitting (fields disabled, button reads "Sending"), success
+(confirmation card with a WhatsApp hand-off) and error (a `role="alert"` note
+above the buttons). Errors are `text-terracotta-600`, which is **4.66:1** on
+`ivory-50`; it is never placed on sand (**4.35:1**). The success heading takes
+focus, so a keyboard user lands on the confirmation instead of losing the
+cursor.
+
+---
+
 ## 7. Content rules
 
 - Brand facts only. No invented credentials, awards, clients, statistics or

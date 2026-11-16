@@ -135,6 +135,7 @@ export const contact = {
     label: "WhatsApp / Call",
     display: "+234-816-082-6809",
     number: "2348160826809",
+    href: "tel:+2348160826809",
   },
   email: {
     label: "Email",

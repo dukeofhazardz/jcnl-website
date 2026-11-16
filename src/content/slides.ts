@@ -42,6 +42,8 @@ export type HeroPageKey =
 
 const talkToUs: SlideCta = { label: "Talk to us", href: "/contact" };
 
+const requestQuote: SlideCta = { label: "Request a quote", href: "#quote" };
+
 const planATrip: SlideCta = { label: "Plan this trip", href: "/contact" };
 
 const whatsappUs: SlideCta = {
@@ -243,41 +245,41 @@ export const heroSlides: Record<HeroPageKey, readonly Slide[]> = {
       id: "freight-aircraft",
       image: heroImages.freight.aircraft.src,
       alt: "Cargo aircraft on the apron with pallets being loaded",
-      headline: "From the aircraft hold to your door.",
-      sub: "Air freight cleared and delivered, with one contact for the whole chain.",
-      cta: talkToUs,
+      headline: "By air, to the address you name.",
+      sub: "Delivery by air, through partner collaborations.",
+      cta: requestQuote,
     },
     {
       id: "freight-ship",
       image: heroImages.freight.ship.src,
       alt: "Container ship under way with a full deck of containers",
-      headline: "A full container, or a share of one.",
-      sub: "Sea freight into Lagos, documented before the vessel sails.",
-      cta: talkToUs,
+      headline: "By sea and by water.",
+      sub: "The same partner collaborations, moving dry and wet cargo.",
+      cta: requestQuote,
     },
     {
       id: "freight-cranes",
       image: heroImages.freight.cranes.src,
       alt: "Ship-to-shore cranes lifting containers at a port",
-      headline: "The port is where we start.",
-      sub: "Cargo and freight, handled from the terminal onwards.",
-      cta: talkToUs,
+      headline: "Dry and wet cargo, one platform.",
+      sub: "Newly inaugurated by JCNL for freight and forwarding.",
+      cta: requestQuote,
     },
     {
       id: "freight-warehouse",
       image: heroImages.freight.warehouse.src,
       alt: "Warehouse racking with stacked pallets and a forklift",
-      headline: "Storage in between.",
-      sub: "Warehouse space for goods that are waiting on a buyer.",
-      cta: talkToUs,
+      headline: "Business at your leisure.",
+      sub: "A self-sustaining platform that runs at the customer's pace.",
+      cta: requestQuote,
     },
     {
       id: "freight-parcel",
       image: heroImages.freight.parcel.src,
       alt: "Courier handing a parcel over for a signature",
-      headline: "The last hundred metres.",
-      sub: "Parcel handover, signed for, with proof sent back to the sender.",
-      cta: talkToUs,
+      headline: "Ordered on request, then delivered.",
+      sub: "Parcel and cargo management to the destination you specify.",
+      cta: requestQuote,
     },
   ],
 
