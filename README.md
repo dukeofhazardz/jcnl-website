@@ -30,14 +30,13 @@ Node 20+ is required by Next 16.
 | `/business-services` | Hero carousel + in-preparation notice |
 | `/cargo-and-freight` | Live: platform, air and sea, scroll-drawn route, cargo desk, quote form |
 | `/integrated-farms` | Live: story, 16-facility grid, values band, location, enquiry |
-| `/engineering` | Hero carousel + in-preparation notice |
+| `/engineering` | Live: four capabilities, three sectors, delivery approach, project records, CTA |
 | `/contact` | Live: both offices and every published channel |
 | `/styleguide` | Dev only. Returns 404 in production. |
 
 Every route opens with the same `<HeroCarousel>`: 4–6 slides, 6s autoplay, and
-that page's accent. `/visa-and-tours` is built out; the other service routes
-land in later phases and show an honest notice and a way to reach a person
-until then.
+that page's accent. `/about` and `/business-services` land in later phases and
+show an honest notice and a way to reach a person until then.
 
 `/visa-and-tours` is assembled from `src/components/sections/tours/`:
 `tour360-section`, `travelcredit-section`, `visaassist-section`,
@@ -57,6 +56,20 @@ against sea), `freight-route` (the four steps on a line that draws as you
 scroll), `freight-contact` (the cargo desk) and `freight-quote`. Copy lives in
 `src/content/freight.ts`.
 
+`/engineering` is assembled from `src/components/sections/engineering/`:
+`engineering-capabilities` (four service lines), `engineering-sectors` (the
+three sectors as a numbered list), `engineering-approach` (consult, design,
+build, maintain on the slate band), `engineering-portfolio` (six empty project
+records) and `engineering-cta` (the amber closing band). Copy lives in
+`src/content/engineering.ts`.
+
+**Engineering is built from verified facts only.** The client supplied four
+service lines and three sectors. Every other detail a buyer would expect, such
+as project names, dates, photographs, certifications, equipment or headcount,
+is rendered as a visible `[CLIENT TO PROVIDE]` marker through
+`components/ui/client-todo.tsx`. The full list of outstanding items is in
+`CLIENT_TODO.md`; remove a marker only when the fact is supplied.
+
 The quote form posts to `src/app/api/contact/route.ts`. **That route is a stub:**
 it validates the six fields, refuses bad JSON, an unknown mode and oversized
 values, then returns `{ ok: true }` and logs nothing but the mode. No email is
@@ -74,7 +87,7 @@ src/
     carousel/          hero-carousel
     layout/            header, mobile menu, footer, WhatsApp FAB, page transition
     sections/          stub page, stub notice, accent scope, enquiry band,
-                       tours/*, farms/*, freight/*
+                       tours/*, farms/*, freight/*, engineering/*
     ui/                button, card, section, container, typography,
                        reveal, parallax, smart image, geometric pattern
   config/site.ts       single source of truth: brand facts, nav, contact
@@ -102,6 +115,11 @@ the timeline, the gallery and `SmartImage`.
   states. The form's own labels and validation messages sit in
   `components/sections/freight/freight-quote.tsx`, next to the fields they
   describe.
+- **Engineering copy:** `src/content/engineering.ts`. The four capabilities,
+  three sectors, four approach steps, the portfolio framing and the closing CTA.
+  Add real project records in `src/content/images.ts` and swap the literal
+  marker in `components/sections/engineering/engineering-portfolio.tsx` for the
+  supplied name. Do not add a claim that is not in `CLIENT_TODO.md` as answered.
 - **Images:** add the file under `public/images/...`, then point its manifest
   entry in `src/content/images.ts` at the path. `<SmartImage>` shows a branded
   placeholder until the file exists, so a missing image is never a broken one.

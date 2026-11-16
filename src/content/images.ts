@@ -98,6 +98,22 @@ export const heroImageList: readonly ImageAsset[] = Object.values(
   heroImages,
 ).flatMap((group) => Object.values(group));
 
+/**
+ * Engineering portfolio slots. Six empty records, one photograph each. These
+ * are not projects: the client has not supplied any, so the page marks every
+ * card CLIENT TO PROVIDE. Dropping a real photograph in at the same path is
+ * all that is needed to light the first half of a card up.
+ */
+export const engineeringProjectImages: readonly ImageAsset[] = Array.from(
+  { length: 6 },
+  (_, index) => ({
+    src: `/images/engineering/projects/project-${String(index + 1).padStart(2, "0")}.jpg`,
+    subject: "Project photograph",
+    width: 1600,
+    height: 1200,
+  }),
+);
+
 const heroImageBySrc = new Map(heroImageList.map((asset) => [asset.src, asset]));
 
 /** Resolve a slide image path to its manifest entry. */

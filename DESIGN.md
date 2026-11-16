@@ -341,11 +341,46 @@ cursor.
 
 ---
 
+### Engineering composition
+
+`/engineering` carries the `engineering` accent: amber-500 as the bright note,
+`accent-text` (#7a5606) for amber type on light grounds, and slate-900 as the
+page's ink. Order: capabilities (ivory, `arch`, four cards on a hairline grid),
+sectors (sand, `dune`, the three names set large), delivery approach (slate,
+`blade`, four numbered columns) and project records (ivory), then the amber CTA
+band (`blade`).
+
+Amber-500 is a ground and a numeral, never small text on ivory (**2.10:1**).
+On slate it is **7.29:1**, so the approach numerals take `var(--accent)` and the
+step copy takes `ivory-100` (**14.31:1**). The CTA band is `accent` tone, where
+`accent-ink` resolves to ink-900: **8.26:1**. The slate button variant carries
+`ivory-50` on slate (**15.31:1**); the ghost button inherits ink-900.
+
+`Section` gained a fixed `slate` tone (`bg-slate-900`, `fill-slate-900`) and
+`Button` gained a `slate` variant, both following the `clay` precedent. The
+slate band exists because this page's accent is a colour rather than a ground;
+without it the dark note would be amber and the section would shout.
+
+The page is built from verified facts only: four service lines and three
+sectors. Everything else a buyer expects is a visible `[CLIENT TO PROVIDE]`
+marker from `components/ui/client-todo.tsx`, a dashed pill with the literal
+bracketed text so it survives print and screen readers. The portfolio is six
+empty records: the card, the 4:3 frame and the placeholder are built, and the
+heading carries the slot number and the literal marker. No project name, year
+or client is implied. The outstanding items are itemised in `CLIENT_TODO.md`.
+
+Each capability card is a `Reveal` inside its list item, staggered by 50ms and
+capped at 200ms. The sectors list reveals each row at 60ms. The approach keeps
+its numerals `aria-hidden` because the `ol` already carries the order.
+
+---
+
 ## 7. Content rules
 
 - Brand facts only. No invented credentials, awards, clients, statistics or
-  projects. If a page needs a fact nobody has supplied, say the page is in
-  preparation and give a real way to make contact.
+  projects. If a page needs a fact nobody has supplied, either say the page is in
+  preparation or mark the gap `[CLIENT TO PROVIDE]`, list it in `CLIENT_TODO.md`,
+  and give a real way to make contact. Never fill the gap with an estimate.
 - Navigation labels are service names: Home, About, Visa & Tours, Business
   Services, Cargo & Freight, Integrated Farms, Engineering, Contact. Never repeat
   "JCNL" or "Jesrudeb" in a link label.

@@ -119,6 +119,20 @@ ponds and netting inside the centre of the frame. The other four are hero only.
 | 4 | `engineering/power-infrastructure.jpg` | 1920×1080 | 16:9 | Power distribution infrastructure |
 | 5 | `engineering/building-retrofit.jpg` | 1920×1080 | 16:9 | Building retrofit in progress |
 
+The six project records use their own 4:3 slot, `engineering/projects/`:
+
+| # | File | Size | Ratio | Subject |
+|---|---|---|---|---|
+| 1 | `engineering/projects/project-01.jpg` | 1600×1200 | 4:3 | Project photograph |
+| 2 | `engineering/projects/project-02.jpg` | 1600×1200 | 4:3 | Project photograph |
+| 3 | `engineering/projects/project-03.jpg` | 1600×1200 | 4:3 | Project photograph |
+| 4 | `engineering/projects/project-04.jpg` | 1600×1200 | 4:3 | Project photograph |
+| 5 | `engineering/projects/project-05.jpg` | 1600×1200 | 4:3 | Project photograph |
+| 6 | `engineering/projects/project-06.jpg` | 1600×1200 | 4:3 | Project photograph |
+
+Only add a project photograph once the client has supplied the name, sector,
+year and scope for that record. Until then the card is a marked placeholder.
+
 ### Contact — `/contact`
 
 | # | File | Size | Ratio | Subject |

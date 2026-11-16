@@ -42,6 +42,11 @@ export type HeroPageKey =
 
 const talkToUs: SlideCta = { label: "Talk to us", href: "/contact" };
 
+const discussProject: SlideCta = {
+  label: "Discuss a project",
+  href: "/contact",
+};
+
 const requestQuote: SlideCta = { label: "Request a quote", href: "#quote" };
 
 const planATrip: SlideCta = { label: "Plan this trip", href: "/contact" };
@@ -331,41 +336,41 @@ export const heroSlides: Record<HeroPageKey, readonly Slide[]> = {
       id: "engineering-site",
       image: heroImages.engineering.site.src,
       alt: "Construction site with scaffolding and workers in hi-vis",
-      headline: "Built to the drawing.",
-      sub: "Civil engineering works and construction, supervised on site.",
-      cta: talkToUs,
+      headline: "Civil engineering works.",
+      sub: "One of the four disciplines JCNL undertakes.",
+      cta: discussProject,
     },
     {
       id: "engineering-civil",
       image: heroImages.engineering.civil.src,
       alt: "Civil works in progress, with drainage and a road base",
-      headline: "Civil works, sequenced.",
-      sub: "Drainage, roads and structures, in the right order.",
-      cta: talkToUs,
+      headline: "Construction.",
+      sub: "Building work, from setting out to handover.",
+      cta: discussProject,
     },
     {
       id: "engineering-facility",
       image: heroImages.engineering.facility.src,
       alt: "Maintenance engineer working on building services",
-      headline: "Buildings that stay open.",
-      sub: "Planned maintenance for facilities that cannot close for repairs.",
-      cta: talkToUs,
+      headline: "Facility service management.",
+      sub: "The upkeep of buildings in use, after handover.",
+      cta: discussProject,
     },
     {
       id: "engineering-power",
       image: heroImages.engineering.power.src,
       alt: "Power distribution equipment and switchgear on site",
-      headline: "Engineering for the energy sector.",
-      sub: "Civil and construction work for energy, transport and industrial clients.",
-      cta: talkToUs,
+      headline: "Energy, Transport, Construction.",
+      sub: "The three sectors JCNL serves with this work.",
+      cta: discussProject,
     },
     {
       id: "engineering-retrofit",
       image: heroImages.engineering.retrofit.src,
       alt: "Building facade being renovated with scaffolding in place",
-      headline: "Retrofit, not rebuild.",
-      sub: "Older buildings brought up to current use without a new structure.",
-      cta: talkToUs,
+      headline: "Four disciplines, one company.",
+      sub: "Civil works, construction, facility service management and training.",
+      cta: discussProject,
     },
   ],
 

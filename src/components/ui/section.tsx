@@ -9,7 +9,8 @@ export type SectionTone =
   | "jungle"
   | "ink"
   | "accent"
-  | "clay";
+  | "clay"
+  | "slate";
 export type DividerVariant = "arch" | "dune" | "blade" | "wave";
 
 const toneClasses: Record<SectionTone, string> = {
@@ -20,6 +21,9 @@ const toneClasses: Record<SectionTone, string> = {
   accent: "bg-accent text-accent-ink",
   /** Fixed late-clay band. Used where the page accent would be too quiet. */
   clay: "bg-clay-500 text-ivory-50",
+  /** Fixed slate band for the engineering page, whose accent is a colour, not
+      a ground: amber carries ink, slate carries ivory. */
+  slate: "bg-slate-900 text-ivory-50",
 };
 
 const dividerFills: Record<SectionTone, string> = {
@@ -29,6 +33,7 @@ const dividerFills: Record<SectionTone, string> = {
   ink: "fill-ink-900",
   accent: "fill-accent",
   clay: "fill-clay-500",
+  slate: "fill-slate-900",
 };
 
 const spacingClasses = {
