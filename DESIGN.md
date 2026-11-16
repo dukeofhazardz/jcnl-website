@@ -206,7 +206,7 @@ play/pause control under reduced motion; manual navigation stays available.
 | `Section` | `components/ui/section.tsx` | tone, spacing, top divider, patterned field |
 | `SectionDivider` | `components/ui/section.tsx` | arch, dune, blade, wave |
 | `Container` | `components/ui/container.tsx` | default, narrow, prose, full |
-| `Eyebrow` / `Heading` / `Lead` | `components/ui/typography.tsx` | eyebrow tone follows section |
+| `Eyebrow` / `Heading` / `Lead` | `components/ui/typography.tsx` | eyebrow tones: accent, ink, muted, light (dim on dark), ivory (full on mid-dark) |
 | `Reveal` | `components/ui/reveal.tsx` | once-only scroll reveal |
 | `Parallax` | `components/ui/parallax.tsx` | ±distance scroll drift |
 | `SmartImage` | `components/ui/smart-image.tsx` | `next/image` + branded placeholder fallback |
@@ -218,6 +218,8 @@ play/pause control under reduced motion; manual navigation stays available.
 | `PageTransition` | `components/layout/page-transition.tsx` | CSS route fade, 340ms |
 | `HeroCarousel` | `components/carousel/hero-carousel.tsx` | full-bleed hero, 4–6 slides per page |
 | `Tour360Section` … `TourEnquiry` | `components/sections/tours/*` | the `/visa-and-tours` body: four products, timeline, gallery, closing band |
+| `EnquiryBand` | `components/sections/enquiry-band.tsx` | shared closing band; `textTone` ink or ivory |
+| `FarmStory` … `FarmEnquiry` | `components/sections/farms/*` | the `/integrated-farms` body: story, facilities, clay values, location, closing band |
 
 ### Hero carousel
 
@@ -280,6 +282,30 @@ only contain list items. The gallery pairs a 7/5 and a square frame to share one
 height, then a full-width 21/9. The lightbox is a `document.body` portal (the
 section's `isolation: isolate` would otherwise clip it), traps focus, returns
 focus to the thumbnail that opened it, and is loaded on demand.
+
+---
+
+### Integrated Farms composition
+
+`/integrated-farms` runs leaf green with one fixed clay band, so the accent does
+not carry the whole page alone. Order: story (ivory, `arch`), sixteen facilities
+(sand, `dune`, the number 16 set large), values (clay, `blade`, three words on
+hairline rules), location (ivory, map card with a search link) and the shared
+enquiry band on leaf.
+
+`Section` gained a `clay` tone for the values band only. `bg-clay-500` carries
+`text-ivory-50` at **4.65:1**; clay on ivory is **4.65:1** for icons and rules.
+Clay never carries small ink text (**3.73:1**) and never appears as body copy on
+sand (**4.34:1**).
+
+The facility grid is one `motion.li` per facility, revealed with a 40ms stagger
+capped at 480ms. On a phone each row is horizontal (icon, label, number); from
+`sm` it stacks, and from `lg` it is four columns. The icon square fills clay on
+hover, pointer-only.
+
+The location card uses the diamond lattice as a map field rather than an
+embedded map: no API key, no third-party script, and the address stays as text.
+The pin is clay and the button opens a Google Maps search in a new tab.
 
 ---
 

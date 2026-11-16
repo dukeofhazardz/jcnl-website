@@ -3,7 +3,13 @@ import type { ReactNode } from "react";
 import { GeometricPattern } from "@/components/ui/geometric-pattern";
 import { cn } from "@/lib/cn";
 
-export type SectionTone = "ivory" | "sand" | "jungle" | "ink" | "accent";
+export type SectionTone =
+  | "ivory"
+  | "sand"
+  | "jungle"
+  | "ink"
+  | "accent"
+  | "clay";
 export type DividerVariant = "arch" | "dune" | "blade" | "wave";
 
 const toneClasses: Record<SectionTone, string> = {
@@ -12,6 +18,8 @@ const toneClasses: Record<SectionTone, string> = {
   jungle: "bg-jungle-950 text-ivory-50",
   ink: "bg-ink-900 text-ivory-50",
   accent: "bg-accent text-accent-ink",
+  /** Fixed late-clay band. Used where the page accent would be too quiet. */
+  clay: "bg-clay-500 text-ivory-50",
 };
 
 const dividerFills: Record<SectionTone, string> = {
@@ -20,6 +28,7 @@ const dividerFills: Record<SectionTone, string> = {
   jungle: "fill-jungle-950",
   ink: "fill-ink-900",
   accent: "fill-accent",
+  clay: "fill-clay-500",
 };
 
 const spacingClasses = {

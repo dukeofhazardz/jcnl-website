@@ -106,6 +106,9 @@ and leave the top third calm enough that the product caption can sit over it.
 | 4 | `integrated-farms/solar-farm.jpg` | 1920×1080 | 16:9 | Solar array beside a farm building |
 | 5 | `integrated-farms/farm-aerial.jpg` | 1920×1080 | 16:9 | Farm layout from the air |
 
+`fish-ponds.jpg` is also cropped to **4:3** in the story section, so keep the
+ponds and netting inside the centre of the frame. The other four are hero only.
+
 ### Engineering — `/engineering`
 
 | # | File | Size | Ratio | Subject |

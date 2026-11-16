@@ -29,7 +29,7 @@ Node 20+ is required by Next 16.
 | `/visa-and-tours` | Live: Tour360, TRAVELCredit, VISA-Assist247, LESS 20.0, timeline, gallery |
 | `/business-services` | Hero carousel + in-preparation notice |
 | `/cargo-and-freight` | Hero carousel + in-preparation notice |
-| `/integrated-farms` | Hero carousel + in-preparation notice |
+| `/integrated-farms` | Live: story, 16-facility grid, values band, location, enquiry |
 | `/engineering` | Hero carousel + in-preparation notice |
 | `/contact` | Live: both offices and every published channel |
 | `/styleguide` | Dev only. Returns 404 in production. |
@@ -45,6 +45,12 @@ until then.
 focus-trapped lightbox) and `tour-enquiry`. All of its copy lives in
 `src/content/tours.ts`.
 
+`/integrated-farms` is assembled from `src/components/sections/farms/`:
+`farm-story`, `farm-facilities` (the sixteen-item animated grid),
+`farm-values` (the clay band), `farm-location` and `farm-enquiry`. Copy and the
+facility list live in `src/content/farms.ts`. Both service pages close with the
+shared `components/sections/enquiry-band.tsx`.
+
 ## Structure
 
 ```
@@ -53,7 +59,8 @@ src/
   components/
     carousel/          hero-carousel
     layout/            header, mobile menu, footer, WhatsApp FAB, page transition
-    sections/          stub page, stub notice, accent scope, tours/*
+    sections/          stub page, stub notice, accent scope, enquiry band,
+                       tours/*, farms/*
     ui/                button, card, section, container, typography,
                        reveal, parallax, smart image, geometric pattern
   config/site.ts       single source of truth: brand facts, nav, contact
@@ -74,6 +81,8 @@ the timeline, the gallery and `SmartImage`.
   is in `src/content/page-copy.ts`.
 - **Visa & Tours copy:** `src/content/tours.ts`. Four products, the 14 LESS 20.0
   services, the four Tour360 steps, the gallery entries and the anchor list.
+- **Integrated Farms copy:** `src/content/farms.ts`. The farm record, the sixteen
+  facilities in the client's order and the three values.
 - **Images:** add the file under `public/images/...`, then point its manifest
   entry in `src/content/images.ts` at the path. `<SmartImage>` shows a branded
   placeholder until the file exists, so a missing image is never a broken one.

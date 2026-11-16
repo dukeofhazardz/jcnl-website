@@ -2,11 +2,12 @@ import type { ReactNode } from "react";
 
 import { cn } from "@/lib/cn";
 
-type EyebrowTone = "accent" | "light" | "muted" | "ink";
+type EyebrowTone = "accent" | "light" | "ivory" | "muted" | "ink";
 
 const eyebrowTones: Record<EyebrowTone, string> = {
   accent: "text-accent-text",
   light: "text-ivory-100/75",
+  ivory: "text-ivory-50",
   muted: "text-ink-muted",
   ink: "text-ink-700",
 };
