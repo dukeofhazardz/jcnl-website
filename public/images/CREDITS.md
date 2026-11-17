@@ -2,13 +2,16 @@
 
 ## Current state
 
-Six of the 40 hero slots are filled: the six `/` slides in `home/`. They were
-supplied by the client on 17 November 2026, with no licence note and no stated
-source. **They are committed as client property, but the source still has to be
-confirmed before launch.** The remaining 34 hero slots, the engineering project
-records, the `/visa-and-tours` gallery frames and `styleguide/sample.jpg` are
-empty and render the `<SmartImage>` placeholder. The placeholder is generated in
-code (page-accent gradient, lattice pattern, shot label) from
+Twelve of the 46 hero slots are filled: the six `/` slides in `home/` and the
+six `/real-estate` slides. They were supplied by the client on 17 November 2026,
+with no licence note and no stated source. **They are committed as client
+property, but the source still has to be confirmed before launch.** The real
+estate files arrived at 1280px, one of them portrait, rather than the 1920×1080
+the shot list asks for; they are usable now and should be re-exported. The
+remaining 34 hero slots, the 18 real-estate listing frames, the engineering
+project records, the `/visa-and-tours` gallery frames and `styleguide/sample.jpg`
+are empty and render the `<SmartImage>` placeholder. The placeholder is generated
+in code (page-accent gradient, lattice pattern, shot label) from
 `src/content/images.ts`; it is not an image file.
 
 `og/default.jpg` (1200×630), the favicon, the Apple touch icon and the manifest
@@ -25,6 +28,12 @@ and wordmark. They carry no third-party licence.
 | `home/lagos-city-tour.jpg` | Lagos Island waterfront | Client-supplied 17 Nov 2026, source to confirm | Client property, unconfirmed |
 | `home/tropical-beach-aerial.jpg` | Atlantic beach from the air | Client-supplied 17 Nov 2026, source to confirm | Client property, unconfirmed |
 | `home/safari-wildlife.jpg` | Safari wildlife at first light | Client-supplied 17 Nov 2026, source to confirm | Client property, unconfirmed |
+| `real-estate/residential-exterior.jpg` | Residential estate exterior | Client-supplied 17 Nov 2026, source to confirm | Client property, unconfirmed |
+| `real-estate/land-aerial.jpg` | Aerial view of land and plots | Client-supplied 17 Nov 2026, source to confirm | Client property, unconfirmed |
+| `real-estate/modern-home.jpg` | Modern home exterior | Client-supplied 17 Nov 2026, source to confirm | Client property, unconfirmed |
+| `real-estate/commercial-building.jpg` | Commercial building exterior | Client-supplied 17 Nov 2026, source to confirm | Client property, unconfirmed |
+| `real-estate/living-space.jpg` | Interior living space | Client-supplied 17 Nov 2026, source to confirm | Client property, unconfirmed |
+| `real-estate/neighbourhood-street.jpg` | Neighbourhood street scene | Client-supplied 17 Nov 2026, source to confirm | Client property, unconfirmed |
 | `../logos/cream-logo-transparent.png` | JCNL logo, cream | Derived from the alpha of the client's `white-logo.png`; originals untouched | Client property |
 | `../logos/black-logo-transparent.png` | JCNL logo, ink | Derived from the alpha of the client's `white-logo.png`; originals untouched | Client property |
 

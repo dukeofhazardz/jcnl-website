@@ -86,7 +86,7 @@ export default function HomePage() {
                 </Heading>
               </div>
               <p className="max-w-[34ch] text-small text-ink-500 md:text-right">
-                Five service lines, one company, two offices. Each has its own
+                Six service lines, one company, two offices. Each has its own
                 page on this site.
               </p>
             </div>

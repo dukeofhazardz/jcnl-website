@@ -10,6 +10,7 @@ export type AccentKey =
   | "freight"
   | "engineering"
   | "business"
+  | "realestate"
   | "brand";
 
 /** The two supplied logo colourways and where each belongs. */
@@ -121,6 +122,12 @@ export const nav: readonly NavItem[] = [
     href: "/engineering",
     blurb: "Civil engineering works and construction.",
     accent: "engineering",
+  },
+  {
+    label: "Real Estate",
+    href: "/real-estate",
+    blurb: "Land, homes and commercial space for sale.",
+    accent: "realestate",
   },
   {
     label: "Contact",

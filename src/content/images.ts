@@ -87,6 +87,26 @@ export const heroImages = {
     power: hero("engineering", "power-infrastructure", "Power distribution infrastructure"),
     retrofit: hero("engineering", "building-retrofit", "Building retrofit in progress"),
   },
+  realestate: {
+    exterior: hero(
+      "real-estate",
+      "residential-exterior",
+      "Residential estate exterior",
+    ),
+    home: hero("real-estate", "modern-home", "Modern home exterior"),
+    land: hero("real-estate", "land-aerial", "Aerial view of land and plots"),
+    commercial: hero(
+      "real-estate",
+      "commercial-building",
+      "Commercial building exterior",
+    ),
+    interior: hero("real-estate", "living-space", "Interior living space"),
+    street: hero(
+      "real-estate",
+      "neighbourhood-street",
+      "Neighbourhood street scene",
+    ),
+  },
   contact: {
     lagos: hero("contact", "lagos-island", "Lagos Island, Simpson Street"),
     abuja: hero("contact", "abuja-skyline", "Abuja skyline"),

@@ -67,6 +67,70 @@ Portfolio photographs go under `public/images/engineering/projects/`, slots
 
 ---
 
+## Real Estate page (`/real-estate`)
+
+The page ships with six **sample** listings so the grid, filters, gallery and
+detail route can be reviewed. Every sample is marked on the card and the detail
+page, is excluded from the sitemap and the structured data, and its page is
+`noindex`. No address, price, size, developer, estate or title document has been
+invented. Replace a sample in `src/content/properties.ts` and set
+`isPlaceholder: false` to publish it; the guide is in `README.md`.
+
+### Each listing
+
+Supply all of the following for one property, or keep the record as a sample.
+The field names match `src/content/properties.ts`.
+
+- [ ] `title` — how the property should be named publicly.
+- [ ] `status` — available, under offer, or sold.
+- [ ] `type` — land, residential, commercial, estate, or other.
+- [ ] `location` — area, city and state, as it should read on the card.
+- [ ] `price` — in naira, or confirm that it is "Price on request".
+- [ ] `sizeSqm` — the plot or floor area, and whether it is one or the other.
+- [ ] `bedrooms` and `bathrooms`, where the property has them.
+- [ ] `titleDocument` — the exact document name (for example "C of O") and
+      confirmation that it can be published.
+- [ ] `summary` and `description` — the wording JCNL wants to publish, or
+      approval of the wording supplied with the record.
+- [ ] `features` — the list of features the seller will stand behind.
+- [ ] `listedAt` — the date the property went on the market.
+- [ ] Photographs: three frames per listing under
+      `public/images/real-estate/<slug>-1.jpg` to `-3.jpg`, 1600×1067.
+- [ ] `isPlaceholder: false` — only once everything above is confirmed.
+
+The six sample records to replace: `residential-property`, `commercial-plot`,
+`estate-land`, `terrace-house`, `mixed-use-building`, `residential-land`.
+
+### Page-level questions
+
+- [ ] Is JCNL acting as the seller or as an agent for these properties? The
+      page currently says only "JCNL lists land, homes and commercial space for
+      sale" and confirms nothing on the client's behalf.
+- [ ] Are the price bands (under ₦50m, ₦50m–₦150m, ₦150m and above) the right
+      split for the real inventory?
+- [ ] Should sold listings stay visible on the page? They are currently hidden
+      from the grid, the similar listings, the sitemap and the structured data,
+      but remain reachable at their URL.
+- [ ] Confirm the "How buying works" steps, especially how viewings are arranged
+      and who holds the documents during a transaction.
+- [ ] Confirm the wording "Availability, pricing and documentation are confirmed
+      with our team before any commitment", or supply the sentence the company
+      prefers.
+- [ ] Supply any disclaimer the company's lawyer requires on listings.
+
+### Imagery
+
+- [x] Hero photographs supplied on 17 November 2026: `residential-exterior.jpg`,
+      `land-aerial.jpg`, `modern-home.jpg`, `commercial-building.jpg`,
+      `living-space.jpg`, `neighbourhood-street.jpg`.
+- [ ] Re-export those six at 1920×1080. Four arrived at 1280×853,
+      `land-aerial.jpg` at 1280×719 and `residential-exterior.jpg` at 1280×1707,
+      so a wide hero upsamples them and the portrait file crops hard.
+- [ ] Do not photograph a property until the owner has agreed to it being listed
+      publicly, including any neighbouring plot or building in the frame.
+
+---
+
 ## Site-wide
 
 These affect every page, not just Engineering.

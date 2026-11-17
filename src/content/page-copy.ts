@@ -51,6 +51,11 @@ export const pageMeta: Record<HeroPageKey, PageMeta> = {
     eyebrow: "Engineering",
     accent: "engineering",
   },
+  realestate: {
+    label: "Real Estate",
+    eyebrow: "Real Estate",
+    accent: "realestate",
+  },
   contact: {
     label: "Contact",
     eyebrow: "Contact",
@@ -65,4 +70,5 @@ export const homeServices = [
   { label: "Cargo & Freight", href: "/cargo-and-freight", blurb: "Cargo and freight enquiries." },
   { label: "Integrated Farms", href: "/integrated-farms", blurb: "The JCNL farms business line." },
   { label: "Engineering", href: "/engineering", blurb: "Civil engineering works and construction." },
+  { label: "Real Estate", href: "/real-estate", blurb: "Land, homes and commercial space for sale." },
 ] as const;

@@ -41,7 +41,7 @@ import { pageMetadata } from "@/lib/metadata";
 export const metadata = pageMetadata({
   title: "Contact",
   description:
-    "Call, WhatsApp or email JCNL. Offices in Gwarinpa, Abuja and Lagos Island, Lagos. Message the team about any of the five service lines.",
+    "Call, WhatsApp or email JCNL. Offices in Gwarinpa, Abuja and Lagos Island, Lagos. Message the team about any of the six service lines.",
   path: "/contact",
 });
 

@@ -2,7 +2,7 @@
  * About page.
  *
  * The company record in brief facts only: registered name, 2003, the Lagos and
- * Abuja offices, the sectors and the five service lines. No history, headcount,
+ * Abuja offices, the sectors and the six service lines. No history, headcount,
  * client, award or credential is added. Copy lives in `src/content/about.ts`.
  */
 import { HeroCarousel } from "@/components/carousel/hero-carousel";
@@ -20,7 +20,7 @@ import { pageMetadata } from "@/lib/metadata";
 export const metadata = pageMetadata({
   title: "About",
   description:
-    "JCNL is an indigenous Nigerian company established in 2003, working from Lagos and Abuja across five service lines for private and public sector clients.",
+    "JCNL is an indigenous Nigerian company established in 2003, working from Lagos and Abuja across six service lines for private and public sector clients.",
   path: "/about",
 });
 

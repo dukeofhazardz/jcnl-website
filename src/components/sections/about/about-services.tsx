@@ -10,7 +10,7 @@ import { homeServices } from "@/content/page-copy";
 
 const headingId = "about-services-heading";
 
-/** The five service lines, each linked to the page that carries the detail. */
+/** The six service lines, each linked to the page that carries the detail. */
 export function AboutServices() {
   const { services } = aboutPage;
 

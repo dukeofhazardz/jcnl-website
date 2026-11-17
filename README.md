@@ -27,23 +27,26 @@ blocks. Run the scripts as `cmd /c "npm.cmd run build"` instead.
 
 | Route | Content |
 |---|---|
-| `/` | Home — hero carousel, mission, five-service index, contact |
-| `/about` | Live: the company record, mission, five service lines, both offices |
+| `/` | Home — hero carousel, mission, six-service index, contact |
+| `/about` | Live: the company record, mission, six service lines, both offices |
 | `/visa-and-tours` | Live: Tour360, TRAVELCredit, VISA-Assist247, LESS 20.0, timeline, gallery |
 | `/business-services` | Live: four service lines, seven sectors, funding support, eight instruments, two-path CTA |
 | `/cargo-and-freight` | Live: platform, air and sea, scroll-drawn route, cargo desk, quote form |
 | `/integrated-farms` | Live: story, 16-facility grid, values band, location, enquiry |
 | `/engineering` | Live: four capabilities, three sectors, delivery approach, project records, CTA |
+| `/real-estate` | Live: six sample listings, filters, buying steps, enquiry band |
+| `/real-estate/[slug]` | Live: gallery, facts, features, sticky enquiry card, similar listings |
 | `/contact` | Live: two offices, four direct channels, message form with `?service=` preselection, WhatsApp band, closing tagline |
 | `/styleguide` | Dev only. Returns 404 in production. |
 
 Every route opens with the same `<HeroCarousel>`: 4–6 slides, 6s autoplay, and
 that page's accent. Every route also has its own `<h1>`, its own
 `title`/`description`/canonical, and its own social card title, so a shared link
-describes the page it points at.
+describes the page it points at. The property detail route is the one exception:
+a listing must lead with its own facts, so it opens with a dark masthead instead.
 
 `/about` is built from brief facts only: registered name, 2003, the two offices,
-the sectors and the five service lines. No history, headcount, client, award or
+the sectors and the six service lines. No history, headcount, client, award or
 credential was invented. Copy lives in `src/content/about.ts`.
 
 `/visa-and-tours` is assembled from `src/components/sections/tours/`:
@@ -78,13 +81,34 @@ the HYP project types), `business-instruments` (eight documents and the
 due-diligence note) and `business-cta` (the two enquiry paths). Copy lives in
 `src/content/business-services.ts`.
 
+`/real-estate` is assembled from `src/components/sections/realestate/`:
+`real-estate-intro`, `property-explorer` (type, location, price and sort, with a
+live count, a reset and two empty states), `property-card`, `real-estate-process`
+and the shared enquiry band. `/real-estate/[slug]` adds `property-masthead`,
+`property-gallery` (swipe, thumbnails, lazily loaded lightbox),
+`property-enquiry-card`, `property-navigation` and `similar-properties`. Copy
+lives in `src/content/real-estate.ts`; the listings live in
+`src/content/properties.ts` — see **How to add a property** below.
+
+**The six listings that ship are samples.** They are marked on the card and the
+detail page, they are kept out of the sitemap and the JSON-LD, and their detail
+pages are `noindex`. Nothing on them is invented: no address, price, size,
+developer, estate or title document. Replace a record with real data and set
+`isPlaceholder: false` to publish it.
+
 **Service pages can carry a subject into `/contact`.** The Business
 Services closing cards link to `/contact?service=…`, and the contact page uses
 that value to preselect the service dropdown. `resolveContactService` in
 `src/content/contact.ts` maps the navigation slugs, the short page keys and the
-two Business Services intents onto the six form options, so an older link still
+two Business Services intents onto the seven form options, so an older link still
 lands on the right row. The form sits inside its own `Suspense` boundary, which
 keeps `/contact` static.
+
+A property enquiry goes one step further:
+`/contact?service=real-estate&property=<slug>` preselects Real Estate and
+prefills the message with the listing title and its absolute URL. The slug is
+looked up in `src/content/properties.ts`; an unknown value is ignored rather than
+echoed back into the form.
 
 `/contact` is assembled from `src/app/contact/page.tsx` (offices, channels, the
 WhatsApp band and the tagline) and
@@ -119,7 +143,8 @@ src/
     carousel/          hero-carousel
     layout/            header, mobile menu, footer, WhatsApp FAB
     sections/          accent scope, enquiry band, about/*, tours/*, farms/*,
-                       freight/*, engineering/*, business/*, contact/*
+                       freight/*, engineering/*, business/*, realestate/*,
+                       contact/*
     ui/                button, card, section, container, typography, reveal,
                        parallax, smart image, geometric pattern, client todo
   config/site.ts       single source of truth: brand facts, nav, contact
@@ -160,18 +185,29 @@ noisy (identical builds scored 24–68, TBT 850ms–9.3s depending on background
 load), so treat the number as indicative and re-measure on the target host.
 Accessibility and SEO are stable.
 
+The Real Estate routes were measured the same way, with the untouched home page
+as a control: `/real-estate` scored Performance 45 mobile and 52 desktop while
+`/` scored 50 and 59, CLS 0 on both, Accessibility 100, SEO 100. Two results on
+the sample detail pages are expected and temporary: SEO 69 because they are
+deliberately `noindex`, and Best Practices 96 because each missing sample
+photograph returns a 404 before `<SmartImage>` draws the placeholder. Both clear
+when real records and files replace the samples.
+
 ## SEO and metadata
 
 - `src/lib/metadata.ts` builds the per-page `title`, `description`, canonical,
   Open Graph and Twitter tags. Call `pageMetadata({ title, description, path })`
   in each route's `metadata` export. Omit `title` only on the home page, which
-  uses the site default.
-- `src/app/sitemap.ts` lists the eight public routes; `src/app/robots.ts` allows
+  uses the site default. Pass `noindex: true` for a page that must stay out of
+  the index, and `image` only for a photograph that actually exists.
+- `src/app/sitemap.ts` lists the nine public routes plus every published
+  property (`isPlaceholder: false` and not `sold`). `src/app/robots.ts` allows
   everything and points at the sitemap.
 - `src/lib/structured-data.ts` emits one `Organization` JSON-LD block from
   `src/config/site.ts`: registered name, acronym, URL, slogan, founding year,
   description, both postal addresses, both phone numbers, email and social
-  profile.
+  profile. It also builds the property `ItemList`, the `RealEstateListing` block
+  and the breadcrumb trail; the listing block refuses placeholder records.
 - `src/app/not-found.tsx` is the 404, marked `noindex`.
 - Icons: `src/app/favicon.ico`, `src/app/apple-icon.png` and
   `src/app/manifest.ts` (with `/icons/icon-192.png` and `/icons/icon-512.png`).
@@ -228,7 +264,7 @@ tab, the home-screen icon and the manifest stay consistent.
 - **Hero slides:** `src/content/slides.ts`. One entry per slide: `id`, `image`,
   `alt`, `headline`, `sub`, `cta`. Page-level framing (label, eyebrow, accent)
   is in `src/content/page-copy.ts`.
-- **About copy:** `src/content/about.ts`. The story, mission, five service lines,
+- **About copy:** `src/content/about.ts`. The story, mission, six service lines,
   office framing and the closing band. Offices themselves come from
   `src/config/site.ts`.
 - **Visa & Tours copy:** `src/content/tours.ts`. Four products, the 14 LESS 20.0
@@ -253,9 +289,12 @@ tab, the home-screen icon and the manifest stay consistent.
   hero; the contact page maps each `value` onto the service dropdown, so edit a
   label or `value` there once.
 - **Contact page copy:** `src/content/contact.ts`. The office and channel
-  framing, the six service options and their aliases, the form labels, notes and
+  framing, the seven service options and their aliases, the form labels, notes and
   validation messages, the WhatsApp band and the closing tagline. Addresses and
   numbers stay in `src/config/site.ts`.
+- **Real Estate:** the listings are `src/content/properties.ts`; the copy around
+  them is `src/content/real-estate.ts`. Add a property with the guide below, and
+  never put a price, size, address or title document in the copy file.
 - **Images:** add the file under `public/images/...`, then point its manifest
   entry in `src/content/images.ts` at the path. `<SmartImage>` shows a branded
   placeholder until the file exists, so a missing image is never a broken one.
@@ -263,6 +302,36 @@ tab, the home-screen icon and the manifest stay consistent.
 
 Nothing on a page is typed into JSX. If a sentence needs to change, it lives in
 `src/content/`; if a number needs to change, it lives in `src/config/site.ts`.
+
+## How to add a property
+
+Everything about a listing lives in one object in
+`src/content/properties.ts`. No component changes are needed.
+
+1. **Copy an existing record** and give it a unique `id` and `slug`. The slug is
+   the URL: `/real-estate/<slug>`. Use lower-case words joined by hyphens.
+2. **Fill in the facts** the client has supplied: `title`, `status`
+   (`available`, `under-offer` or `sold`), `type` (`land`, `residential`,
+   `commercial`, `estate` or `other`), `location`, `price` in whole naira (or
+   `null` for "Price on request"), `currency: "NGN"`, and the optional
+   `sizeSqm`, `bedrooms`, `bathrooms`, `titleDocument`, `featured` and
+   `listedAt`. Leave a field out rather than guessing it.
+3. **Write the copy**: one-sentence `summary`, then `description` (a blank line
+   separates paragraphs) and a `features` array. Leave `features: []` if the
+   client has not supplied any; the page shows the `[CLIENT TO PROVIDE]` note.
+4. **Drop the photographs** into `/public/images/real-estate/`, named after the
+   slug: `<slug>-1.jpg`, `<slug>-2.jpg`, and so on. Each entry in `images` points
+   at one of those paths and carries a real `alt` line. The gallery shows a
+   thumbnail per entry. A missing file renders the branded placeholder, so the
+   layout is reviewable before the photography arrives.
+5. **Set `isPlaceholder: false`** once the record is real. That removes the
+   sample ribbon, allows the page to be indexed and adds it to the sitemap and
+   the JSON-LD. Until then the record stays out of all three.
+
+`sold` records stay reachable at their URL but disappear from the grid, the
+similar listings, the prev/next navigation, the sitemap and the structured data.
+A price of `null` is listed as "Price on request" and stays visible under every
+price filter.
 
 ## Accessibility
 

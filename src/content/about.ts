@@ -36,7 +36,7 @@ export const aboutPage = {
   },
   services: {
     eyebrow: "What we do",
-    heading: "Five service lines, one company.",
+    heading: "Six service lines, one company.",
     intro:
       "Each service line has its own page. All of them are arranged from Lagos and Abuja.",
   },

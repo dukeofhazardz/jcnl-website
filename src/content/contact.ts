@@ -13,6 +13,7 @@ export type ContactServiceValue =
   | "cargo-and-freight"
   | "integrated-farms"
   | "engineering"
+  | "real-estate"
   | "other";
 
 export type ContactServiceOption = {
@@ -27,6 +28,7 @@ export const contactServiceOptions: readonly ContactServiceOption[] = [
   { value: "cargo-and-freight", label: "Cargo & Freight" },
   { value: "integrated-farms", label: "Integrated Farms" },
   { value: "engineering", label: "Engineering" },
+  { value: "real-estate", label: "Real Estate" },
   { value: "other", label: "Other" },
 ] as const;
 
@@ -53,6 +55,10 @@ const serviceAliases: Readonly<Record<string, ContactServiceValue>> = {
   farms: "integrated-farms",
   farming: "integrated-farms",
   engineering: "engineering",
+  "real-estate": "real-estate",
+  realestate: "real-estate",
+  property: "real-estate",
+  properties: "real-estate",
   other: "other",
 };
 

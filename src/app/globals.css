@@ -214,6 +214,19 @@
   --field: var(--color-jungle-950);
 }
 
+[data-accent="realestate"] {
+  /* Laterite. Ivory on the accent fill measures 5.19:1, accent-text on ivory
+     measures 6.45:1 and on accent-soft 5.47:1. The bright note is only used on
+     the deep jungle field (8.17:1). */
+  --accent: #a5502c;
+  --accent-strong: #8a4322;
+  --accent-text: #8f4526;
+  --accent-soft: #f1e3d4;
+  --accent-ink: var(--color-ivory-50);
+  --accent-bright: #eda878;
+  --field: var(--color-jungle-950);
+}
+
 [data-accent="brand"] {
   --accent: var(--color-saffron-500);
   --accent-strong: #b9812a;

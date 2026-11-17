@@ -92,6 +92,7 @@ Set `data-accent` on a page wrapper (`<AccentScope accent="tours">`).
 | `freight` | navy-900 | `#0a2237` | `/cargo-and-freight` |
 | `engineering` | amber-500 | slate-900 | `/engineering` |
 | `business` | `#123c2e` | jungle-950 | `/business-services` |
+| `realestate` | `#a5502c` (laterite) | jungle-950 | `/real-estate`, `/real-estate/[slug]` |
 | `brand` | saffron-500 | jungle-950 | `/about`, `/contact`, 404 |
 
 Every accent defines `--accent-text` (for small text on ivory) separately from
@@ -135,7 +136,9 @@ Rules:
 - Header height: 4.5rem, 5.5rem from 1024px, exposed as `--header-h` so anchors
   and hero padding can subtract it.
 - Breakpoints follow Tailwind defaults; the header switches to the inline nav at
-  `xl` (1280px) because eight labels will not sit comfortably before that.
+  `xl` (1280px) because nine labels will not sit comfortably before that. At
+  `xl` the nav links take `px-2` and 0.78rem type; at `2xl` they return to the
+  original padding and size.
 
 ---
 
@@ -420,6 +423,40 @@ reads the value inside a `Suspense` boundary, so the route stays static, and
 preselects the matching service option. `resolveContactService` in
 `src/content/contact.ts` maps known values only; an unknown value leaves the
 field empty. Nothing from the query string is rendered as text.
+
+### Real Estate pages
+
+`/real-estate` carries the `realestate` accent: laterite/terracotta `#a5502c`,
+warm stone `accent-soft` (#f1e3d4), and jungle-950 as the field. Saffron-gold is
+the secondary note on dark grounds only.
+
+| Pair | Ratio |
+|---|---|
+| ivory-50 on `accent` (#a5502c) | **5.19** |
+| `accent-text` (#8f4526) on ivory-50 | **6.45** |
+| `accent-text` on `accent-soft` | **5.47** |
+| `accent-bright` (#eda878) on jungle-950 | **8.17** |
+| ink-500 on `accent-soft` | **4.82** |
+
+Order: hero carousel (6 slides, `View available properties` plus a ghost
+WhatsApp CTA), intro (ivory, `arch`), listings (sand, `dune`), how buying works
+(jungle, `wave`) and the shared enquiry band (accent fill, `arch`).
+
+The listing grid filters by type, location, price band and sort, and reports
+`Showing n of m` through `role="status"`. Filtering is a layout animation on
+`transform`, disabled under reduced motion. Price-on-request listings stay
+visible under every band; hiding them would hide the ones that need a question.
+Two empty states exist: nothing matches the filters, and nothing is listed.
+
+The property card has exactly two actions: one overlay link covering the card and
+a WhatsApp button above it at `z-10`. The status chip sits top-left; the sample
+ribbon sits bottom-right over a scrim, clear of the placeholder's own shot label.
+
+The detail page opens with a dark masthead (breadcrumb, chips, title, location,
+price) instead of a hero, so the transparent header stays legible and the
+listing's facts lead. Below it: gallery (swipe, thumbnails, lazily loaded
+lightbox that traps focus and restores it), facts, description, features, title
+document, a sticky enquiry card on `lg`, prev/next and similar listings.
 
 ### Contact page
 

@@ -66,7 +66,7 @@ export function Header() {
                       href={item.href}
                       aria-current={active ? "page" : undefined}
                       className={cn(
-                        "group relative inline-flex px-2.5 py-2 text-[0.8125rem] font-medium transition-colors duration-200",
+                        "group relative inline-flex px-2 py-2 text-[0.78rem] font-medium transition-colors duration-200 2xl:px-2.5 2xl:text-[0.8125rem]",
                         active ? "" : "hover:opacity-100 opacity-85",
                       )}
                     >
@@ -74,7 +74,7 @@ export function Header() {
                       <span
                         aria-hidden="true"
                         className={cn(
-                          "absolute inset-x-2.5 -bottom-px h-px origin-left bg-current transition-transform duration-300 ease-strong",
+                          "absolute inset-x-2 -bottom-px h-px origin-left bg-current transition-transform duration-300 ease-strong 2xl:inset-x-2.5",
                           active
                             ? "scale-x-100"
                             : "scale-x-0 group-hover:scale-x-100",

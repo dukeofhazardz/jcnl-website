@@ -33,6 +33,8 @@ export type Slide = {
   /** One line. No paragraph. */
   sub: string;
   cta: SlideCta;
+  /** Optional second action, rendered beside the primary. */
+  secondaryCta?: SlideCta;
 };
 
 export type HeroPageKey =
@@ -43,6 +45,7 @@ export type HeroPageKey =
   | "freight"
   | "farms"
   | "engineering"
+  | "realestate"
   | "contact";
 
 const talkToUs: SlideCta = { label: "Talk to us", href: "/contact" };
@@ -67,6 +70,17 @@ function businessCtaFor(id: BusinessIntentId): SlideCta {
 const whatsappUs: SlideCta = {
   label: "WhatsApp us",
   href: whatsappHref("Hello JCNL, I would like to ask about a trip."),
+  external: true,
+};
+
+const viewProperties: SlideCta = {
+  label: "View available properties",
+  href: "#properties",
+};
+
+const propertyWhatsapp: SlideCta = {
+  label: "WhatsApp us",
+  href: whatsappHref("Hello JCNL, I would like to ask about a property."),
   external: true,
 };
 
@@ -384,6 +398,63 @@ export const heroSlides: Record<HeroPageKey, readonly Slide[]> = {
       headline: "Four disciplines, one company.",
       sub: "Civil works, construction, facility service management and training.",
       cta: discussProject,
+    },
+  ],
+
+  realestate: [
+    {
+      id: "realestate-exterior",
+      image: heroImages.realestate.exterior.src,
+      alt: "Residential estate exterior with houses and planted frontage",
+      headline: "A property, with the facts attached.",
+      sub: "Land, homes and commercial space, listed with the detail the team can confirm.",
+      cta: viewProperties,
+      secondaryCta: propertyWhatsapp,
+    },
+    {
+      id: "realestate-land",
+      image: heroImages.realestate.land.src,
+      alt: "Aerial view of land and plots beside an access road",
+      headline: "Land, with the paperwork in view.",
+      sub: "Ask for the title document and any survey that applies before you commit.",
+      cta: viewProperties,
+      secondaryCta: propertyWhatsapp,
+    },
+    {
+      id: "realestate-home",
+      image: heroImages.realestate.home.src,
+      alt: "Modern home exterior with a driveway and planted border",
+      headline: "A home that fits the brief.",
+      sub: "Tell us the area, the size and the budget. We will show you what is available.",
+      cta: viewProperties,
+      secondaryCta: propertyWhatsapp,
+    },
+    {
+      id: "realestate-commercial",
+      image: heroImages.realestate.commercial.src,
+      alt: "Commercial building with glazed frontage and parking",
+      headline: "Space for the work you do.",
+      sub: "Commercial plots and buildings, listed when they come up.",
+      cta: viewProperties,
+      secondaryCta: propertyWhatsapp,
+    },
+    {
+      id: "realestate-interior",
+      image: heroImages.realestate.interior.src,
+      alt: "Interior living space with daylight through large windows",
+      headline: "See the room before you decide.",
+      sub: "The team arranges viewings for the properties that fit.",
+      cta: viewProperties,
+      secondaryCta: propertyWhatsapp,
+    },
+    {
+      id: "realestate-street",
+      image: heroImages.realestate.street.src,
+      alt: "Neighbourhood street with houses, trees and a parked car",
+      headline: "Start with the area.",
+      sub: "Filter by place, type and price, then ask for a viewing.",
+      cta: viewProperties,
+      secondaryCta: propertyWhatsapp,
     },
   ],
 

@@ -36,6 +36,10 @@ import {
   resolveContactService,
   type ContactServiceValue,
 } from "@/content/contact";
+import {
+  getPropertyBySlug,
+  propertyViewingMessage,
+} from "@/content/properties";
 import { cn } from "@/lib/cn";
 import { uiTransition } from "@/lib/motion";
 import { usePrefersReducedMotion } from "@/lib/use-prefers-reduced-motion";
@@ -293,7 +297,13 @@ function MessageField({
   );
 }
 
-function ContactFormPanel({ initialService }: { initialService: InitialService }) {
+function ContactFormPanel({
+  initialService,
+  initialMessage = "",
+}: {
+  initialService: InitialService;
+  initialMessage?: string;
+}) {
   const base = useId();
   const fid = (name: FieldName) => `${base}-${name}`;
   const successRef = useRef<HTMLHeadingElement>(null);
@@ -301,6 +311,7 @@ function ContactFormPanel({ initialService }: { initialService: InitialService }
   const [values, setValues] = useState<Values>({
     ...EMPTY,
     service: initialService,
+    message: initialMessage,
   });
   const [errors, setErrors] = useState<Errors>({});
   const [status, setStatus] = useState<Status>("idle");
@@ -605,9 +616,14 @@ function ContactFormPanel({ initialService }: { initialService: InitialService }
 
 function ContactFormWithIntent() {
   const params = useSearchParams();
+  const property = getPropertyBySlug(params.get("property") ?? "");
+  const service = resolveContactService(params.get("service"));
+
   return (
     <ContactFormPanel
-      initialService={resolveContactService(params.get("service"))}
+      /* A listing link always belongs to Real Estate, whatever the query says. */
+      initialService={property ? "real-estate" : service}
+      initialMessage={property ? propertyViewingMessage(property) : ""}
     />
   );
 }

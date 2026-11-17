@@ -395,7 +395,11 @@ export function HeroCarousel({
                 </motion.p>
               </div>
 
-              <motion.div variants={textItem} data-slide-cta="" className="mt-8">
+              <motion.div
+                variants={textItem}
+                data-slide-cta=""
+                className="mt-8 flex flex-wrap items-center gap-3"
+              >
                 <Button
                   href={slide.cta.href}
                   external={slide.cta.external}
@@ -412,6 +416,34 @@ export function HeroCarousel({
                 >
                   {slide.cta.label}
                 </Button>
+
+                {slide.secondaryCta ? (
+                  <Button
+                    href={slide.secondaryCta.href}
+                    external={slide.secondaryCta.external}
+                    variant="ghost"
+                    size="lg"
+                    className="border-ivory-50/40 text-ivory-50 hover:border-ivory-50/75 hover:bg-ivory-50/10"
+                    icon={
+                      slide.secondaryCta.external ? (
+                        <MessageCircle
+                          aria-hidden="true"
+                          size={18}
+                          strokeWidth={1.75}
+                        />
+                      ) : (
+                        <ArrowRight
+                          aria-hidden="true"
+                          size={18}
+                          strokeWidth={1.75}
+                        />
+                      )
+                    }
+                    iconPosition="start"
+                  >
+                    {slide.secondaryCta.label}
+                  </Button>
+                ) : null}
               </motion.div>
             </motion.div>
           </div>

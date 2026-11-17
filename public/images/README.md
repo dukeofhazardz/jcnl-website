@@ -11,7 +11,7 @@ the intrinsic size and this shot list all come from it.
 
 ## How the hero uses these files
 
-All eight pages open with the same `<HeroCarousel>`. Each slide is full-bleed
+All nine pages open with the same `<HeroCarousel>`. Each slide is full-bleed
 behind a dark legibility scrim, so an image must survive three things:
 
 1. **A crop to a tall viewport.** At 360px wide the frame is roughly 3:7; the
@@ -133,6 +133,41 @@ The six project records use their own 4:3 slot, `engineering/projects/`:
 Only add a project photograph once the client has supplied the name, sector,
 year and scope for that record. Until then the card is a marked placeholder.
 
+### Real Estate — `/real-estate` and `/real-estate/[slug]`
+
+Hero slides, 1920×1080:
+
+| # | File | Size | Ratio | Subject |
+|---|---|---|---|---|
+| 1 | `real-estate/residential-exterior.jpg` | 1920×1080 | 16:9 | Residential estate exterior |
+| 2 | `real-estate/land-aerial.jpg` | 1920×1080 | 16:9 | Aerial view of land and plots |
+| 3 | `real-estate/modern-home.jpg` | 1920×1080 | 16:9 | Modern home exterior |
+| 4 | `real-estate/commercial-building.jpg` | 1920×1080 | 16:9 | Commercial building exterior |
+| 5 | `real-estate/living-space.jpg` | 1920×1080 | 16:9 | Interior living space |
+| 6 | `real-estate/neighbourhood-street.jpg` | 1920×1080 | 16:9 | Neighbourhood street scene |
+
+All six of these files are present. They arrived at 1280px wide (one portrait),
+so they upscale on a large screen; re-export at 1920×1080.
+
+Listing photographs, 1600×1067 (3:2), three per record, named after the record's
+slug in `src/content/properties.ts`. The six sample slugs are listed here; a new
+record adds `<slug>-1.jpg` and so on with no other change:
+
+| Slug | Files | Used by |
+|---|---|---|
+| `residential-property` | `residential-property-1.jpg` … `-3.jpg` | card, gallery, lightbox |
+| `commercial-plot` | `commercial-plot-1.jpg` … `-3.jpg` | card, gallery, lightbox |
+| `estate-land` | `estate-land-1.jpg` … `-3.jpg` | card, gallery, lightbox |
+| `terrace-house` | `terrace-house-1.jpg` … `-3.jpg` | card, gallery, lightbox |
+| `mixed-use-building` | `mixed-use-building-1.jpg` … `-3.jpg` | card, gallery, lightbox |
+| `residential-land` | `residential-land-1.jpg` … `-3.jpg` | card, gallery, lightbox |
+
+Number 1 is the card image and the first frame in the gallery, so make it the
+strongest exterior or establishing shot. Keep the subject inside the middle of
+the frame: the card crops to 4:3, the gallery frame to 16:10 and the thumbnails
+to 4:3. Do not photograph a building or plot the client has not listed; these
+slots stay empty until a real record replaces a sample.
+
 ### Contact — `/contact`
 
 | # | File | Size | Ratio | Subject |
@@ -168,12 +203,17 @@ year and scope for that record. Until then the card is a marked placeholder.
 
 ## Current state
 
-Six of the 40 hero files exist: the six `/` slides in `home/`, supplied by the
-client on 17 November 2026. They are served through `next/image` and appear at
-every width. The other 34 hero files, the engineering project records, the
-`/visa-and-tours` gallery frames and `styleguide/sample.jpg` are not there yet;
-those slots render the placeholder. The logo files in `public/logos/` are
-present and are used by the header, mobile menu and footer.
+Twelve of the 46 hero files exist. The six `/` slides in `home/` were supplied
+by the client on 17 November 2026; they are served through `next/image` and
+appear at every width. The six `/real-estate` hero slides arrived the same day
+and are in use, so that carousel also shows photographs. Those files are 1280px
+wide (four at 1280×853, `land-aerial.jpg` at 1280×719 and
+`residential-exterior.jpg` at 1280×1707); re-export them at 1920×1080 before
+launch. The remaining 34 hero files, the 18 real-estate listing frames, the
+engineering project records, the `/visa-and-tours` gallery frames and
+`styleguide/sample.jpg` are not there yet; those slots render the placeholder.
+The logo files in `public/logos/` are present and are used by the header, mobile
+menu and footer.
 
 This is the brief-sanctioned fallback, not a broken build: the placeholder is
 generated in code (page-accent gradient, lattice pattern, shot label) and

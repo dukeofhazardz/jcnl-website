@@ -15,19 +15,29 @@ export function pageMetadata({
   title,
   description,
   path,
+  image,
+  noindex = false,
 }: {
   /** Omit only on the home page, which uses the site's default title. */
   title?: string;
   description: string;
   path: string;
+  /** Overrides the shared social card. Pass a file that actually exists. */
+  image?: { src: string; alt: string; width: number; height: number };
+  /** Detail pages for unpublished records stay out of the index. */
+  noindex?: boolean;
 }): Metadata {
   const socialTitle = title ? `${title} — ${site.shortName}` : defaultTitle;
   const url = new URL(path, site.url).toString();
+  const card = image ?? siteImages.socialCard;
 
   return {
     ...(title ? { title } : {}),
     description,
     alternates: { canonical: path },
+    ...(noindex
+      ? { robots: { index: false, follow: true } }
+      : {}),
     openGraph: {
       type: "website",
       siteName: site.name,
@@ -37,10 +47,10 @@ export function pageMetadata({
       description,
       images: [
         {
-          url: siteImages.socialCard.src,
-          width: siteImages.socialCard.width,
-          height: siteImages.socialCard.height,
-          alt: siteImages.socialCard.alt,
+          url: card.src,
+          width: card.width,
+          height: card.height,
+          alt: card.alt,
         },
       ],
     },
@@ -48,7 +58,7 @@ export function pageMetadata({
       card: "summary_large_image",
       title: socialTitle,
       description,
-      images: [siteImages.socialCard.src],
+      images: [card.src],
     },
   };
 }
