@@ -222,7 +222,7 @@ play/pause control under reduced motion; manual navigation stays available.
 | `EnquiryBand` | `components/sections/enquiry-band.tsx` | shared closing band; `textTone` ink or ivory |
 | `FarmStory` … `FarmEnquiry` | `components/sections/farms/*` | the `/integrated-farms` body: story, facilities, clay values, location, closing band |
 | `BusinessIntro` … `BusinessCta` | `components/sections/business/*` | the `/business-services` body: service lines, sectors, funding, instruments, two-path CTA |
-| `ServiceIntent` | `components/sections/contact/service-intent.tsx` | reads `?service=` on `/contact` and carries the subject into WhatsApp and email |
+| `ContactForm` | `components/sections/contact/contact-form.tsx` | the `/contact` message form: `?service=` preselection, validation, four states, WhatsApp hand-off |
 
 ### Hero carousel
 
@@ -415,11 +415,29 @@ client's exact label, and the card is stretched with `after:absolute` so there i
 one link, one accessible name and a full-card target. The gold hairline appears
 only on the deep green card.
 
-The two paths append `?service=` to `/contact` and land on `#channels`. The
-contact page reads the value in `service-intent.tsx` inside a `Suspense`
-boundary, so the route stays static and the subject only appears when the
-parameter matches `businessIntents`. The component writes the subject into the
-WhatsApp message and the `mailto:` subject; it never echoes arbitrary input.
+The two paths append `?service=` to `/contact` and land on `#message`. The form
+reads the value inside a `Suspense` boundary, so the route stays static, and
+preselects the matching service option. `resolveContactService` in
+`src/content/contact.ts` maps known values only; an unknown value leaves the
+field empty. Nothing from the query string is rendered as text.
+
+### Contact page
+
+`/contact` carries the `brand` accent. Order: offices (ivory, `arch`), direct
+channels (sand, `dune`), the message form (ivory, `wave`), the WhatsApp band
+(accent fill, `blade`) and the closing tagline (jungle with the geometric
+pattern, `arch`). Both offices share one set of phone, WhatsApp and email
+details, so the channel block states each one once and lists the two cargo
+addresses on their own line.
+
+The form repeats the quote form's four states. Errors sit inline, in terracotta,
+wired through `aria-describedby`; the first invalid field takes focus on submit;
+the submit label becomes `Sending…` while the request runs; the confirmation
+heading takes focus when it replaces the form. A WhatsApp button beside the
+submit button builds its message from the current field values, so a failed
+request still has a route out. All form copy is on ivory, where terracotta is
+4.66:1. On the saffron band, ink at 80% is 5.61:1 and the tagline support at 70%
+ivory on jungle is 7.60:1; both clear AA.
 
 ---
 

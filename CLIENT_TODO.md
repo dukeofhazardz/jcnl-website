@@ -79,3 +79,6 @@ These affect every page, not just Engineering.
       WhatsApp.
 - [ ] Confirm the canonical domain. The site currently assumes
       `https://jesrudebconnect.org` through `NEXT_PUBLIC_SITE_URL`.
+- [ ] Confirm the inbox that should receive contact-form messages, and pick an
+      email provider. Until both are supplied, `/api/contact` validates each
+      submission and acknowledges it without sending anything.

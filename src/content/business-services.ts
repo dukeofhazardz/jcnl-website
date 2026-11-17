@@ -186,23 +186,16 @@ export const businessIntents: readonly BusinessIntent[] = [
   },
 ] as const;
 
-/** Resolve a `?service=` value to one of the page's two enquiry paths. */
-export function findBusinessIntent(value: string | null): BusinessIntent | null {
-  if (!value) return null;
-  const match = businessIntents.find((intent) => intent.value === value);
-  return match ?? null;
-}
-
-/** Build the contact URL for an intent, landing on the channels block. */
+/** Build the contact URL for an intent, landing on the message form. */
 export function intentHref(intent: BusinessIntent): string {
-  return `/contact?service=${intent.value}#channels`;
+  return `/contact?service=${intent.value}#message`;
 }
 
 /** Closing band. Its cards are the intents themselves, in order. */
 export const businessCta = {
   eyebrow: "Next step",
   heading: "Choose the path that fits.",
-  body: "Both paths open the contact page with the subject already set. Calls, WhatsApp and email are on the same page.",
+  body: "Both paths open the contact page with the service already chosen. Calls, WhatsApp and email are on the same page.",
   pathLabels: ["Path one", "Path two"],
   linkLabel: "Start an enquiry",
   talkFirst: {
@@ -212,12 +205,4 @@ export const businessCta = {
     whatsapp: "message on WhatsApp",
   },
   whatsappMessage: "Hello JCNL, I would like to ask about business services.",
-} as const;
-
-/** Copy for the enquiry panel on /contact. Shown only for a matching intent. */
-export const serviceIntentCopy = {
-  eyebrow: "Enquiry subject",
-  body: "The subject travels with the message. Start with WhatsApp or email, or use any channel below.",
-  whatsapp: "Start on WhatsApp",
-  email: "Email with this subject",
 } as const;

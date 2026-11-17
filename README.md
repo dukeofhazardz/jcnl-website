@@ -31,7 +31,7 @@ Node 20+ is required by Next 16.
 | `/cargo-and-freight` | Live: platform, air and sea, scroll-drawn route, cargo desk, quote form |
 | `/integrated-farms` | Live: story, 16-facility grid, values band, location, enquiry |
 | `/engineering` | Live: four capabilities, three sectors, delivery approach, project records, CTA |
-| `/contact` | Live: both offices and every published channel |
+| `/contact` | Live: two offices, four direct channels, message form with `?service=` preselection, WhatsApp band, closing tagline |
 | `/styleguide` | Dev only. Returns 404 in production. |
 
 Every route opens with the same `<HeroCarousel>`: 4–6 slides, 6s autoplay, and
@@ -70,12 +70,20 @@ the HYP project types), `business-instruments` (eight documents and the
 due-diligence note) and `business-cta` (the two enquiry paths). Copy lives in
 `src/content/business-services.ts`.
 
-**Business Services is the only page that carries a subject into `/contact`.**
-Both closing cards and one hero slide link to `/contact?service=…`; the contact
-page reads that value in `sections/contact/service-intent.tsx` and writes it into
-the WhatsApp message and the email subject. Keep the label and the `value` in
-`businessIntents` in step, and keep the component inside its `Suspense` boundary
-so `/contact` stays static.
+**Service pages can carry a subject into `/contact`.** The Business
+Services closing cards link to `/contact?service=…`, and the contact page uses
+that value to preselect the service dropdown. `resolveContactService` in
+`src/content/contact.ts` maps the navigation slugs, the short page keys and the
+two Business Services intents onto the six form options, so an older link still
+lands on the right row. The form sits inside its own `Suspense` boundary, which
+keeps `/contact` static.
+
+`/contact` is assembled from `src/app/contact/page.tsx` (offices, channels, the
+WhatsApp band and the tagline) and
+`src/components/sections/contact/contact-form.tsx` (the form, validation and its
+idle, submitting, success and error states). Copy lives in
+`src/content/contact.ts`; addresses, numbers, emails and Maps links come from
+`src/config/site.ts`.
 
 **Engineering is built from verified facts only.** The client supplied four
 service lines and three sectors. Every other detail a buyer would expect, such
@@ -84,11 +92,13 @@ is rendered as a visible `[CLIENT TO PROVIDE]` marker through
 `components/ui/client-todo.tsx`. The full list of outstanding items is in
 `CLIENT_TODO.md`; remove a marker only when the fact is supplied.
 
-The quote form posts to `src/app/api/contact/route.ts`. **That route is a stub:**
-it validates the six fields, refuses bad JSON, an unknown mode and oversized
-values, then returns `{ ok: true }` and logs nothing but the mode. No email is
-sent, and nothing is stored. To connect a provider, replace the marked block in
-the `POST` handler and keep the `{ ok: true }` response so the form does not
+Both forms post to `src/app/api/contact/route.ts`. **That route is a stub:** it
+validates the payload, refuses bad JSON, invalid fields and oversized values,
+then returns `{ ok: true }`. The contact form sends `form: "contact"` with its
+five fields; the cargo quote omits `form` and keeps its six-field contract. No
+email is sent and nothing is stored. To connect a provider, replace the marked
+block in `handleContact` and read `CONTACT_EMAIL_API_KEY`, `CONTACT_EMAIL_FROM`
+and `CONTACT_EMAIL_TO`, keeping the `{ ok: true }` response so the form does not
 change. The same details can always be sent by hand from the WhatsApp button,
 which prefills the message from whatever is in the form.
 
@@ -106,7 +116,7 @@ src/
     ui/                button, card, section, container, typography,
                        reveal, parallax, smart image, geometric pattern
   config/site.ts       single source of truth: brand facts, nav, contact
-  content/             slides, page metadata, tours copy, typed image manifests
+  content/             slides, page copy for every route, typed image manifests
   lib/                 cn, motion tokens, media/visibility hooks, structured data
 ```
 
@@ -139,9 +149,13 @@ the timeline, the gallery and `SmartImage`.
   service lines, seven sectors, funding paragraph, seven HYP project types, eight
   instruments, the exact due-diligence note and the two enquiry intents. The
   instruments are listed by name and family only; do not add a rate, return or
-  eligibility claim. `businessIntents` is shared by the closing cards, the hero
-  and the contact page, so edit a label, `value`, card line or WhatsApp message
-  there once.
+  eligibility claim. `businessIntents` is shared by the closing cards and the
+  hero; the contact page maps each `value` onto the service dropdown, so edit a
+  label or `value` there once.
+- **Contact page copy:** `src/content/contact.ts`. The office and channel
+  framing, the six service options and their aliases, the form labels, notes and
+  validation messages, the WhatsApp band and the closing tagline. Addresses and
+  numbers stay in `src/config/site.ts`.
 - **Images:** add the file under `public/images/...`, then point its manifest
   entry in `src/content/images.ts` at the path. `<SmartImage>` shows a branded
   placeholder until the file exists, so a missing image is never a broken one.
