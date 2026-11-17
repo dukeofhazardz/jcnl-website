@@ -7,8 +7,6 @@
  * credential is added. The instrument section carries the client's exact
  * due-diligence note, and both CTA paths carry their subject to /contact.
  */
-import type { Metadata } from "next";
-
 import { HeroCarousel } from "@/components/carousel/hero-carousel";
 import { AccentScope } from "@/components/sections/accent-scope";
 import { BusinessCta } from "@/components/sections/business/business-cta";
@@ -18,13 +16,14 @@ import { BusinessIntro } from "@/components/sections/business/business-intro";
 import { BusinessSectors } from "@/components/sections/business/business-sectors";
 import { pageMeta } from "@/content/page-copy";
 import { heroSlides } from "@/content/slides";
+import { pageMetadata } from "@/lib/metadata";
 
-export const metadata: Metadata = {
+export const metadata = pageMetadata({
   title: "Business Services",
   description:
     "Business service design, operational training, hospitality and facility service management, plus funding support for high-yield projects and trade finance instruments.",
-  alternates: { canonical: "/business-services" },
-};
+  path: "/business-services",
+});
 
 export default function BusinessServicesPage() {
   const meta = pageMeta.business;

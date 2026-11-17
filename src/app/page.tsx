@@ -1,4 +1,3 @@
-import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowUpRight, MessageCircle } from "lucide-react";
 
@@ -12,11 +11,12 @@ import { Eyebrow, Heading } from "@/components/ui/typography";
 import { homeServices, pageMeta } from "@/content/page-copy";
 import { heroSlides } from "@/content/slides";
 import { contact, site, taglineDisplay, whatsappHref } from "@/config/site";
+import { pageMetadata } from "@/lib/metadata";
 
-export const metadata: Metadata = {
+export const metadata = pageMetadata({
   description: site.description,
-  alternates: { canonical: "/" },
-};
+  path: "/",
+});
 
 const sectors = ["Energy", "Transport", "Construction", "TMC"] as const;
 

@@ -10,6 +10,8 @@
  * public/images/CREDITS.md for attribution of licensed images.
  */
 
+import { site } from "@/config/site";
+
 export type ImageAsset = {
   /** Path under /public. */
   src: string;
@@ -124,11 +126,11 @@ export function heroImage(src: string): ImageAsset | undefined {
 /** Brand assets outside the per-page hero groups. */
 export const siteImages = {
   logo: {
-    src: "/images/logo.png",
-    alt: "JCNL logo",
+    src: site.logo.black.src,
+    alt: site.logo.alt,
     subject: "Logo",
-    width: 320,
-    height: 320,
+    width: site.logo.black.width,
+    height: site.logo.black.height,
   },
   socialCard: {
     src: "/images/og/default.jpg",

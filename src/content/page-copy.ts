@@ -23,7 +23,7 @@ export const pageMeta: Record<HeroPageKey, PageMeta> = {
   },
   about: {
     label: "About",
-    eyebrow: "About",
+    eyebrow: "The company",
     accent: "brand",
   },
   tours: {

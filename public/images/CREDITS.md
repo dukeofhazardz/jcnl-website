@@ -2,12 +2,33 @@
 
 ## Current state
 
-No photography has been sourced yet. The site ships with **40 hero slots and
-three brand slots, all empty**, and every one of them renders the `<SmartImage>`
-placeholder. The placeholder is generated in code (page-accent gradient, lattice
-pattern, shot label) from `src/content/images.ts`; it is not an image file. No
-third-party assets are in use, so nothing on the site currently needs
-attribution.
+Six of the 40 hero slots are filled: the six `/` slides in `home/`. They were
+supplied by the client on 17 November 2026, with no licence note and no stated
+source. **They are committed as client property, but the source still has to be
+confirmed before launch.** The remaining 34 hero slots, the engineering project
+records, the `/visa-and-tours` gallery frames and `styleguide/sample.jpg` are
+empty and render the `<SmartImage>` placeholder. The placeholder is generated in
+code (page-accent gradient, lattice pattern, shot label) from
+`src/content/images.ts`; it is not an image file.
+
+`og/default.jpg` (1200×630), the favicon, the Apple touch icon and the manifest
+icons are original brand assets drawn for this site from the client's colours
+and wordmark. They carry no third-party licence.
+
+### Files in use
+
+| File | Subject | Source | Licence |
+|---|---|---|---|
+| `home/obudu-mountain-resort.jpg` | Obudu cable car, Cross River State | Client-supplied 17 Nov 2026, source to confirm | Client property, unconfirmed |
+| `home/yankari-game-reserve.jpg` | Yankari Game Reserve, Bauchi State | Client-supplied 17 Nov 2026, source to confirm | Client property, unconfirmed |
+| `home/la-campagne-tropicana.jpg` | La Campagne Tropicana beach huts | Client-supplied 17 Nov 2026, source to confirm | Client property, unconfirmed |
+| `home/lagos-city-tour.jpg` | Lagos Island waterfront | Client-supplied 17 Nov 2026, source to confirm | Client property, unconfirmed |
+| `home/tropical-beach-aerial.jpg` | Atlantic beach from the air | Client-supplied 17 Nov 2026, source to confirm | Client property, unconfirmed |
+| `home/safari-wildlife.jpg` | Safari wildlife at first light | Client-supplied 17 Nov 2026, source to confirm | Client property, unconfirmed |
+| `../logos/cream-logo-transparent.png` | JCNL logo, cream | Derived from the alpha of the client's `white-logo.png`; originals untouched | Client property |
+| `../logos/black-logo-transparent.png` | JCNL logo, ink | Derived from the alpha of the client's `white-logo.png`; originals untouched | Client property |
+
+
 
 The full shot list — filename, dimensions, aspect ratio and subject for each
 slot — is in [`README.md`](./README.md). Five of the `/visa-and-tours` files are
@@ -54,6 +75,11 @@ Modifications: <crop, colour grade, etc.>
 
 ## Client marks
 
-`logo.png` (when supplied) is the property of JESRUDEB@CONNECT NIGERIA LIMITED
-and is used only in the site header, the footer and the social share card. It is
-not licensed to third parties.
+The logo files in `public/logos/` are the property of JESRUDEB@CONNECT NIGERIA
+LIMITED and are used only in the site header, mobile menu, footer, JSON-LD and
+the social share card. They are not licensed to third parties.
+
+The client's `cream-logo.png` and `black-logo.png` arrived with a checkerboard
+baked into the pixels and no alpha channel. The `*-transparent.png` files were
+derived from the alpha of `white-logo.png` and are the files the site uses. The
+originals are preserved unchanged.

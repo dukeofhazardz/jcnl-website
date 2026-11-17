@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Container } from "@/components/ui/container";
 import { GeometricPattern } from "@/components/ui/geometric-pattern";
+import { Logo } from "@/components/ui/Logo";
 import { Reveal } from "@/components/ui/reveal";
 import { Section } from "@/components/ui/section";
 import { SmartImage } from "@/components/ui/smart-image";
@@ -263,6 +264,23 @@ export default function StyleguidePage() {
               CSS so it never waits on React. Disabled under reduced motion.
             </p>
           </div>
+
+          <Heading as="h2" size="md" className="mt-14">
+            Logo
+          </Heading>
+          <div className="mt-8 grid gap-4 sm:grid-cols-2">
+            <div className="flex min-h-40 items-center justify-center rounded-md bg-jungle-950 p-8">
+              <Logo variant="cream" size="md" />
+            </div>
+            <div className="flex min-h-40 items-center justify-center rounded-md border border-ink-900/10 bg-ivory-50 p-8">
+              <Logo variant="black" size="md" />
+            </div>
+          </div>
+          <p className="mt-4 max-w-[62ch] text-small text-ink-500">
+            One artwork, two colourways. Cream belongs on dark or photographic
+            grounds; black on ivory. The header cross-fades between them without
+            changing the image source or the layout.
+          </p>
 
           <Heading as="h2" size="md" className="mt-14">
             Cards

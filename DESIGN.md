@@ -101,8 +101,9 @@ Every accent defines `--accent-text` (for small text on ivory) separately from
 
 ## 2. Typography
 
-- **Display:** Fraunces (variable). Headlines, numerals, the wordmark. Weight
-  400; the serif is loud enough without bold.
+- **Display:** Fraunces (variable). Headlines and numerals. Weight 400; the
+  serif is loud enough without bold. The wordmark is the client's artwork
+  (`src/components/ui/Logo.tsx`), never typeset text.
 - **Sans:** Hanken Grotesk (variable). Body, labels, controls.
 
 | Token | Range | Use |
@@ -161,7 +162,6 @@ Implemented with `motion` (`motion/react`), transform and opacity only.
 |---|---|---|
 | Press | 120ms | `cubic-bezier(0.23, 1, 0.32, 1)` |
 | Hover / colour / underline | 200–300ms | `cubic-bezier(0.23, 1, 0.32, 1)` |
-| Route fade | 340ms | `cubic-bezier(0.16, 1, 0.3, 1)` |
 | Scroll reveal | 620ms | `cubic-bezier(0.16, 1, 0.3, 1)` |
 | Mobile menu stagger | 400ms, 35ms per item | `cubic-bezier(0.16, 1, 0.3, 1)` |
 | Carousel slide | 720ms | `cubic-bezier(0.23, 1, 0.32, 1)` |
@@ -182,8 +182,8 @@ The server cannot read a media query, so any component that branches its markup
 on `useReducedMotion()` produces different server and client trees and breaks
 hydration. Two rules follow:
 
-1. **Preference in CSS where markup would change.** The route fade
-   (`.page-enter`) lives in `@media (prefers-reduced-motion: no-preference)`, and
+1. **Preference in CSS where markup would change.** Reveals and the carousel
+   keyframes live under `@media (prefers-reduced-motion: no-preference)`, and
    reduced motion forces `[data-reveal]` visible with `!important` instead of
    skipping the animation in JS. Both look identical on the server and client.
 2. **`usePrefersReducedMotion()` where only props change.** It is a
@@ -216,10 +216,10 @@ play/pause control under reduced motion; manual navigation stays available.
 | `MobileMenu` | `components/layout/mobile-menu.tsx` | full-screen dialog, focus trap, Escape |
 | `Footer` | `components/layout/footer.tsx` | tagline, nav, both offices, channels |
 | `WhatsAppFab` | `components/layout/whatsapp-fab.tsx` | appears after 420px of scroll |
-| `PageTransition` | `components/layout/page-transition.tsx` | CSS route fade, 340ms |
 | `HeroCarousel` | `components/carousel/hero-carousel.tsx` | full-bleed hero, 4–6 slides per page |
 | `Tour360Section` … `TourEnquiry` | `components/sections/tours/*` | the `/visa-and-tours` body: four products, timeline, gallery, closing band |
 | `EnquiryBand` | `components/sections/enquiry-band.tsx` | shared closing band; `textTone` ink or ivory |
+| `AboutStory` … `AboutOffices` | `components/sections/about/*` | the `/about` body: story, mission, five service lines, both offices |
 | `FarmStory` … `FarmEnquiry` | `components/sections/farms/*` | the `/integrated-farms` body: story, facilities, clay values, location, closing band |
 | `BusinessIntro` … `BusinessCta` | `components/sections/business/*` | the `/business-services` body: service lines, sectors, funding, instruments, two-path CTA |
 | `ContactForm` | `components/sections/contact/contact-form.tsx` | the `/contact` message form: `?service=` preselection, validation, four states, WhatsApp hand-off |

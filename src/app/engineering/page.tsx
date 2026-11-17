@@ -12,8 +12,6 @@
  * is invented. Open CLIENT_TODO.md at the repo root for the full list of
  * outstanding items.
  */
-import type { Metadata } from "next";
-
 import { HeroCarousel } from "@/components/carousel/hero-carousel";
 import { AccentScope } from "@/components/sections/accent-scope";
 import { EngineeringApproach } from "@/components/sections/engineering/engineering-approach";
@@ -23,13 +21,14 @@ import { EngineeringPortfolio } from "@/components/sections/engineering/engineer
 import { EngineeringSectors } from "@/components/sections/engineering/engineering-sectors";
 import { pageMeta } from "@/content/page-copy";
 import { heroSlides } from "@/content/slides";
+import { pageMetadata } from "@/lib/metadata";
 
-export const metadata: Metadata = {
+export const metadata = pageMetadata({
   title: "Engineering",
   description:
     "Civil engineering works, construction, facility service management and operational training for clients in Energy, Transport and Construction.",
-  alternates: { canonical: "/engineering" },
-};
+  path: "/engineering",
+});
 
 export default function EngineeringPage() {
   const meta = pageMeta.engineering;

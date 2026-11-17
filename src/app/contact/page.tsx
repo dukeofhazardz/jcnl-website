@@ -6,7 +6,6 @@
  * `src/config/site.ts`; every line of copy lives in `src/content/contact.ts`.
  * The form keeps `useSearchParams` inside Suspense so the route stays static.
  */
-import type { Metadata } from "next";
 import {
   ArrowUpRight,
   AtSign,
@@ -37,13 +36,14 @@ import {
   taglineDisplay,
   whatsappHref,
 } from "@/config/site";
+import { pageMetadata } from "@/lib/metadata";
 
-export const metadata: Metadata = {
+export const metadata = pageMetadata({
   title: "Contact",
   description:
-    "Call, WhatsApp or email JCNL. Visit the offices in Gwarinpa, Abuja and Lagos Island, Lagos. Send a message about Visa & Tours, Business Services, Cargo & Freight, Integrated Farms or Engineering.",
-  alternates: { canonical: "/contact" },
-};
+    "Call, WhatsApp or email JCNL. Offices in Gwarinpa, Abuja and Lagos Island, Lagos. Message the team about any of the five service lines.",
+  path: "/contact",
+});
 
 function Channel({
   icon: Icon,

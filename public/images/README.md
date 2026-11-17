@@ -146,7 +146,8 @@ year and scope for that record. Until then the card is a marked placeholder.
 
 | File | Size | Ratio | Subject | Notes |
 |---|---|---|---|---|
-| `logo.png` | 320×320 | 1:1 | JCNL logo, transparent background | Optional. When present, the header shows it beside the wordmark. |
+| `../logos/cream-logo-transparent.png` | 1989×791 | 2.51:1 | JCNL logo, cream, transparent | Header over hero, mobile menu, footer. Source: `white-logo.png` alpha. |
+| `../logos/black-logo-transparent.png` | 1989×791 | 2.51:1 | JCNL logo, ink, transparent | Header once solid; light grounds. Source: `white-logo.png` alpha. |
 | `og/default.jpg` | 1200×630 | 1.91:1 | Wordmark on jungle green | Default social share card, used by `openGraph.images` and `twitter.images`. |
 | `styleguide/sample.jpg` | 1920×1080 | 16:9 | Demo image for the placeholder | Dev only; may stay missing. |
 
@@ -167,7 +168,20 @@ year and scope for that record. Until then the card is a marked placeholder.
 
 ## Current state
 
-None of the 40 hero files exist yet. Every hero renders the placeholder. This is
-the brief-sanctioned fallback, not a broken build: the placeholder is generated
-in code (page-accent gradient, lattice pattern, shot label) and carries a
-`role="img"` label for assistive technology.
+Six of the 40 hero files exist: the six `/` slides in `home/`, supplied by the
+client on 17 November 2026. They are served through `next/image` and appear at
+every width. The other 34 hero files, the engineering project records, the
+`/visa-and-tours` gallery frames and `styleguide/sample.jpg` are not there yet;
+those slots render the placeholder. The logo files in `public/logos/` are
+present and are used by the header, mobile menu and footer.
+
+This is the brief-sanctioned fallback, not a broken build: the placeholder is
+generated in code (page-accent gradient, lattice pattern, shot label) and
+carries a `role="img"` label for assistive technology. A missing file is
+expected until photography is delivered, and the layout must look finished
+either way.
+
+`og/default.jpg` exists at 1200×630 and is the social card for every page. The
+favicon, the Apple touch icon and the manifest icons also exist; they were drawn
+from the brand field and the wordmark, not from client artwork.
+

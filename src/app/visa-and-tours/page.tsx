@@ -1,4 +1,3 @@
-import type { Metadata } from "next";
 import { ArrowDownRight } from "lucide-react";
 
 import { HeroCarousel } from "@/components/carousel/hero-carousel";
@@ -17,13 +16,14 @@ import { Eyebrow, Heading } from "@/components/ui/typography";
 import { pageMeta } from "@/content/page-copy";
 import { heroSlides } from "@/content/slides";
 import { tourAnchors } from "@/content/tours";
+import { pageMetadata } from "@/lib/metadata";
 
-export const metadata: Metadata = {
+export const metadata = pageMetadata({
   title: "Visa & Tours",
   description:
     "Tour360 tours, TRAVELCredit, VISA-Assist247 visa advisory and LESS 20.0 discounts, arranged by JCNL from Lagos and Abuja.",
-  alternates: { canonical: "/visa-and-tours" },
-};
+  path: "/visa-and-tours",
+});
 
 export default function VisaAndToursPage() {
   const meta = pageMeta.tours;

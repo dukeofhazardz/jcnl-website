@@ -2,6 +2,7 @@ import Link from "next/link";
 import { ArrowUpRight, Mail, MessageCircle, Phone } from "lucide-react";
 
 import { Container } from "@/components/ui/container";
+import { Logo } from "@/components/ui/Logo";
 import {
   contact,
   copyrightRange,
@@ -29,18 +30,8 @@ export function Footer() {
       <Container className="relative">
         <div className="grid gap-14 py-section lg:grid-cols-12 lg:gap-10">
           <div className="lg:col-span-4">
-            <Link
-              href="/"
-              className="inline-flex flex-col"
-              aria-label="JCNL — home"
-            >
-              <span className="font-display text-[2rem] leading-none tracking-[-0.035em] text-ivory-50">
-                JCNL
-              </span>
-              <span className="mt-2 text-[8.5px] uppercase tracking-[0.18em] text-ivory-100/55">
-                {site.descriptor}
-              </span>
-            </Link>
+            {/* The footer ground is jungle-950 at every breakpoint. */}
+            <Logo variant="cream" size="lg" />
 
             <p className="mt-8 max-w-[19ch] font-display text-[clamp(2rem,4.2vw,3.4rem)] leading-[0.95] tracking-[-0.035em] text-ivory-50">
               {taglineDisplay}
@@ -193,9 +184,13 @@ export function Footer() {
         <div className="border-t border-ivory-50/10 pb-24 pt-7 lg:pb-28">
           <div className="flex flex-col gap-3 text-[0.8125rem] text-ivory-100/60 lg:flex-row lg:items-baseline lg:justify-between">
             <p>© {copyrightRange} {site.name}.</p>
-            <p>
-              {site.shortName} is an acronym for {site.acronym}.
-            </p>
+            <Link
+              target="_blank"
+              href="https://www.dukehouse.tech"
+              className="underline-offset-4 transition-colors hover:text-saffron-300 hover:underline"
+            >
+              SITE BY DUKEHOUSE TECH.
+            </Link>
           </div>
         </div>
       </Container>

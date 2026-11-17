@@ -1,5 +1,3 @@
-import type { Metadata } from "next";
-
 import { HeroCarousel } from "@/components/carousel/hero-carousel";
 import { AccentScope } from "@/components/sections/accent-scope";
 import { FreightContact } from "@/components/sections/freight/freight-contact";
@@ -9,13 +7,14 @@ import { FreightQuote } from "@/components/sections/freight/freight-quote";
 import { FreightRoute } from "@/components/sections/freight/freight-route";
 import { pageMeta } from "@/content/page-copy";
 import { heroSlides } from "@/content/slides";
+import { pageMetadata } from "@/lib/metadata";
 
-export const metadata: Metadata = {
+export const metadata = pageMetadata({
   title: "Cargo & Freight",
   description:
     "JCNL's Dry and Wet Cargo Freight and Forwarding platform: air, sea and water delivery through partner collaborations, with orders placed on request.",
-  alternates: { canonical: "/cargo-and-freight" },
-};
+  path: "/cargo-and-freight",
+});
 
 export default function CargoAndFreightPage() {
   const meta = pageMeta.freight;

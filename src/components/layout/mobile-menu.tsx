@@ -6,6 +6,7 @@ import { ArrowUpRight, Phone, Mail, MessageCircle, X } from "lucide-react";
 import { motion } from "motion/react";
 import { useEffect, useRef } from "react";
 
+import { Logo } from "@/components/ui/Logo";
 import { nav, contact, whatsappHref } from "@/config/site";
 import { cn } from "@/lib/cn";
 import { usePrefersReducedMotion } from "@/lib/use-prefers-reduced-motion";
@@ -80,14 +81,9 @@ export function MobileMenu({ onClose }: { onClose: () => void }) {
       />
 
       <div className="relative flex items-center justify-between px-gutter pt-5">
-        <div className="flex flex-col">
-          <span className="font-display text-[1.55rem] leading-none tracking-[-0.03em] text-ivory-50">
-            JCNL
-          </span>
-          <span className="mt-1.5 text-[8px] uppercase tracking-[0.18em] text-ivory-100/55">
-            A Logistics &amp; Business Services Company
-          </span>
-        </div>
+        {/* The full-screen panel is dark, so the cream mark is the only logo
+            inside it. The header sits underneath at z-60 and is not visible. */}
+        <Logo variant="cream" size="md" onClick={onClose} />
         <button
           ref={closeRef}
           type="button"

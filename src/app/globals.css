@@ -1,4 +1,4 @@
-@import "tailwindcss";
+﻿@import "tailwindcss";
 
 /* Hover effects only where a real pointer exists, so touch devices never
    inherit a sticky hover state. */
@@ -381,28 +381,6 @@
   }
 }
 
-/* Route loading bar. Transform only, so it stays on the compositor. */
-@keyframes loading {
-  from {
-    transform: translateX(-110%);
-  }
-  to {
-    transform: translateX(320%);
-  }
-}
-
-/* Route enter fade. CSS rather than JS: the server cannot read the media
-   query, so the markup has to be identical on both sides and the motion
-   preference handled in the stylesheet. */
-@keyframes page-enter {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
 /* Hero carousel. The 6s progress animation must stay in step with ROTATE_MS
    in components/carousel/hero-carousel.tsx. Both are paused and resumed
    together, so the bar and the timer never drift. */
@@ -425,10 +403,6 @@
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  .page-enter {
-    animation: page-enter 340ms var(--ease-soft) both;
-  }
-
   .hero-progress-fill {
     transform-origin: left center;
     animation: hero-progress 6s linear both;
@@ -438,3 +412,4 @@
     animation: hero-ken-burns 9s var(--ease-soft) both;
   }
 }
+

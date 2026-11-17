@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { AnimatePresence } from "motion/react";
@@ -9,11 +8,12 @@ import { useCallback, useState } from "react";
 
 import { MobileMenu } from "@/components/layout/mobile-menu";
 import { Button } from "@/components/ui/button";
+import { Logo } from "@/components/ui/Logo";
 import { nav, whatsappHref } from "@/config/site";
 import { cn } from "@/lib/cn";
 import { useScrolled } from "@/lib/use-scrolled";
 
-export function Header({ hasLogo = false }: { hasLogo?: boolean }) {
+export function Header() {
   const pathname = usePathname();
   const scrolled = useScrolled(24);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -43,35 +43,14 @@ export function Header({ hasLogo = false }: { hasLogo?: boolean }) {
         />
 
         <div className="page-container flex h-full items-center justify-between gap-4">
-          <Link
-            href="/"
-            aria-label="JCNL — a logistics and business services company. Home."
-            className="group flex shrink-0 items-center gap-2.5"
-          >
-            {hasLogo ? (
-              <Image
-                src="/images/logo.png"
-                alt=""
-                width={40}
-                height={40}
-                priority
-                className="h-9 w-auto"
-              />
-            ) : null}
-            <span className="flex flex-col">
-              <span className="font-display text-[1.6rem] leading-[0.9] tracking-[-0.035em] sm:text-[1.75rem]">
-                JCNL
-              </span>
-              <span
-                className={cn(
-                  "mt-1 text-[7.5px] uppercase leading-none tracking-[0.17em] transition-colors duration-300 sm:text-[8.5px]",
-                  solid ? "text-ink-500" : "text-ivory-100/65",
-                )}
-              >
-                A Logistics &amp; Business Services Company
-              </span>
-            </span>
-          </Link>
+          {/* One link, two stacked images. The cream mark shows over the hero
+              and the black mark fades in once the ivory header turns solid. */}
+          <Logo
+            variant={solid ? "black" : "cream"}
+            size="md"
+            crossfade
+            priority
+          />
 
           <nav aria-label="Primary" className="hidden xl:block">
             <ul className="flex items-center gap-0.5">

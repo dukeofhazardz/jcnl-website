@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import {
   useCallback,
@@ -348,20 +348,52 @@ export function HeroCarousel({
               animate="show"
               variants={textContainer}
             >
-              <motion.h1
-                variants={textItem}
-                className="mt-5 max-w-[19ch] font-display text-display-2 text-ivory-50"
-              >
-                <span className="sr-only">{label}: </span>
-                {slide.headline}
-              </motion.h1>
+              {/*
+                The sizer stacks every slide's headline in one grid cell, so the
+                cell is always as tall as the longest headline at this width.
+                Without it the copy block grows and shrinks as slides rotate,
+                and everything below it shifts on a 6s clock. The text is
+                invisible and hidden from assistive tech; the real heading is
+                the only one in the accessibility tree.
+              */}
+              <div className="mt-5 grid">
+                <div aria-hidden="true" className="invisible grid [grid-area:1/1]">
+                  {slides.map((item) => (
+                    <span
+                      key={item.id}
+                      className="max-w-[19ch] font-display text-display-2 [grid-area:1/1] [text-wrap:balance]"
+                    >
+                      {item.headline}
+                    </span>
+                  ))}
+                </div>
+                <motion.h1
+                  variants={textItem}
+                  className="max-w-[19ch] font-display text-display-2 text-ivory-50 [grid-area:1/1]"
+                >
+                  <span className="sr-only">{label}: </span>
+                  {slide.headline}
+                </motion.h1>
+              </div>
 
-              <motion.p
-                variants={textItem}
-                className="mt-5 max-w-[46ch] text-lead text-ivory-100/85"
-              >
-                {slide.sub}
-              </motion.p>
+              <div className="mt-5 grid">
+                <div aria-hidden="true" className="invisible grid [grid-area:1/1]">
+                  {slides.map((item) => (
+                    <span
+                      key={item.id}
+                      className="max-w-[46ch] text-lead [grid-area:1/1] [text-wrap:pretty]"
+                    >
+                      {item.sub}
+                    </span>
+                  ))}
+                </div>
+                <motion.p
+                  variants={textItem}
+                  className="max-w-[46ch] text-lead text-ivory-100/85 [grid-area:1/1]"
+                >
+                  {slide.sub}
+                </motion.p>
+              </div>
 
               <motion.div variants={textItem} data-slide-cta="" className="mt-8">
                 <Button
@@ -476,3 +508,4 @@ export function HeroCarousel({
     </section>
   );
 }
+

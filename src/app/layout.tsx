@@ -6,7 +6,7 @@ import { Header } from "@/components/layout/header";
 import { WhatsAppFab } from "@/components/layout/whatsapp-fab";
 import { site } from "@/config/site";
 import { siteImages } from "@/content/images";
-import { hasLogo } from "@/lib/brand-assets";
+import { defaultTitle } from "@/lib/metadata";
 import { jsonLdString, organizationJsonLd } from "@/lib/structured-data";
 
 import "./globals.css";
@@ -31,7 +31,7 @@ const hanken = Hanken_Grotesk({
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: {
-    default: `${site.shortName} — A Logistics & Business Services Company`,
+    default: defaultTitle,
     template: `%s — ${site.shortName}`,
   },
   description: site.description,
@@ -55,7 +55,7 @@ export const metadata: Metadata = {
     siteName: site.name,
     locale: "en_NG",
     url: site.url,
-    title: `${site.shortName} — A Logistics & Business Services Company`,
+    title: defaultTitle,
     description: site.description,
     images: [
       {
@@ -68,7 +68,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: `${site.shortName} — A Logistics & Business Services Company`,
+    title: defaultTitle,
     description: site.description,
     images: [siteImages.socialCard.src],
   },
@@ -101,7 +101,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
 
         <div aria-hidden="true" className="grain-overlay" />
 
-        <Header hasLogo={hasLogo} />
+        <Header />
 
         <main id="main" tabIndex={-1} className="flex-1 outline-none">
           {children}

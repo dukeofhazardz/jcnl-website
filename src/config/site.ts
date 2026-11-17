@@ -12,6 +12,9 @@ export type AccentKey =
   | "business"
   | "brand";
 
+/** The two supplied logo colourways and where each belongs. */
+export type LogoVariant = "cream" | "black";
+
 export type NavItem = {
   label: string;
   href: string;
@@ -51,6 +54,29 @@ export const site = {
   url: siteUrl,
   description:
     "JESRUDEB@CONNECT NIGERIA LIMITED (JCNL) is an indigenous Nigerian logistics and business services company, established in 2003, serving private and public sector clients from offices in Lagos and Abuja.",
+  /**
+   * The two logo colourways. Kept here so the artwork can be replaced without
+   * touching a component. The cream file is for dark or photographic grounds;
+   * the black file is for light grounds.
+   *
+   * The client's original `cream-logo.png` and `black-logo.png` arrived with a
+   * checkerboard baked into the pixels (no alpha channel). These transparent
+   * derivatives were built from the alpha of `white-logo.png`; the originals
+   * are untouched. Swap these paths if the client supplies clean exports.
+   */
+  logo: {
+    cream: {
+      src: "/logos/cream-logo-transparent.png",
+      width: 1989,
+      height: 791,
+    },
+    black: {
+      src: "/logos/black-logo-transparent.png",
+      width: 1989,
+      height: 791,
+    },
+    alt: "Jesrudeb@Connect Nigeria Limited (JCNL)",
+  },
 } as const;
 
 export const nav: readonly NavItem[] = [
