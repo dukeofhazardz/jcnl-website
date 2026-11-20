@@ -16,7 +16,7 @@ const headingId = "freight-contact-heading";
 /** The cargo desk, with the number the brief names for freight and both emails. */
 export function FreightContact() {
   return (
-    <Section tone="ivory" spacing="sm" labelledBy={headingId}>
+    <Section tone="white" spacing="sm" labelledBy={headingId}>
       <Container>
         <div className="grid gap-10 border-t border-ink-900/15 pt-10 lg:grid-cols-12 lg:gap-12">
           <div className="lg:col-span-4">

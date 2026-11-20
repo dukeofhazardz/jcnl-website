@@ -2,7 +2,6 @@ import Link from "next/link";
 import { ArrowUpRight, MessageCircle } from "lucide-react";
 
 import { HeroCarousel } from "@/components/carousel/hero-carousel";
-import { AccentScope } from "@/components/sections/accent-scope";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
 import { Reveal } from "@/components/ui/reveal";
@@ -24,15 +23,14 @@ export default function HomePage() {
   const meta = pageMeta.home;
 
   return (
-    <AccentScope accent={meta.accent}>
+    <>
       <HeroCarousel
         slides={heroSlides.home}
         eyebrow={meta.eyebrow}
         label={meta.label}
-        accent={meta.accent}
       />
 
-      <Section tone="ivory" topDivider="arch" spacing="md">
+      <Section tone="white" topDivider="arch" spacing="md">
         <Container>
           <div className="grid gap-10 lg:grid-cols-12 lg:gap-8">
             <div className="lg:col-span-4">
@@ -71,7 +69,7 @@ export default function HomePage() {
 
       <Section
         id="services"
-        tone="sand"
+        tone="tint"
         spacing="md"
         topDivider="dune"
         labelledBy="services-heading"
@@ -123,13 +121,13 @@ export default function HomePage() {
         </Container>
       </Section>
 
-      <Section tone="jungle" spacing="md" topDivider="blade" pattern>
+      <Section tone="ink" spacing="md" topDivider="blade" pattern>
         <Container>
           <div className="grid gap-12 lg:grid-cols-12 lg:items-end lg:gap-8">
             <div className="lg:col-span-7">
               <Reveal>
                 <Eyebrow tone="light">Talk to us</Eyebrow>
-                <p className="mt-6 max-w-[18ch] font-display text-[clamp(2.25rem,1.2rem+4.4vw,4.5rem)] leading-[0.98] tracking-[-0.034em] text-ivory-50">
+                <p className="mt-6 max-w-[18ch] font-display text-[clamp(2.25rem,1.2rem+4.4vw,4.5rem)] leading-[0.98] tracking-[-0.034em] text-white">
                   {taglineDisplay}
                 </p>
               </Reveal>
@@ -137,8 +135,8 @@ export default function HomePage() {
 
             <div className="lg:col-span-5">
               <Reveal delay={0.08}>
-                <div className="border-t border-ivory-50/15 pt-6">
-                  <p className="max-w-[38ch] text-small text-ivory-100/70">
+                <div className="border-t border-white/15 pt-6">
+                  <p className="max-w-[38ch] text-small text-sky-100/70">
                     Call, message or email. Cargo enquiries have their own
                     addresses.
                   </p>
@@ -158,28 +156,32 @@ export default function HomePage() {
                     >
                       WhatsApp us
                     </Button>
-                    <Button href="/contact" variant="ghost" className="text-ivory-50">
+                    <Button
+                      href="/contact"
+                      variant="ghost"
+                      className="border-white/35 text-white hover:border-white/70 hover:bg-white/10"
+                    >
                       Contact details
                     </Button>
                   </div>
-                  <dl className="mt-8 grid gap-3 text-small text-ivory-100/70 sm:grid-cols-2 lg:grid-cols-1">
+                  <dl className="mt-8 grid gap-3 text-small text-sky-100/70 sm:grid-cols-2 lg:grid-cols-1">
                     <div>
-                      <dt className="text-micro uppercase text-ivory-100/65">Call</dt>
+                      <dt className="text-micro uppercase text-sky-100/65">Call</dt>
                       <dd className="mt-1">
                         <a
                           href={contact.phone.href}
-                          className="underline-offset-4 hover:text-saffron-300 hover:underline"
+                          className="underline-offset-4 hover:text-sky-300 hover:underline"
                         >
                           {contact.phone.display}
                         </a>
                       </dd>
                     </div>
                     <div>
-                      <dt className="text-micro uppercase text-ivory-100/65">Email</dt>
+                      <dt className="text-micro uppercase text-sky-100/65">Email</dt>
                       <dd className="mt-1">
                         <a
                           href={contact.email.href}
-                          className="break-all underline-offset-4 hover:text-saffron-300 hover:underline"
+                          className="break-all underline-offset-4 hover:text-sky-300 hover:underline"
                         >
                           {contact.email.display}
                         </a>
@@ -192,6 +194,6 @@ export default function HomePage() {
           </div>
         </Container>
       </Section>
-    </AccentScope>
+    </>
   );
 }

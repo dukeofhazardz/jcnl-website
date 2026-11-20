@@ -100,7 +100,7 @@ export function PropertyGallery({
 
   return (
     <div>
-      <div className="relative aspect-4/3 overflow-hidden rounded-md bg-jungle-950 sm:aspect-16/10">
+      <div className="relative aspect-4/3 overflow-hidden rounded-md bg-ink-950 sm:aspect-16/10">
         <button
           ref={frameRef}
           type="button"
@@ -149,7 +149,7 @@ export function PropertyGallery({
               type="button"
               onClick={() => step(-1)}
               aria-label={copy.galleryPrevious}
-              className="absolute left-3 top-1/2 z-10 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-sm border border-ivory-50/30 bg-jungle-950/45 text-ivory-50 backdrop-blur-sm transition-colors duration-200 hover:border-ivory-50/70 hover:bg-jungle-950/70"
+              className="absolute left-3 top-1/2 z-10 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-sm border border-white/30 bg-ink-950/45 text-white backdrop-blur-sm transition-colors duration-200 hover:border-white/70 hover:bg-ink-950/70"
             >
               <ChevronLeft aria-hidden="true" size={20} strokeWidth={1.75} />
             </button>
@@ -157,18 +157,18 @@ export function PropertyGallery({
               type="button"
               onClick={() => step(1)}
               aria-label={copy.galleryNext}
-              className="absolute right-3 top-1/2 z-10 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-sm border border-ivory-50/30 bg-jungle-950/45 text-ivory-50 backdrop-blur-sm transition-colors duration-200 hover:border-ivory-50/70 hover:bg-jungle-950/70"
+              className="absolute right-3 top-1/2 z-10 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-sm border border-white/30 bg-ink-950/45 text-white backdrop-blur-sm transition-colors duration-200 hover:border-white/70 hover:bg-ink-950/70"
             >
               <ChevronRight aria-hidden="true" size={20} strokeWidth={1.75} />
             </button>
           </>
         ) : null}
 
-        <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 flex items-end justify-between gap-3 bg-linear-to-t from-jungle-950/70 to-transparent p-3">
-          <span className="text-micro tabular-nums text-ivory-50">
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 flex items-end justify-between gap-3 bg-linear-to-t from-ink-950/70 to-transparent p-3">
+          <span className="text-micro tabular-nums text-white">
             {count > 0 ? index + 1 : 0} / {count}
           </span>
-          <span className="inline-flex items-center gap-1.5 text-micro uppercase text-ivory-50/85">
+          <span className="inline-flex items-center gap-1.5 text-micro uppercase text-white/85">
             <Maximize2 aria-hidden="true" size={13} strokeWidth={1.75} />
             {copy.galleryOpen}
           </span>
@@ -188,9 +188,9 @@ export function PropertyGallery({
                   aria-label={`${copy.galleryOpen} ${position + 1}: ${image.alt}`}
                   aria-current={active ? "true" : undefined}
                   className={cn(
-                    "group relative block aspect-4/3 w-full overflow-hidden rounded-sm bg-jungle-950 transition-[box-shadow,transform] duration-200 ease-strong",
+                    "group relative block aspect-4/3 w-full overflow-hidden rounded-sm bg-ink-950 transition-[box-shadow,transform] duration-200 ease-strong",
                     active
-                      ? "ring-2 ring-accent-text ring-offset-2 ring-offset-ivory-50"
+                      ? "ring-2 ring-accent-text ring-offset-2 ring-offset-white"
                       : "opacity-75 hover:opacity-100",
                   )}
                 >

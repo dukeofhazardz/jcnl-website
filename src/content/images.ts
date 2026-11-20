@@ -146,16 +146,16 @@ export function heroImage(src: string): ImageAsset | undefined {
 /** Brand assets outside the per-page hero groups. */
 export const siteImages = {
   logo: {
-    src: site.logo.black.src,
+    src: site.logo.main.src,
     alt: site.logo.alt,
     subject: "Logo",
-    width: site.logo.black.width,
-    height: site.logo.black.height,
+    width: site.logo.main.width,
+    height: site.logo.main.height,
   },
   socialCard: {
     src: "/images/og/default.jpg",
     alt: "JCNL — a logistics and business services company",
-    subject: "Social share card · wordmark on jungle green",
+    subject: "Social share card · logo on white",
     width: 1200,
     height: 630,
   },

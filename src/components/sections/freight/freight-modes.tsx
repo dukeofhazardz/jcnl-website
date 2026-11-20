@@ -14,11 +14,11 @@ const icons: Record<FreightModeId, LucideIcon> = {
   sea: Ship,
 };
 
-/** Air against sea. One light panel, one navy panel, both on sand. */
+/** Air against sea. One white panel, one sky-800 panel, both on the light band. */
 export function FreightModes() {
   return (
     <Section
-      tone="sand"
+      tone="tint"
       topDivider="dune"
       spacing="md"
       labelledBy={headingId}
@@ -58,8 +58,8 @@ export function FreightModes() {
                   className={cn(
                     "flex h-full flex-col rounded-md border p-7 sm:p-9",
                     dark
-                      ? "border-navy-900 bg-navy-900 text-ivory-50"
-                      : "border-ink-900/15 bg-ivory-50 text-ink-900",
+                      ? "border-sky-800 bg-sky-800 text-white"
+                      : "border-ink-900/15 bg-white text-ink-900",
                   )}
                 >
                   <div className="flex items-start justify-between gap-4">
@@ -67,7 +67,7 @@ export function FreightModes() {
                       className={cn(
                         "flex h-12 w-12 items-center justify-center rounded-sm",
                         dark
-                          ? "bg-ivory-50/10 text-sky-300"
+                          ? "bg-white/10 text-sky-300"
                           : "bg-accent-soft text-accent-text",
                       )}
                     >
@@ -76,7 +76,7 @@ export function FreightModes() {
                     <span
                       className={cn(
                         "font-display text-small tabular-nums",
-                        dark ? "text-sky-300" : "text-ink-500",
+                        dark ? "text-sky-100" : "text-ink-500",
                       )}
                     >
                       {String(index + 1).padStart(2, "0")}
@@ -89,7 +89,7 @@ export function FreightModes() {
                   <p
                     className={cn(
                       "mt-3 max-w-[38ch] text-small",
-                      dark ? "text-ivory-100" : "text-ink-700",
+                      dark ? "text-sky-100" : "text-ink-700",
                     )}
                   >
                     {mode.body}
@@ -99,7 +99,7 @@ export function FreightModes() {
                     className={cn(
                       "mt-auto flex items-center gap-2 border-t pt-5 text-micro font-semibold uppercase",
                       dark
-                        ? "border-ivory-50/25 text-sky-300"
+                        ? "border-white/25 text-sky-100"
                         : "border-ink-900/15 text-accent-text",
                     )}
                   >

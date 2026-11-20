@@ -1,9 +1,11 @@
 import type { Metadata, Viewport } from "next";
 import { Fraunces, Hanken_Grotesk } from "next/font/google";
 
+import { SeasonalLogoScript } from "@/components/brand/seasonal-logo-script";
 import { Footer } from "@/components/layout/footer";
 import { Header } from "@/components/layout/header";
 import { WhatsAppFab } from "@/components/layout/whatsapp-fab";
+import { MotionProvider } from "@/components/providers/motion-provider";
 import { site } from "@/config/site";
 import { siteImages } from "@/content/images";
 import { defaultTitle } from "@/lib/metadata";
@@ -82,14 +84,21 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
-  themeColor: "#fbf7ee",
+  themeColor: "#ffffff",
   colorScheme: "light",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en-NG" className={`${fraunces.variable} ${hanken.variable}`}>
+    <html
+      lang="en-NG"
+      className={`${fraunces.variable} ${hanken.variable}`}
+      suppressHydrationWarning
+    >
       <body className="flex min-h-svh flex-col bg-surface text-ink">
+        {/* Sets the seasonal logo before the body paints. Must stay first. */}
+        <SeasonalLogoScript />
+
         {/* Scroll reveals start transparent. Without JS they must be readable. */}
         <noscript>
           <style>{`[data-reveal]{opacity:1!important;transform:none!important}`}</style>
@@ -101,14 +110,22 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
 
         <div aria-hidden="true" className="grain-overlay" />
 
-        <Header />
+        <MotionProvider>
+          <Header />
 
-        <main id="main" tabIndex={-1} className="flex-1 outline-none">
-          {children}
-        </main>
+          {/* The header is fixed and opaque from the first pixel, so the page
+              starts below it rather than underneath it. */}
+          <main
+            id="main"
+            tabIndex={-1}
+            className="flex-1 pt-[var(--header-h)] outline-none"
+          >
+            {children}
+          </main>
 
-        <Footer />
-        <WhatsAppFab />
+          <Footer />
+          <WhatsAppFab />
+        </MotionProvider>
 
         <script
           type="application/ld+json"

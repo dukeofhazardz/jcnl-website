@@ -1,7 +1,6 @@
 import { ArrowDownRight } from "lucide-react";
 
 import { HeroCarousel } from "@/components/carousel/hero-carousel";
-import { AccentScope } from "@/components/sections/accent-scope";
 import { Less20Section } from "@/components/sections/tours/less20-section";
 import { Tour360Section } from "@/components/sections/tours/tour360-section";
 import { TourEnquiry } from "@/components/sections/tours/tour-enquiry";
@@ -29,15 +28,14 @@ export default function VisaAndToursPage() {
   const meta = pageMeta.tours;
 
   return (
-    <AccentScope accent={meta.accent}>
+    <>
       <HeroCarousel
         slides={heroSlides.tours}
         eyebrow={meta.eyebrow}
         label={meta.label}
-        accent={meta.accent}
       />
 
-      <Section tone="ivory" topDivider="arch" spacing="md">
+      <Section tone="white" topDivider="arch" spacing="md">
         <Container>
           <div className="grid gap-10 lg:grid-cols-12 lg:gap-12">
             <div className="lg:col-span-7">
@@ -100,6 +98,6 @@ export default function VisaAndToursPage() {
       <TourTimelineSection />
       <TourGallery />
       <TourEnquiry />
-    </AccentScope>
+    </>
   );
 }

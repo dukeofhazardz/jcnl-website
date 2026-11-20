@@ -3,7 +3,7 @@ import { extendTailwindMerge } from "tailwind-merge";
 
 /**
  * tailwind-merge does not know the project's font-size tokens, so it treated
- * `text-display-2` and `text-ivory-50` as the same class group and dropped the
+ * `text-display-2` and `text-white` as the same class group and dropped the
  * size. Registering the custom scale keeps size and colour independent.
  */
 const twMerge = extendTailwindMerge({

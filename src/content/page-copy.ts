@@ -1,4 +1,3 @@
-import type { AccentKey } from "@/config/site";
 import { site } from "@/config/site";
 import type { HeroPageKey } from "@/content/slides";
 
@@ -7,8 +6,6 @@ export type PageMeta = {
   label: string;
   /** Small overline above the hero headline. */
   eyebrow: string;
-  /** Page accent, applied through <AccentScope>. */
-  accent: AccentKey;
 };
 
 /**
@@ -19,47 +16,38 @@ export const pageMeta: Record<HeroPageKey, PageMeta> = {
   home: {
     label: "JCNL",
     eyebrow: `Established ${site.established}, Lagos, Nigeria`,
-    accent: "tours",
   },
   about: {
     label: "About",
     eyebrow: "The company",
-    accent: "brand",
   },
   tours: {
     label: "Visa & Tours",
     eyebrow: "Visa & Tours",
-    accent: "tours",
   },
   business: {
     label: "Business Services",
     eyebrow: "Business Services",
-    accent: "business",
   },
   freight: {
     label: "Cargo & Freight",
     eyebrow: "Cargo & Freight",
-    accent: "freight",
   },
   farms: {
     label: "Integrated Farms",
     eyebrow: "Integrated Farms",
-    accent: "farms",
   },
   engineering: {
     label: "Engineering",
     eyebrow: "Engineering",
-    accent: "engineering",
   },
   realestate: {
     label: "Real Estate",
     eyebrow: "Real Estate",
-    accent: "realestate",
   },
   contact: {
     label: "Contact",
     eyebrow: "Contact",
-    accent: "brand",
   },
 };
 

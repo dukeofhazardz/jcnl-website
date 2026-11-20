@@ -1,5 +1,4 @@
 import { HeroCarousel } from "@/components/carousel/hero-carousel";
-import { AccentScope } from "@/components/sections/accent-scope";
 import { FarmEnquiry } from "@/components/sections/farms/farm-enquiry";
 import { FarmFacilities } from "@/components/sections/farms/farm-facilities";
 import { FarmLocation } from "@/components/sections/farms/farm-location";
@@ -20,12 +19,11 @@ export default function IntegratedFarmsPage() {
   const meta = pageMeta.farms;
 
   return (
-    <AccentScope accent={meta.accent}>
+    <>
       <HeroCarousel
         slides={heroSlides.farms}
         eyebrow={meta.eyebrow}
         label={meta.label}
-        accent={meta.accent}
       />
 
       <FarmStory />
@@ -33,6 +31,6 @@ export default function IntegratedFarmsPage() {
       <FarmValues />
       <FarmLocation />
       <FarmEnquiry />
-    </AccentScope>
+    </>
   );
 }

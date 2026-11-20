@@ -26,7 +26,7 @@ export function TourTimelineSection() {
   return (
     <Section
       id="how-tour360-works"
-      tone="ivory"
+      tone="white"
       topDivider="arch"
       spacing="md"
       labelledBy="tour360-steps-heading"
@@ -80,7 +80,7 @@ export function TourTimelineSection() {
                   >
                     <span
                       aria-hidden="true"
-                      className="absolute left-0 top-1 flex h-6 w-6 items-center justify-center rounded-full border-2 border-accent-strong bg-ivory-50"
+                      className="absolute left-0 top-1 flex h-6 w-6 items-center justify-center rounded-full border-2 border-accent-strong bg-white"
                     >
                       <span className="h-1.5 w-1.5 rounded-full bg-accent-strong" />
                     </span>

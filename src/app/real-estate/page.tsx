@@ -8,7 +8,6 @@
  * real record.
  */
 import { HeroCarousel } from "@/components/carousel/hero-carousel";
-import { AccentScope } from "@/components/sections/accent-scope";
 import { EnquiryBand } from "@/components/sections/enquiry-band";
 import { PropertyExplorer } from "@/components/sections/realestate/property-explorer";
 import { RealEstateIntro } from "@/components/sections/realestate/real-estate-intro";
@@ -43,19 +42,18 @@ export default function RealEstatePage() {
   const itemList = realEstateItemListJsonLd(getPublishedProperties());
 
   return (
-    <AccentScope accent={meta.accent}>
+    <>
       <HeroCarousel
         slides={heroSlides.realestate}
         eyebrow={meta.eyebrow}
         label={meta.label}
-        accent={meta.accent}
       />
 
       <RealEstateIntro />
 
       <Section
         id="properties"
-        tone="sand"
+        tone="tint"
         topDivider="dune"
         spacing="md"
         labelledBy="properties-heading"
@@ -96,7 +94,6 @@ export default function RealEstatePage() {
         body={realEstatePage.cta.body}
         whatsappLabel={realEstatePage.cta.whatsappLabel}
         whatsappMessage={realEstatePage.cta.whatsappMessage}
-        textTone="ivory"
         headingId="real-estate-cta"
       />
 
@@ -106,6 +103,6 @@ export default function RealEstatePage() {
           dangerouslySetInnerHTML={{ __html: jsonLdString(itemList) }}
         />
       ) : null}
-    </AccentScope>
+    </>
   );
 }

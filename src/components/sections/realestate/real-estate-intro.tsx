@@ -15,7 +15,7 @@ const copy = realEstatePage.intro;
 export function RealEstateIntro() {
   return (
     <Section
-      tone="ivory"
+      tone="white"
       topDivider="arch"
       spacing="md"
       labelledBy="real-estate-intro"

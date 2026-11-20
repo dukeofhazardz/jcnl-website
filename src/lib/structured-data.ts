@@ -13,7 +13,7 @@ export function organizationJsonLd(): Record<string, unknown> {
     name: site.name,
     alternateName: site.shortName,
     url: site.url,
-    logo: new URL(site.logo.black.src, site.url).toString(),
+    logo: new URL(site.logo.main.src, site.url).toString(),
     slogan: site.tagline,
     foundingDate: String(site.established),
     description: site.description,

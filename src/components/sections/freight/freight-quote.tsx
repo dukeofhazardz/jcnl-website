@@ -154,12 +154,12 @@ function Field({
         aria-invalid={error ? true : undefined}
         aria-describedby={error ? errorId : undefined}
         className={cn(
-          "mt-2 h-12 w-full rounded-xs border bg-ivory-50 px-3 text-small text-ink-900 placeholder:text-ink-500/80 transition-colors duration-200 hover:border-ink-900/40 disabled:opacity-60",
-          error ? "border-terracotta-600" : "border-ink-900/25",
+          "mt-2 h-12 w-full rounded-xs border bg-white px-3 text-small text-ink-900 placeholder:text-ink-500/80 transition-colors duration-200 hover:border-ink-900/40 disabled:opacity-60",
+          error ? "border-red-600" : "border-ink-900/25",
         )}
       />
       {error ? (
-        <p id={errorId} className="mt-1.5 text-small text-terracotta-600">
+        <p id={errorId} className="mt-1.5 text-small text-red-600">
           {error}
         </p>
       ) : null}
@@ -246,7 +246,7 @@ export function FreightQuote() {
   return (
     <Section
       id="quote"
-      tone="sand"
+      tone="tint"
       spacing="md"
       labelledBy={headingId}
     >
@@ -277,7 +277,7 @@ export function FreightQuote() {
 
           <div className="lg:col-span-8">
             <Reveal delay={0.06}>
-              <div className="rounded-md border border-ink-900/15 bg-ivory-50 p-6 sm:p-8">
+              <div className="rounded-md border border-ink-900/15 bg-white p-6 sm:p-8">
                 <p aria-live="polite" className="sr-only">
                   {status === "submitting" ? "Sending your request." : ""}
                 </p>
@@ -301,7 +301,7 @@ export function FreightQuote() {
                       <Button
                         href={whatsappHref(buildMessage(values))}
                         external
-                        variant="dark"
+                        variant="secondary"
                         icon={
                           <MessageCircle
                             aria-hidden="true"
@@ -457,7 +457,7 @@ export function FreightQuote() {
                         {errors.mode ? (
                           <p
                             id={`${base}-mode-error`}
-                            className="mt-2 text-small text-terracotta-600"
+                            className="mt-2 text-small text-red-600"
                           >
                             {errors.mode}
                           </p>
@@ -468,13 +468,13 @@ export function FreightQuote() {
                     {status === "error" ? (
                       <p
                         role="alert"
-                        className="mt-6 flex items-start gap-2 rounded-xs border border-terracotta-600/50 bg-terracotta-600/10 p-3 text-small text-ink-900"
+                        className="mt-6 flex items-start gap-2 rounded-xs border border-red-600/50 bg-red-600/10 p-3 text-small text-ink-900"
                       >
                         <AlertCircle
                           aria-hidden="true"
                           size={17}
                           strokeWidth={1.75}
-                          className="mt-0.5 shrink-0 text-terracotta-600"
+                          className="mt-0.5 shrink-0 text-red-600"
                         />
                         {freightQuote.error}
                       </p>

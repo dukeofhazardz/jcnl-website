@@ -13,7 +13,7 @@ import type { AnchorHTMLAttributes } from "react";
 import { cn } from "@/lib/cn";
 import { usePrefersReducedMotion } from "@/lib/use-prefers-reduced-motion";
 
-type ButtonVariant = "primary" | "dark" | "ghost" | "slate";
+type ButtonVariant = "primary" | "secondary" | "ink" | "ghost";
 type ButtonSize = "sm" | "md" | "lg";
 
 type ButtonProps = {
@@ -39,13 +39,15 @@ const sizes: Record<ButtonSize, string> = {
 };
 
 const variants: Record<ButtonVariant, string> = {
+  /** White on sky-700 measures 5.26:1. */
   primary:
-    "bg-saffron-500 text-ink-900 hover:bg-saffron-400 hover:shadow-soft",
-  dark: "bg-jungle-950 text-ivory-50 hover:bg-jungle-800 hover:shadow-soft",
-  /** Slate reads as the engineering page's own ink on the amber band. */
-  slate: "bg-slate-900 text-ivory-50 hover:bg-slate-700 hover:shadow-soft",
+    "bg-sky-700 text-white hover:bg-sky-800 hover:shadow-soft",
+  /** The red accent, white text at 6.09:1. */
+  secondary: "bg-red-600 text-white hover:bg-red-700 hover:shadow-soft",
+  /** Deep ink, for the rare feature band. */
+  ink: "bg-ink-950 text-white hover:bg-ink-800 hover:shadow-soft",
   ghost:
-    "border border-current/25 bg-transparent text-current hover:border-current/60",
+    "border border-sky-700/35 bg-transparent text-sky-800 hover:border-sky-700/70 hover:bg-sky-50",
 };
 
 /**

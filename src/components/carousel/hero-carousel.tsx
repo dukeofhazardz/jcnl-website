@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import {
   useCallback,
@@ -17,7 +17,7 @@ import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
 import { SmartImage } from "@/components/ui/smart-image";
 import { Eyebrow } from "@/components/ui/typography";
-import type { AccentKey } from "@/config/site";
+
 import { heroImage } from "@/content/images";
 import type { Slide } from "@/content/slides";
 import { cn } from "@/lib/cn";
@@ -39,8 +39,6 @@ type HeroCarouselProps = {
   eyebrow: string;
   /** Accessible name for the region, e.g. "Visa & Tours". */
   label: string;
-  /** Page accent. Applied locally so the hero is themed even outside a page scope. */
-  accent: AccentKey;
   className?: string;
 };
 
@@ -56,7 +54,6 @@ export function HeroCarousel({
   slides,
   eyebrow,
   label,
-  accent,
   className,
 }: HeroCarouselProps) {
   const count = slides.length;
@@ -66,6 +63,17 @@ export function HeroCarousel({
   const [hovered, setHovered] = useState(false);
   const [focused, setFocused] = useState(false);
   const [hasNavigated, setHasNavigated] = useState(false);
+
+  /**
+   * Slides whose photograph has been mounted. Slides that have not been seen
+   * yet render no image at all: six full-width photographs on a phone put the
+   * first one seconds behind on a slow connection, and the carousel only ever
+   * crossfades between neighbours. The current slide and the one after it are
+   * always mounted; every slide visited stays mounted so going back is instant.
+   */
+  const [mountedSlides, setMountedSlides] = useState<readonly number[]>(() =>
+    count > 1 ? [0, 1] : [0],
+  );
 
   const tabHidden = useDocumentHidden();
   const reduceMotion = usePrefersReducedMotion();
@@ -108,10 +116,17 @@ export function HeroCarousel({
   const goNext = useCallback(() => goTo(index + 1), [goTo, index]);
   const goPrev = useCallback(() => goTo(index - 1), [goTo, index]);
 
+  // Keep the current slide and its neighbour mounted; nothing else loads.
+  useEffect(() => {
+    setMountedSlides((prev) => {
+      const next = count > 1 ? [index, (index + 1) % count] : [index];
+      return next.every((item) => prev.includes(item)) ? prev : [...prev, ...next];
+    });
+  }, [index, count]);
+
   // Autoplay clock. The timeout carries the remaining time across a pause, and
   // the CSS progress animation is paused with it, so the two stay in step.
-  useEffect(() => {
-    if (!playing) return;
+  useEffect(() => {    if (!playing) return;
 
     startedAt.current = performance.now();
     const remaining = Math.max(300, ROTATE_MS - elapsed.current);
@@ -258,9 +273,8 @@ export function HeroCarousel({
       role="region"
       aria-roledescription="carousel"
       aria-label={`${label} highlights`}
-      data-accent={accent}
       className={cn(
-        "relative isolate flex min-h-[88svh] touch-pan-y flex-col overflow-hidden bg-field text-ivory-50 focus-visible:outline-2 focus-visible:-outline-offset-4 focus-visible:outline-accent-bright",
+        "relative isolate flex min-h-[calc(100svh-var(--header-h))] touch-pan-y flex-col overflow-hidden bg-field text-white focus-visible:outline-2 focus-visible:-outline-offset-4 focus-visible:outline-sky-300",
         className,
       )}
       onPointerDown={handlePointerDown}
@@ -283,13 +297,15 @@ export function HeroCarousel({
       onClickCapture={handleClickCapture}
       onDragStart={(event) => event.preventDefault()}
     >
-      {/* Media layer. Every slide stays mounted so the next image is already
-          decoded when the carousel reaches it. */}
+      {/* Media layer. Slide wrappers stay mounted so the crossfade can run,
+          but photographs are only fetched for the current slide and the next
+          one (see `mountedSlides`). */}
       <div className="absolute inset-0">
         {slides.map((item, itemIndex) => {
           const asset = heroImage(item.image);
           const state =
             itemIndex === index ? "center" : itemIndex < index ? "left" : "right";
+          const mounted = mountedSlides.includes(itemIndex);
 
           return (
             <motion.div
@@ -311,19 +327,21 @@ export function HeroCarousel({
                 className="hero-zoom absolute inset-0"
                 style={{ animationPlayState: playing ? "running" : "paused" }}
               >
-                <SmartImage
-                  src={item.image}
-                  alt={item.alt}
-                  subject={asset?.subject ?? item.alt}
-                  role="HERO"
-                  width={asset?.width ?? 1920}
-                  height={asset?.height ?? 1080}
-                  sizes="100vw"
-                  priority={itemIndex === 0}
-                  fill
-                  variant="background"
-                  className="absolute inset-0"
-                />
+                {mounted ? (
+                  <SmartImage
+                    src={item.image}
+                    alt={item.alt}
+                    subject={asset?.subject ?? item.alt}
+                    role="HERO"
+                    width={asset?.width ?? 1920}
+                    height={asset?.height ?? 1080}
+                    sizes="100vw"
+                    priority={itemIndex === 0}
+                    fill
+                    variant="background"
+                    className="absolute inset-0"
+                  />
+                ) : null}
               </div>
             </motion.div>
           );
@@ -338,7 +356,7 @@ export function HeroCarousel({
       </p>
 
       <div className="relative z-10 mt-auto w-full">
-        <Container className="pb-10 pt-[calc(var(--header-h)+3.5rem)] sm:pb-14 sm:pt-[calc(var(--header-h)+5rem)]">
+        <Container className="pb-10 pt-16 sm:pb-14 sm:pt-24">
           <div className="max-w-[56rem]">
             <Eyebrow tone="light">{eyebrow}</Eyebrow>
 
@@ -369,7 +387,7 @@ export function HeroCarousel({
                 </div>
                 <motion.h1
                   variants={textItem}
-                  className="max-w-[19ch] font-display text-display-2 text-ivory-50 [grid-area:1/1]"
+                  className="max-w-[19ch] font-display text-display-2 text-white [grid-area:1/1]"
                 >
                   <span className="sr-only">{label}: </span>
                   {slide.headline}
@@ -389,7 +407,7 @@ export function HeroCarousel({
                 </div>
                 <motion.p
                   variants={textItem}
-                  className="max-w-[46ch] text-lead text-ivory-100/85 [grid-area:1/1]"
+                  className="max-w-[46ch] text-lead text-sky-100/85 [grid-area:1/1]"
                 >
                   {slide.sub}
                 </motion.p>
@@ -423,7 +441,7 @@ export function HeroCarousel({
                     external={slide.secondaryCta.external}
                     variant="ghost"
                     size="lg"
-                    className="border-ivory-50/40 text-ivory-50 hover:border-ivory-50/75 hover:bg-ivory-50/10"
+                    className="border-white/40 text-white hover:border-white/75 hover:bg-white/10"
                     icon={
                       slide.secondaryCta.external ? (
                         <MessageCircle
@@ -448,11 +466,11 @@ export function HeroCarousel({
             </motion.div>
           </div>
 
-          <div className="mt-10 flex flex-col gap-4 border-t border-ivory-50/25 pt-4 sm:mt-12 sm:flex-row sm:items-center sm:justify-between">
+          <div className="mt-10 flex flex-col gap-4 border-t border-white/25 pt-4 sm:mt-12 sm:flex-row sm:items-center sm:justify-between">
             <div className="flex items-center justify-between gap-5 sm:justify-start">
-              <p className="text-micro tabular-nums text-ivory-100/75">
+              <p className="text-micro tabular-nums text-sky-100/75">
                 {counter}
-                <span className="text-ivory-100/50"> / {total}</span>
+                <span className="text-sky-100/50"> / {total}</span>
               </p>
 
               <div role="group" aria-label="Choose slide" className="flex items-center">
@@ -476,8 +494,8 @@ export function HeroCarousel({
                         className={cn(
                           "h-1.5 rounded-full transition-colors duration-200 ease-strong",
                           current
-                            ? "w-5 bg-accent-bright"
-                            : "w-1.5 bg-ivory-50/45 hover-fine:group-hover/dot:bg-ivory-50/85",
+                            ? "w-5 bg-sky-300"
+                            : "w-1.5 bg-white/45 hover-fine:group-hover/dot:bg-white/85",
                         )}
                       />
                     </button>
@@ -494,7 +512,7 @@ export function HeroCarousel({
                   releasePointerFocus(event);
                 }}
                 aria-label="Previous slide"
-                className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-ivory-50/30 text-ivory-50 transition-colors duration-200 hover-fine:border-ivory-50/70 hover-fine:bg-ivory-50/10"
+                className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/30 text-white transition-colors duration-200 hover-fine:border-white/70 hover-fine:bg-white/10"
               >
                 <ChevronLeft aria-hidden="true" size={18} strokeWidth={1.75} />
               </button>
@@ -505,7 +523,7 @@ export function HeroCarousel({
                   releasePointerFocus(event);
                 }}
                 aria-label="Next slide"
-                className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-ivory-50/30 text-ivory-50 transition-colors duration-200 hover-fine:border-ivory-50/70 hover-fine:bg-ivory-50/10"
+                className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/30 text-white transition-colors duration-200 hover-fine:border-white/70 hover-fine:bg-white/10"
               >
                 <ChevronRight aria-hidden="true" size={18} strokeWidth={1.75} />
               </button>
@@ -513,7 +531,7 @@ export function HeroCarousel({
                 type="button"
                 onClick={() => setIntent(userPaused ? "play" : "pause")}
                 aria-label={userPaused ? "Play slideshow" : "Pause slideshow"}
-                className="ml-1 inline-flex h-11 w-11 items-center justify-center rounded-full border border-ivory-50/30 text-ivory-50 transition-colors duration-200 hover-fine:border-ivory-50/70 hover-fine:bg-ivory-50/10 motion-reduce:hidden"
+                className="ml-1 inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/30 text-white transition-colors duration-200 hover-fine:border-white/70 hover-fine:bg-white/10 motion-reduce:hidden"
               >
                 {userPaused ? (
                   <Play aria-hidden="true" size={16} strokeWidth={1.75} />
@@ -529,11 +547,11 @@ export function HeroCarousel({
       {/* Time to the next slide. Decorative: the pause control carries the state. */}
       <div
         aria-hidden="true"
-        className="absolute inset-x-0 bottom-0 z-20 h-[3px] overflow-hidden bg-ivory-50/20 motion-reduce:hidden"
+        className="absolute inset-x-0 bottom-0 z-20 h-[3px] overflow-hidden bg-white/20 motion-reduce:hidden"
       >
         <div
           key={index}
-          className="hero-progress-fill h-full w-full bg-accent-bright"
+          className="hero-progress-fill h-full w-full bg-sky-300"
           style={{ animationPlayState: playing ? "running" : "paused" }}
         />
       </div>

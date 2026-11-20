@@ -30,12 +30,12 @@ export function WhatsAppFab() {
             target="_blank"
             rel="noreferrer noopener"
             aria-label="Chat with JCNL on WhatsApp (opens in a new tab)"
-            className="group relative inline-flex h-14 w-14 items-center justify-center rounded-full bg-cta-600 text-ivory-50 shadow-float transition-[background-color,transform] duration-200 ease-strong hover:bg-cta-500 active:scale-[0.96] motion-reduce:active:scale-100"
+            className="group relative inline-flex h-14 w-14 items-center justify-center rounded-full bg-sky-700 text-white shadow-float transition-[background-color,transform] duration-200 ease-strong hover:bg-sky-800 active:scale-[0.96] motion-reduce:active:scale-100"
           >
             <MessageCircle aria-hidden="true" size={24} strokeWidth={1.6} />
             <span
               aria-hidden="true"
-              className="pointer-events-none absolute right-full mr-3 hidden whitespace-nowrap rounded-xs bg-ivory-50 px-3 py-2 text-[0.8125rem] font-medium text-ink-900 opacity-0 shadow-float transition-opacity duration-200 group-hover:opacity-100 group-focus-visible:opacity-100 md:block"
+              className="pointer-events-none absolute right-full mr-3 hidden whitespace-nowrap rounded-xs bg-white px-3 py-2 text-[0.8125rem] font-medium text-ink-900 opacity-0 shadow-float transition-opacity duration-200 group-hover:opacity-100 group-focus-visible:opacity-100 md:block"
             >
               WhatsApp us
             </span>

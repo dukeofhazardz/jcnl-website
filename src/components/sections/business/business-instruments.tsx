@@ -22,7 +22,7 @@ export function BusinessInstruments() {
   return (
     <Section
       id="instruments"
-      tone="ivory"
+      tone="white"
       spacing="md"
       labelledBy={headingId}
     >

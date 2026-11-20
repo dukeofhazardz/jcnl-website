@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
-import { AccentScope } from "@/components/sections/accent-scope";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Container } from "@/components/ui/container";
@@ -12,8 +11,6 @@ import { Section } from "@/components/ui/section";
 import { SmartImage } from "@/components/ui/smart-image";
 import { Eyebrow, Heading } from "@/components/ui/typography";
 import { styleguideImages } from "@/content/images";
-import { accentKeys } from "@/content/styleguide-tokens";
-import type { AccentKey } from "@/config/site";
 
 export const metadata: Metadata = {
   title: "Styleguide",
@@ -24,67 +21,63 @@ type Swatch = { name: string; value: string };
 
 const palette: { group: string; swatches: Swatch[] }[] = [
   {
-    group: "Ground",
+    group: "Ground & tints",
     swatches: [
-      { name: "ivory-50", value: "#fbf7ee" },
-      { name: "ivory-100", value: "#f6efe1" },
-      { name: "ivory-200", value: "#ede3d1" },
-      { name: "sand-300", value: "#dfd2bc" },
-      { name: "sand-400", value: "#c9b79c" },
+      { name: "white", value: "#ffffff" },
+      { name: "sky-50", value: "#eff9fe" },
+      { name: "sky-100", value: "#d9f1fd" },
+      { name: "mist-50", value: "#f6f9fb" },
+      { name: "mist-100", value: "#eef3f7" },
+    ],
+  },
+  {
+    group: "Sky (brand structure)",
+    swatches: [
+      { name: "sky-200", value: "#b6e5fb" },
+      { name: "sky-300", value: "#7ad3f8" },
+      { name: "sky-500 · logo", value: "#00bafc" },
+      { name: "sky-700 · text", value: "#0072ab" },
+      { name: "sky-900", value: "#0b3f5c" },
+    ],
+  },
+  {
+    group: "Red accent",
+    swatches: [
+      { name: "red-50", value: "#fdf1f1" },
+      { name: "red-500", value: "#d71920" },
+      { name: "red-600", value: "#b31217" },
+      { name: "red-700", value: "#8f0d12" },
+    ],
+  },
+  {
+    group: "Gold, sparing",
+    swatches: [
+      { name: "gold-300", value: "#e8cf8a" },
+      { name: "gold-400", value: "#d4af4a" },
+      { name: "gold-600 · text", value: "#8a6a14" },
     ],
   },
   {
     group: "Ink",
     swatches: [
-      { name: "ink-900", value: "#15130f" },
-      { name: "ink-800", value: "#221e18" },
-      { name: "ink-700", value: "#3a342b" },
-      { name: "ink-500", value: "#6b6154" },
+      { name: "ink-950", value: "#061826" },
+      { name: "ink-900", value: "#0b1f2e" },
+      { name: "ink-700", value: "#23404f" },
+      { name: "ink-500", value: "#556b78" },
     ],
   },
-  {
-    group: "Jungle & teal",
-    swatches: [
-      { name: "jungle-950", value: "#0a241c" },
-      { name: "jungle-900", value: "#0e2e23" },
-      { name: "jungle-800", value: "#12402f" },
-      { name: "jungle-700", value: "#17503b" },
-      { name: "teal-900", value: "#0b3b3b" },
-    ],
-  },
-  {
-    group: "Laterite & saffron",
-    swatches: [
-      { name: "terracotta-600", value: "#b0562f" },
-      { name: "terracotta-500", value: "#c0663a" },
-      { name: "clay-500", value: "#a85b3c" },
-      { name: "saffron-500", value: "#d9a03c" },
-      { name: "saffron-400", value: "#e7b455" },
-      { name: "saffron-300", value: "#f2c878" },
-      { name: "gold-400", value: "#c9a227" },
-    ],
-  },
-  {
-    group: "Farms, freight, engineering",
-    swatches: [
-      { name: "leaf-600", value: "#4e7a3a" },
-      { name: "leaf-700", value: "#3f6630" },
-      { name: "navy-900", value: "#102e4a" },
-      { name: "navy-800", value: "#163c5c" },
-      { name: "sky-400", value: "#7fb2c6" },
-      { name: "sky-300", value: "#a9cddb" },
-      { name: "slate-900", value: "#1b2027" },
-      { name: "slate-700", value: "#3a4450" },
-      { name: "amber-500", value: "#e0a21b" },
-    ],
-  },
-  {
-    group: "Action",
-    swatches: [
-      { name: "cta-600", value: "#0e7a44" },
-      { name: "cta-500", value: "#128c4a" },
-    ],
-  },
+];
+
+const contrastPairs = [
+  { pair: "ink-950 on white", value: "18.00:1", use: "Body and headings" },
+  { pair: "ink-500 on white", value: "5.58:1", use: "Secondary text" },
+  { pair: "sky-700 on white", value: "5.26:1", use: "Links and small UI" },
+  { pair: "white on sky-700", value: "5.26:1", use: "Primary button" },
+  { pair: "ink-950 on sky-500", value: "8.08:1", use: "Accent band copy" },
+  { pair: "white on red-600", value: "6.09:1", use: "Secondary button" },
+  { pair: "red-600 on white", value: "6.09:1", use: "Status text" },
+  { pair: "gold-600 on white", value: "5.06:1", use: "Gold text" },
+  { pair: "sky-500 on white", value: "2.23:1", use: "Graphics only, never text" },
 ];
 
 const typeScale = [
@@ -92,10 +85,22 @@ const typeScale = [
   { token: "display-2", className: "text-display-2", sample: "Logistics, farms, freight." },
   { token: "display-3", className: "text-display-3", sample: "Established 2003" },
   { token: "title", className: "text-title", sample: "Two offices, one company" },
-  { token: "lead", className: "text-lead", sample: "A lead paragraph opens a section and sets the reading rhythm." },
-  { token: "body", className: "text-body", sample: "Body copy carries the detail. It is set at a comfortable measure." },
-  { token: "small", className: "text-small", sample: "Small copy for supporting notes and captions." },
-  { token: "micro", className: "text-micro font-semibold uppercase", sample: "Micro · eyebrow label" },
+  {
+    token: "lead",
+    className: "text-lead",
+    sample: "A lead paragraph opens a section and sets the reading rhythm.",
+  },
+  {
+    token: "body",
+    className: "text-body",
+    sample: "Body copy carries the detail. It is set at a comfortable measure.",
+  },
+  { token: "small", className: "text-small", sample: "Small copy for supporting notes." },
+  {
+    token: "micro",
+    className: "text-micro font-semibold uppercase",
+    sample: "Micro · eyebrow label",
+  },
 ];
 
 const motionTokens = [
@@ -113,10 +118,10 @@ function SwatchGrid({ group, swatches }: { group: string; swatches: Swatch[] }) 
         {swatches.map((swatch) => (
           <li key={swatch.name}>
             <span
-              className="block h-16 rounded-sm border border-ink-900/10"
+              className="block h-16 rounded-sm border border-ink-950/10"
               style={{ backgroundColor: swatch.value }}
             />
-            <span className="mt-2 block text-[0.75rem] font-medium text-ink-900">
+            <span className="mt-2 block text-[0.75rem] font-medium text-ink-950">
               {swatch.name}
             </span>
             <span className="block text-[0.6875rem] uppercase tracking-[0.09em] text-ink-500">
@@ -136,26 +141,28 @@ export default function StyleguidePage() {
   }
 
   return (
-    <div className="pb-section">
-      {/* Dark band so the transparent header stays legible, same as every page. */}
-      <section className="relative isolate overflow-hidden bg-field pb-12 pt-[calc(var(--header-h)+3.5rem)] text-ivory-50">
+    <div className="bg-white pb-section">
+      <section className="relative isolate overflow-hidden border-b border-line bg-white py-16">
         <GeometricPattern
           variant="lattice"
-          className="absolute inset-0 -z-10 text-[var(--accent-soft)] opacity-[0.07]"
+          className="absolute inset-0 -z-10 text-sky-500 opacity-[0.07]"
         />
         <Container>
-          <Eyebrow tone="light">Development only</Eyebrow>
-          <Heading as="h1" size="lg" className="mt-5 text-ivory-50">
+          <Logo size="md" />
+          <Eyebrow className="mt-8">Development only</Eyebrow>
+          <Heading as="h1" size="lg" className="mt-5 text-ink-950">
             Styleguide
           </Heading>
-          <p className="mt-5 max-w-[54ch] text-lead text-ivory-100/75">
-            Tokens, type, motion and components used across the JCNL site. This
-            route is excluded from search and returns 404 in production.
+          <p className="mt-5 max-w-[54ch] text-lead text-ink-700">
+            Tokens, type, motion and components used across the JCNL site. One
+            palette: white surfaces, sky-blue structure, red accents, sparing
+            gold. This route is excluded from search and returns 404 in
+            production.
           </p>
         </Container>
       </section>
 
-      <Section tone="ivory" spacing="sm" className="border-b border-ink-900/10">
+      <Section tone="white" spacing="sm" className="border-b border-line">
         <Container>
           <Eyebrow>Colour</Eyebrow>
           <Heading as="h2" size="md" className="mt-4">
@@ -169,63 +176,45 @@ export default function StyleguidePage() {
         </Container>
       </Section>
 
-      <Section tone="ivory" spacing="sm">
+      <Section tone="white" spacing="sm">
         <Container>
-          <Eyebrow>Accents</Eyebrow>
+          <Eyebrow>Contrast</Eyebrow>
           <Heading as="h2" size="md" className="mt-4">
-            Per-page accent variables
+            Checked pairings
           </Heading>
-          <p className="mt-4 max-w-[60ch] text-small text-ink-500">
-            Set <code className="font-mono text-[0.85em]">data-accent</code> on a
-            page wrapper. Semantic utilities resolve from the runtime variables.
+          <p className="mt-4 max-w-[62ch] text-small text-ink-500">
+            WCAG AA needs 4.5:1 for body text and 3:1 for large text and UI.
+            Logo sky on white is a graphic colour only; text uses the deeper
+            steps.
           </p>
-
-          <div className="mt-9 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {accentKeys.map((key: AccentKey) => (
-              <AccentScope key={key} accent={key}>
-                <div className="overflow-hidden rounded-md border border-ink-900/10">
-                  <div className="flex h-24 items-end justify-between bg-accent p-4">
-                    <span className="text-micro font-semibold uppercase text-[var(--accent-ink)]">
-                      {key}
-                    </span>
-                    <span className="text-micro text-[var(--accent-ink)] opacity-70">
-                      accent
-                    </span>
-                  </div>
-                  <div className="space-y-2 bg-[var(--surface-raised)] p-4">
-                    <p className="text-small font-medium text-accent-text">
-                      Accent text on surface
-                    </p>
-                    <div className="flex items-center gap-2">
-                      <span className="h-6 flex-1 rounded-xs bg-[var(--field)]" />
-                      <span className="h-6 flex-1 rounded-xs bg-accent-soft" />
-                    </div>
-                    <p className="text-[0.6875rem] uppercase tracking-[0.09em] text-ink-500">
-                      field · accent-soft
-                    </p>
-                  </div>
-                </div>
-              </AccentScope>
+          <dl className="mt-8 divide-y divide-line border-y border-line">
+            {contrastPairs.map((row) => (
+              <div
+                key={row.pair}
+                className="grid grid-cols-[1fr_auto] gap-x-6 gap-y-1 py-3 text-small sm:grid-cols-[1.4fr_0.6fr_1fr]"
+              >
+                <dt className="font-medium text-ink-950">{row.pair}</dt>
+                <dd className="tabular-nums text-sky-700">{row.value}</dd>
+                <dd className="col-span-2 text-ink-500 sm:col-span-1">{row.use}</dd>
+              </div>
             ))}
-          </div>
+          </dl>
         </Container>
       </Section>
 
-      <Section tone="sand" spacing="sm" topDivider="arch">
+      <Section tone="tint" spacing="sm" topDivider="arch">
         <Container>
           <Eyebrow>Typography</Eyebrow>
           <Heading as="h2" size="md" className="mt-4">
             Type scale
           </Heading>
-          <div className="mt-9 divide-y divide-ink-900/10 border-y border-ink-900/10">
+          <div className="mt-9 divide-y divide-ink-950/10 border-y border-ink-950/10">
             {typeScale.map((item) => (
               <div
                 key={item.token}
                 className="grid gap-3 py-6 md:grid-cols-[8rem_1fr] md:gap-8"
               >
-                <span className="text-micro uppercase text-ink-500">
-                  {item.token}
-                </span>
+                <span className="text-micro uppercase text-ink-500">{item.token}</span>
                 <p
                   className={
                     item.token.startsWith("display")
@@ -241,17 +230,18 @@ export default function StyleguidePage() {
         </Container>
       </Section>
 
-      <Section tone="ivory" spacing="sm">
+      <Section tone="white" spacing="sm">
         <Container>
           <Eyebrow>Components</Eyebrow>
           <Heading as="h2" size="md" className="mt-4">
             Buttons
           </Heading>
 
-          <div className="mt-8 grid gap-8 rounded-md border border-ink-900/10 p-6 sm:p-8">
+          <div className="mt-8 grid gap-8 rounded-md border border-line p-6 sm:p-8">
             <div className="flex flex-wrap items-center gap-3">
               <Button variant="primary">Primary</Button>
-              <Button variant="dark">Dark</Button>
+              <Button variant="secondary">Secondary</Button>
+              <Button variant="ink">Ink</Button>
               <Button variant="ghost">Ghost</Button>
             </div>
             <div className="flex flex-wrap items-center gap-3">
@@ -269,17 +259,17 @@ export default function StyleguidePage() {
             Logo
           </Heading>
           <div className="mt-8 grid gap-4 sm:grid-cols-2">
-            <div className="flex min-h-40 items-center justify-center rounded-md bg-jungle-950 p-8">
-              <Logo variant="cream" size="md" />
+            <div className="flex min-h-40 items-center justify-center rounded-md border border-line bg-white p-8">
+              <Logo size="md" />
             </div>
-            <div className="flex min-h-40 items-center justify-center rounded-md border border-ink-900/10 bg-ivory-50 p-8">
-              <Logo variant="black" size="md" />
+            <div className="flex min-h-40 items-center justify-center rounded-md border border-line bg-white p-8">
+              <Logo size="lg" />
             </div>
           </div>
           <p className="mt-4 max-w-[62ch] text-small text-ink-500">
-            One artwork, two colourways. Cream belongs on dark or photographic
-            grounds; black on ivory. The header cross-fades between them without
-            changing the image source or the layout.
+            One artwork, always on white. A seasonal Christmas file replaces it
+            from 20 November to 14 January in Lagos time, selected before first
+            paint by a small inline script.
           </p>
 
           <Heading as="h2" size="md" className="mt-14">
@@ -296,21 +286,17 @@ export default function StyleguidePage() {
             <Card tone="raised" interactive className="p-6">
               <p className="text-micro uppercase text-ink-500">Raised</p>
               <p className="mt-3 font-display text-title">Service card</p>
-              <p className="mt-2 text-small text-ink-500">
-                Slightly brighter ground.
-              </p>
+              <p className="mt-2 text-small text-ink-500">White on white.</p>
             </Card>
-            <Card tone="sand" className="p-6">
-              <p className="text-micro uppercase text-ink-500">Sand</p>
+            <Card tone="tint" className="p-6">
+              <p className="text-micro uppercase text-ink-500">Tint</p>
               <p className="mt-3 font-display text-title">Static card</p>
               <p className="mt-2 text-small text-ink-500">No hover state.</p>
             </Card>
             <Card tone="ink" className="p-6">
-              <p className="text-micro uppercase text-ivory-100/65">Jungle</p>
-              <p className="mt-3 font-display text-title text-ivory-50">
-                Dark card
-              </p>
-              <p className="mt-2 text-small text-ivory-100/70">
+              <p className="text-micro uppercase text-white/65">Ink</p>
+              <p className="mt-3 font-display text-title text-white">Dark card</p>
+              <p className="mt-2 text-small text-white/70">
                 Used inside light sections.
               </p>
             </Card>
@@ -347,22 +333,20 @@ export default function StyleguidePage() {
         </Container>
       </Section>
 
-      <Section tone="jungle" spacing="sm" topDivider="wave">
+      <Section tone="ink" spacing="sm" topDivider="wave">
         <Container>
           <Eyebrow tone="light">Motion</Eyebrow>
-          <Heading as="h2" size="md" className="mt-4 text-ivory-50">
+          <Heading as="h2" size="md" className="mt-4 text-white">
             Timing
           </Heading>
           <dl className="mt-8 grid gap-4 sm:grid-cols-2">
             {motionTokens.map((token) => (
               <div
                 key={token.name}
-                className="flex items-baseline justify-between gap-4 border-b border-ivory-50/15 pb-3"
+                className="flex items-baseline justify-between gap-4 border-b border-white/15 pb-3"
               >
-                <dt className="text-small text-ivory-100/70">{token.name}</dt>
-                <dd className="font-mono text-[0.75rem] text-saffron-300">
-                  {token.value}
-                </dd>
+                <dt className="text-small text-white/70">{token.name}</dt>
+                <dd className="font-mono text-[0.75rem] text-sky-300">{token.value}</dd>
               </div>
             ))}
           </dl>
@@ -370,7 +354,7 @@ export default function StyleguidePage() {
           <div className="mt-10">
             <Eyebrow tone="light">Reveal</Eyebrow>
             <Reveal className="mt-4 max-w-[46ch]">
-              <p className="text-body text-ivory-100/80">
+              <p className="text-body text-white/80">
                 This block animates in once on scroll: 22px rise, 620ms, soft
                 ease-out. It renders statically under reduced motion.
               </p>
@@ -379,7 +363,7 @@ export default function StyleguidePage() {
         </Container>
       </Section>
 
-      <Section tone="ivory" spacing="sm">
+      <Section tone="white" spacing="sm">
         <Container>
           <Eyebrow>Dividers</Eyebrow>
           <Heading as="h2" size="md" className="mt-4">
@@ -393,36 +377,36 @@ export default function StyleguidePage() {
         </Container>
       </Section>
 
-      <Section tone="sand" spacing="sm" topDivider="arch">
+      <Section tone="tint" spacing="sm" topDivider="arch">
         <Container className="flex flex-wrap items-baseline justify-between gap-x-8 gap-y-2">
-          <p className="font-display text-title text-ink-900">arch</p>
+          <p className="font-display text-title text-ink-950">arch</p>
           <p className="max-w-[46ch] text-small text-ink-700">
             A single wide arc. Used where a light band meets the page.
           </p>
         </Container>
       </Section>
 
-      <Section tone="ivory" spacing="sm" topDivider="dune">
+      <Section tone="white" spacing="sm" topDivider="dune">
         <Container className="flex flex-wrap items-baseline justify-between gap-x-8 gap-y-2">
-          <p className="font-display text-title text-ink-900">dune</p>
+          <p className="font-display text-title text-ink-950">dune</p>
           <p className="max-w-[46ch] text-small text-ink-700">
             A shallow asymmetric crest. Used between two light bands.
           </p>
         </Container>
       </Section>
 
-      <Section tone="sand" spacing="sm" topDivider="blade">
+      <Section tone="mist" spacing="sm" topDivider="blade">
         <Container className="flex flex-wrap items-baseline justify-between gap-x-8 gap-y-2">
-          <p className="font-display text-title text-ink-900">blade</p>
+          <p className="font-display text-title text-ink-950">blade</p>
           <p className="max-w-[46ch] text-small text-ink-700">
             A long diagonal cut. The sharpest of the four.
           </p>
         </Container>
       </Section>
 
-      <Section tone="ivory" spacing="sm" topDivider="wave">
+      <Section tone="white" spacing="sm" topDivider="wave">
         <Container className="flex flex-wrap items-baseline justify-between gap-x-8 gap-y-2">
-          <p className="font-display text-title text-ink-900">wave</p>
+          <p className="font-display text-title text-ink-950">wave</p>
           <p className="max-w-[46ch] text-small text-ink-700">
             A soft double curve. Used before dark, patterned fields.
           </p>

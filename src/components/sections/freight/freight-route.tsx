@@ -13,10 +13,10 @@ import { usePrefersReducedMotion } from "@/lib/use-prefers-reduced-motion";
 const headingId = "freight-route-heading";
 
 /**
- * The route line. On desktop a navy band carries one horizontal path that is
- * drawn by scroll progress; the four stations sit on the line. On a phone the
- * same stations run down a vertical rail. Motion only touches pathLength, which
- * the browser paints, and reduced motion shows the full line.
+ * The route line. On desktop a deep ink band carries one horizontal path that
+ * is drawn by scroll progress; the four stations sit on the line. On a phone
+ * the same stations run down a vertical rail. Motion only touches pathLength,
+ * which the browser paints, and reduced motion shows the full line.
  */
 export function FreightRoute() {
   const listRef = useRef<HTMLDivElement>(null);
@@ -30,7 +30,7 @@ export function FreightRoute() {
   return (
     <Section
       id="how-it-moves"
-      tone="accent"
+      tone="ink"
       spacing="md"
       labelledBy={headingId}
     >
@@ -38,7 +38,7 @@ export function FreightRoute() {
         <div className="grid gap-8 lg:grid-cols-12 lg:items-end lg:gap-12">
           <div className="lg:col-span-8">
             <Reveal>
-              <Eyebrow tone="ivory">{freightSteps.eyebrow}</Eyebrow>
+              <Eyebrow tone="light">{freightSteps.eyebrow}</Eyebrow>
               <Heading
                 as="h2"
                 size="lg"
@@ -51,7 +51,7 @@ export function FreightRoute() {
           </div>
           <div className="lg:col-span-4">
             <Reveal delay={0.06}>
-              <p className="max-w-[34ch] text-small text-ivory-100 lg:ml-auto">
+              <p className="max-w-[34ch] text-small text-white/75 lg:ml-auto">
                 {freightSteps.intro}
               </p>
             </Reveal>
@@ -95,11 +95,11 @@ export function FreightRoute() {
                     single run from step one to step four. */}
                 <span
                   aria-hidden="true"
-                  className="absolute left-0 top-1.5 -bottom-8 w-px bg-ivory-50/25 group-last:hidden md:hidden"
+                  className="absolute left-0 top-1.5 -bottom-8 w-px bg-white/25 group-last:hidden md:hidden"
                 />
                 <span
                   aria-hidden="true"
-                  className="absolute left-[-5px] top-1.5 h-2.5 w-2.5 rounded-full bg-sky-300 md:relative md:left-auto md:top-auto md:mb-5 md:block md:h-3 md:w-3 md:ring-8 md:ring-[var(--accent)]"
+                  className="absolute left-[-5px] top-1.5 h-2.5 w-2.5 rounded-full bg-sky-300 md:relative md:left-auto md:top-auto md:mb-5 md:block md:h-3 md:w-3 md:ring-8 md:ring-ink-950"
                 />
                 <p className="text-micro font-semibold uppercase text-sky-300">
                   Step {String(index + 1).padStart(2, "0")}
@@ -107,7 +107,7 @@ export function FreightRoute() {
                 <h3 className="mt-2 font-display text-title leading-tight">
                   {step.title}
                 </h3>
-                <p className="mt-2 max-w-[30ch] text-small text-ivory-100">
+                <p className="mt-2 max-w-[30ch] text-small text-white/75">
                   {step.body}
                 </p>
               </li>

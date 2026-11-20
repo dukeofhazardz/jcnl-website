@@ -17,7 +17,7 @@ export function Tour360Section() {
   return (
     <Section
       id={product.id}
-      tone="sand"
+      tone="tint"
       topDivider="dune"
       spacing="md"
       labelledBy={`${product.id}-heading`}
@@ -26,7 +26,7 @@ export function Tour360Section() {
         <div className="grid gap-10 lg:grid-cols-12 lg:items-start lg:gap-12">
           <div className="order-2 lg:col-span-5 lg:order-2">
             <Reveal>
-              <Parallax className="aspect-4/5 overflow-hidden rounded-md bg-jungle-950">
+              <Parallax className="aspect-4/5 overflow-hidden rounded-md bg-ink-950">
                 <SmartImage
                   src={product.image?.src}
                   alt={product.alt ?? ""}

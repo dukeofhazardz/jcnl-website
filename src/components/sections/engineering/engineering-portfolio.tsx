@@ -21,7 +21,7 @@ export function EngineeringPortfolio() {
   return (
     <Section
       id="projects"
-      tone="ivory"
+      tone="white"
       spacing="md"
       labelledBy={headingId}
     >
@@ -56,7 +56,7 @@ export function EngineeringPortfolio() {
             return (
               <li key={image.src}>
                 <Reveal delay={Math.min(index * 0.05, 0.25)}>
-                  <article className="group flex h-full flex-col overflow-hidden rounded-md border border-ink-900/15 bg-ivory-50">
+                  <article className="group flex h-full flex-col overflow-hidden rounded-md border border-ink-900/15 bg-white">
                     <div className="relative aspect-4/3 overflow-hidden">
                       <SmartImage
                         src={image.src}

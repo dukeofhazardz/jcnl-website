@@ -39,7 +39,7 @@ export function PropertyCard({ property }: { property: Property }) {
       interactive
       className="group h-full border border-line"
     >
-      <div className="relative aspect-4/3 overflow-hidden bg-jungle-950">
+      <div className="relative aspect-4/3 overflow-hidden bg-ink-950">
         <SmartImage
           src={image?.src}
           alt={image?.alt ?? property.title}
@@ -59,7 +59,7 @@ export function PropertyCard({ property }: { property: Property }) {
               "rounded-xs px-2 py-1 text-micro font-semibold uppercase",
               available
                 ? "bg-accent text-accent-ink"
-                : "bg-saffron-500 text-ink-900",
+                : "bg-red-600 text-white",
             )}
           >
             {propertyStatusLabels[property.status]}
@@ -67,8 +67,8 @@ export function PropertyCard({ property }: { property: Property }) {
         </div>
 
         {property.isPlaceholder ? (
-          <div className="pointer-events-none absolute inset-x-0 bottom-0 flex justify-end bg-linear-to-t from-jungle-950/60 to-transparent p-3">
-            <span className="rounded-xs border border-accent-text/30 bg-ivory-50/95 px-2 py-1 text-micro font-semibold uppercase text-accent-text">
+          <div className="pointer-events-none absolute inset-x-0 bottom-0 flex justify-end bg-linear-to-t from-ink-950/60 to-transparent p-3">
+            <span className="rounded-xs border border-sky-700/30 bg-white px-2 py-1 text-micro font-semibold uppercase text-sky-700">
               {realEstatePage.detail.sampleBadge}
             </span>
           </div>

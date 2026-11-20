@@ -18,7 +18,7 @@ const headingId = "farm-location-heading";
  */
 export function FarmLocation() {
   return (
-    <Section tone="ivory" spacing="md" labelledBy={headingId}>
+    <Section tone="white" spacing="md" labelledBy={headingId}>
       <Container>
         <div className="grid gap-10 lg:grid-cols-12 lg:gap-12">
           <div className="lg:col-span-6 lg:pr-6">
@@ -62,13 +62,13 @@ export function FarmLocation() {
 
           <div className="lg:col-span-6">
             <Reveal delay={0.06}>
-              <div className="overflow-hidden rounded-md border border-ink-900/15 bg-ivory-50">
+              <div className="overflow-hidden rounded-md border border-ink-900/15 bg-white">
                 <div className="relative h-40 bg-accent-soft/70 sm:h-48">
                   <GeometricPattern
                     variant="lattice"
-                    className="absolute inset-0 text-clay-500 opacity-25"
+                    className="absolute inset-0 text-red-600 opacity-25"
                   />
-                  <span className="absolute left-1/2 top-1/2 flex h-12 w-12 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-clay-500 text-ivory-50 ring-8 ring-clay-500/15">
+                  <span className="absolute left-1/2 top-1/2 flex h-12 w-12 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-red-600 text-white ring-8 ring-red-600/15">
                     <MapPin aria-hidden="true" size={22} strokeWidth={1.75} />
                   </span>
                 </div>
@@ -92,7 +92,7 @@ export function FarmLocation() {
                     <Button
                       href={mapsHref(farm.query)}
                       external
-                      variant="dark"
+                      variant="secondary"
                       icon={
                         <ArrowUpRight
                           aria-hidden="true"

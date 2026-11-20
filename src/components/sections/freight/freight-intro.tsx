@@ -10,7 +10,7 @@ const headingId = "freight-platform-heading";
 export function FreightIntro() {
   return (
     <Section
-      tone="ivory"
+      tone="white"
       topDivider="arch"
       spacing="md"
       labelledBy={headingId}

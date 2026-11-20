@@ -18,7 +18,7 @@ export function PropertyNavigation({
   if (!previous && !next) return null;
 
   return (
-    <nav aria-label={copy.listingNavLabel} className="bg-ivory-50">
+    <nav aria-label={copy.listingNavLabel} className="bg-white">
       <Container>
         <div className="grid gap-px overflow-hidden border-t border-ink-900/12 sm:grid-cols-2 sm:gap-0">
           {previous ? (

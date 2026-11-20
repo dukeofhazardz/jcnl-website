@@ -44,7 +44,7 @@ export function PropertyDetail({ property }: { property: Property }) {
 
   return (
     <Section
-      tone="ivory"
+      tone="white"
       topDivider="arch"
       spacing="md"
       labelledBy="property-about"

@@ -86,7 +86,7 @@ export default function TourLightbox({
 
   return createPortal(
     <motion.div
-      className="fixed inset-0 z-[130] flex items-center justify-center bg-jungle-950/95 p-4 sm:p-8"
+      className="fixed inset-0 z-[130] flex items-center justify-center bg-ink-950/95 p-4 sm:p-8"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
@@ -108,7 +108,7 @@ export default function TourLightbox({
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.3, ease: EASE_OUT_STRONG }}
         >
-          <div className="relative aspect-16/10 w-full overflow-hidden rounded-md bg-jungle-900">
+          <div className="relative aspect-16/10 w-full overflow-hidden rounded-md bg-ink-900">
             <SmartImage
               src={item.image.src}
               alt={item.alt}
@@ -124,12 +124,12 @@ export default function TourLightbox({
 
           <div className="mt-4 flex flex-wrap items-start justify-between gap-4">
             <div>
-              <p className="font-display text-title text-ivory-50">
+              <p className="font-display text-title text-white">
                 {item.caption}
               </p>
-              <p className="mt-1 text-small text-ivory-100/75">{item.detail}</p>
+              <p className="mt-1 text-small text-sky-100/75">{item.detail}</p>
             </div>
-            <p className="text-micro uppercase text-ivory-100/65">
+            <p className="text-micro uppercase text-sky-100/65">
               {index + 1} / {items.length}
             </p>
           </div>
@@ -141,7 +141,7 @@ export default function TourLightbox({
               type="button"
               onClick={() => step(-1)}
               aria-label="Previous image"
-              className="flex h-11 w-11 items-center justify-center rounded-sm border border-ivory-50/30 text-ivory-50 transition-colors duration-200 hover:border-ivory-50/70 hover:bg-ivory-50/10"
+              className="flex h-11 w-11 items-center justify-center rounded-sm border border-white/30 text-white transition-colors duration-200 hover:border-white/70 hover:bg-white/10"
             >
               <ChevronLeft aria-hidden="true" size={20} strokeWidth={1.75} />
             </button>
@@ -149,7 +149,7 @@ export default function TourLightbox({
               type="button"
               onClick={() => step(1)}
               aria-label="Next image"
-              className="flex h-11 w-11 items-center justify-center rounded-sm border border-ivory-50/30 text-ivory-50 transition-colors duration-200 hover:border-ivory-50/70 hover:bg-ivory-50/10"
+              className="flex h-11 w-11 items-center justify-center rounded-sm border border-white/30 text-white transition-colors duration-200 hover:border-white/70 hover:bg-white/10"
             >
               <ChevronRight aria-hidden="true" size={20} strokeWidth={1.75} />
             </button>
@@ -160,9 +160,9 @@ export default function TourLightbox({
             type="button"
             onClick={onClose}
             className={cn(
-              "inline-flex h-11 items-center gap-2 rounded-sm border border-ivory-50/30 px-4",
-              "text-small font-semibold text-ivory-50 transition-colors duration-200",
-              "hover:border-ivory-50/70 hover:bg-ivory-50/10",
+              "inline-flex h-11 items-center gap-2 rounded-sm border border-white/30 px-4",
+              "text-small font-semibold text-white transition-colors duration-200",
+              "hover:border-white/70 hover:bg-white/10",
             )}
           >
             <X aria-hidden="true" size={18} strokeWidth={1.75} />

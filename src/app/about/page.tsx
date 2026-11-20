@@ -10,7 +10,6 @@ import { AboutMission } from "@/components/sections/about/about-mission";
 import { AboutOffices } from "@/components/sections/about/about-offices";
 import { AboutServices } from "@/components/sections/about/about-services";
 import { AboutStory } from "@/components/sections/about/about-story";
-import { AccentScope } from "@/components/sections/accent-scope";
 import { EnquiryBand } from "@/components/sections/enquiry-band";
 import { pageMeta } from "@/content/page-copy";
 import { heroSlides } from "@/content/slides";
@@ -28,12 +27,11 @@ export default function AboutPage() {
   const meta = pageMeta.about;
 
   return (
-    <AccentScope accent={meta.accent}>
+    <>
       <HeroCarousel
         slides={heroSlides.about}
         eyebrow={meta.eyebrow}
         label={meta.label}
-        accent={meta.accent}
       />
 
       <AboutStory />
@@ -48,6 +46,6 @@ export default function AboutPage() {
         whatsappLabel={aboutPage.enquiry.whatsappLabel}
         whatsappMessage={aboutPage.enquiry.whatsappMessage}
       />
-    </AccentScope>
+    </>
   );
 }

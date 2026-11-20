@@ -32,7 +32,7 @@ const icons: Record<EngineeringCapabilityIcon, LucideIcon> = {
 export function EngineeringCapabilities() {
   return (
     <Section
-      tone="ivory"
+      tone="white"
       topDivider="arch"
       spacing="md"
       labelledBy={headingId}
@@ -66,7 +66,7 @@ export function EngineeringCapabilities() {
             const Icon = icons[item.id];
 
             return (
-              <li key={item.id} className="bg-ivory-50">
+              <li key={item.id} className="bg-white">
                 <Reveal
                   delay={Math.min(index * 0.05, 0.2)}
                   className="h-full"

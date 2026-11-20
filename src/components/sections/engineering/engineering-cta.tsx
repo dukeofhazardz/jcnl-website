@@ -12,9 +12,9 @@ import { engineeringCta } from "@/content/engineering";
 const headingId = "engineering-cta-heading";
 
 /**
- * Closing band on the amber ground. Amber carries ink-900 at 8.26:1, so every
- * label and rule here is ink. The slate button is the page's own ink; the ghost
- * button takes currentColor, which is also ink.
+ * Closing band on the sky field. Sky-500 carries ink-950 at 8.08:1, so every
+ * label and rule here is ink. The ink button is the page's own weight; the
+ * ghost button takes inline ink colours.
  */
 export function EngineeringCta() {
   const officeList = offices.map((office) => office.city).join(" and ");
@@ -49,7 +49,7 @@ export function EngineeringCta() {
                 <Button
                   href={whatsappHref(engineeringCta.whatsappMessage)}
                   external
-                  variant="slate"
+                  variant="ink"
                   size="lg"
                   icon={
                     <MessageCircle

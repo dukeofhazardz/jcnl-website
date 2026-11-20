@@ -20,7 +20,7 @@ export function SimilarProperties({
 
   return (
     <Section
-      tone="sand"
+      tone="tint"
       topDivider="dune"
       spacing="md"
       labelledBy="similar-properties"

@@ -8,40 +8,11 @@ import { Section } from "@/components/ui/section";
 import { Eyebrow, Heading } from "@/components/ui/typography";
 import { contact, whatsappHref } from "@/config/site";
 
-type BandTextTone = "ink" | "ivory";
-
 /**
- * Two text tones, because the band sits on the page accent: saffron carries
- * ink, leaf carries ivory. Both pairings are checked against WCAG AA. The
- * contact block is identical in every tone, so the numbers cannot drift
- * between pages.
- */
-const tones = {
-  ink: {
-    eyebrow: "ink",
-    body: "text-ink-800",
-    rule: "border-ink-900/30",
-    rowRule: "border-ink-900/20",
-    label: "text-ink-800",
-    button: "dark",
-    ghost:
-      "border-ink-900/45 text-ink-900 hover:border-ink-900/70 hover:bg-ink-900/5",
-  },
-  ivory: {
-    eyebrow: "ivory",
-    body: "text-ivory-100",
-    rule: "border-ivory-50/30",
-    rowRule: "border-ivory-50/20",
-    label: "text-ivory-100",
-    button: "primary",
-    ghost:
-      "border-ivory-50/45 text-ivory-50 hover:border-ivory-50/80 hover:bg-ivory-50/10",
-  },
-} as const;
-
-/**
- * Closing band for a service page. Two real actions on the left, the contact
- * details on the right, and nothing that looks like a form.
+ * Closing band for a service page. It sits on the sky field, so all text is
+ * deep ink (ink-950 on sky-500 is 8.08:1) and the red button is the one
+ * saturated accent. Two real actions on the left, contact details on the
+ * right, nothing that looks like a form.
  */
 export function EnquiryBand({
   eyebrow,
@@ -49,7 +20,6 @@ export function EnquiryBand({
   body,
   whatsappLabel,
   whatsappMessage,
-  textTone = "ink",
   headingId,
 }: {
   eyebrow: string;
@@ -57,29 +27,19 @@ export function EnquiryBand({
   body: string;
   whatsappLabel: string;
   whatsappMessage: string;
-  textTone?: BandTextTone;
   headingId?: string;
 }) {
-  const tone = tones[textTone];
-
   return (
     <Section tone="accent" spacing="md" labelledBy={headingId}>
       <Container>
         <div className="grid gap-10 lg:grid-cols-12 lg:gap-12">
           <div className="lg:col-span-7">
             <Reveal>
-              <Eyebrow tone={tone.eyebrow}>{eyebrow}</Eyebrow>
-              <Heading
-                as="h2"
-                size="lg"
-                id={headingId}
-                className="mt-5 max-w-[18ch]"
-              >
+              <Eyebrow tone="ink">{eyebrow}</Eyebrow>
+              <Heading as="h2" size="lg" id={headingId} className="mt-5 max-w-[18ch]">
                 {heading}
               </Heading>
-              <p className={`mt-6 max-w-[46ch] text-lead ${tone.body}`}>
-                {body}
-              </p>
+              <p className="mt-6 max-w-[46ch] text-lead text-ink-900">{body}</p>
             </Reveal>
 
             <Reveal delay={0.08}>
@@ -87,7 +47,7 @@ export function EnquiryBand({
                 <Button
                   href={whatsappHref(whatsappMessage)}
                   external
-                  variant={tone.button}
+                  variant="secondary"
                   size="lg"
                   icon={
                     <MessageCircle
@@ -104,7 +64,7 @@ export function EnquiryBand({
                   href={contact.phone.href}
                   variant="ghost"
                   size="lg"
-                  className={tone.ghost}
+                  className="border-ink-950/35 text-ink-950 hover:border-ink-950/70 hover:bg-ink-950/5"
                   icon={<Phone aria-hidden="true" size={17} strokeWidth={1.75} />}
                   iconPosition="start"
                 >
@@ -116,11 +76,9 @@ export function EnquiryBand({
 
           <div className="lg:col-span-5">
             <Reveal delay={0.1}>
-              <dl className={`border-t pt-6 text-small ${tone.rule}`}>
+              <dl className="border-t border-ink-950/25 pt-6 text-small">
                 <div className="flex flex-col gap-1 py-3 sm:flex-row sm:items-baseline sm:justify-between">
-                  <dt className={`text-micro uppercase ${tone.label}`}>
-                    WhatsApp / Call
-                  </dt>
+                  <dt className="text-micro uppercase text-ink-800">WhatsApp / Call</dt>
                   <dd>
                     <a
                       href={whatsappHref()}
@@ -133,10 +91,8 @@ export function EnquiryBand({
                     </a>
                   </dd>
                 </div>
-                <div
-                  className={`flex flex-col gap-1 border-t py-3 sm:flex-row sm:items-baseline sm:justify-between ${tone.rowRule}`}
-                >
-                  <dt className={`text-micro uppercase ${tone.label}`}>Call</dt>
+                <div className="flex flex-col gap-1 border-t border-ink-950/20 py-3 sm:flex-row sm:items-baseline sm:justify-between">
+                  <dt className="text-micro uppercase text-ink-800">Call</dt>
                   <dd>
                     <a
                       href={contact.phone.href}
@@ -146,10 +102,8 @@ export function EnquiryBand({
                     </a>
                   </dd>
                 </div>
-                <div
-                  className={`flex flex-col gap-1 border-t py-3 sm:flex-row sm:items-baseline sm:justify-between ${tone.rowRule}`}
-                >
-                  <dt className={`text-micro uppercase ${tone.label}`}>Email</dt>
+                <div className="flex flex-col gap-1 border-t border-ink-950/20 py-3 sm:flex-row sm:items-baseline sm:justify-between">
+                  <dt className="text-micro uppercase text-ink-800">Email</dt>
                   <dd>
                     <a
                       href={contact.email.href}
@@ -159,10 +113,8 @@ export function EnquiryBand({
                     </a>
                   </dd>
                 </div>
-                <div
-                  className={`flex flex-col gap-1 border-t py-3 sm:flex-row sm:items-baseline sm:justify-between ${tone.rowRule}`}
-                >
-                  <dt className={`text-micro uppercase ${tone.label}`}>Details</dt>
+                <div className="flex flex-col gap-1 border-t border-ink-950/20 py-3 sm:flex-row sm:items-baseline sm:justify-between">
+                  <dt className="text-micro uppercase text-ink-800">Details</dt>
                   <dd>
                     <Link
                       href="/contact"

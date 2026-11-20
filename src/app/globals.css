@@ -9,49 +9,45 @@
    --------------------------------------------------------------------------- */
 
 @theme {
-  /* Palette: warm ivory ground, jungle ink, laterite, saffron. */
-  --color-ivory-50: #fbf7ee;
-  --color-ivory-100: #f6efe1;
-  --color-ivory-200: #ede3d1;
-  --color-sand-300: #dfd2bc;
-  --color-sand-400: #c9b79c;
+  /* One palette for the whole site: white ground, sky-blue structure, red
+     accent, a little gold. Sampled from the logo: the letter fill is
+     #01BAFC, so sky-500 is that exact pixel value. The orbit ring runs from
+     #FC0000 to #970000; red-500 is the brand mid-tone, red-600/700 are the
+     deeper text-safe steps. */
+  --color-sky-50: #eff9fe;
+  --color-sky-100: #d9f1fd;
+  --color-sky-200: #b6e5fb;
+  --color-sky-300: #7ad3f8;
+  --color-sky-400: #35c4f8;
+  --color-sky-500: #00bafc;
+  --color-sky-600: #0093d4;
+  --color-sky-700: #0072ab;
+  --color-sky-800: #075a85;
+  --color-sky-900: #0b3f5c;
+  --color-sky-950: #06283a;
 
-  --color-ink-900: #15130f;
-  --color-ink-800: #221e18;
-  --color-ink-700: #3a342b;
-  --color-ink-500: #6b6154;
+  --color-red-50: #fdf1f1;
+  --color-red-100: #fbdcdd;
+  --color-red-400: #ef5350;
+  --color-red-500: #d71920;
+  --color-red-600: #b31217;
+  --color-red-700: #8f0d12;
 
-  --color-jungle-950: #0a241c;
-  --color-jungle-900: #0e2e23;
-  --color-jungle-800: #12402f;
-  --color-jungle-700: #17503b;
-  --color-teal-900: #0b3b3b;
+  --color-gold-300: #e8cf8a;
+  --color-gold-400: #d4af4a;
+  --color-gold-600: #8a6a14;
 
-  --color-terracotta-600: #b0562f;
-  --color-terracotta-500: #c0663a;
-  --color-clay-500: #a85b3c;
+  /* Cool, blue-tinted ink. Never warm. */
+  --color-ink-950: #061826;
+  --color-ink-900: #0b1f2e;
+  --color-ink-800: #142c3c;
+  --color-ink-700: #23404f;
+  --color-ink-500: #556b78;
 
-  --color-saffron-500: #d9a03c;
-  --color-saffron-400: #e7b455;
-  --color-saffron-300: #f2c878;
-
-  --color-gold-400: #c9a227;
-
-  --color-leaf-600: #4e7a3a;
-  --color-leaf-700: #3f6630;
-
-  --color-navy-900: #102e4a;
-  --color-navy-800: #163c5c;
-  --color-sky-400: #7fb2c6;
-  --color-sky-300: #a9cddb;
-
-  --color-slate-900: #1b2027;
-  --color-slate-700: #3a4450;
-  --color-amber-500: #e0a21b;
-
-  /* WhatsApp action colour, darkened so ivory text stays legible. */
-  --color-cta-600: #0e7a44;
-  --color-cta-500: #128c4a;
+  /* Soft grey secondary surface. */
+  --color-mist-50: #f6f9fb;
+  --color-mist-100: #eef3f7;
+  --color-mist-200: #e2eaf0;
 
   /* Type families are injected by next/font on <html>. */
   --font-sans: var(--font-hanken), ui-sans-serif, system-ui, sans-serif;
@@ -100,10 +96,10 @@
   --radius-lg: 12px;
   --radius-xl: 20px;
 
-  /* Warm-tinted elevation, used only on things that float. */
-  --shadow-lift: 0 18px 34px -26px rgb(21 19 15 / 0.5);
-  --shadow-float: 0 30px 60px -28px rgb(10 36 28 / 0.42);
-  --shadow-soft: 0 10px 24px -18px rgb(21 19 15 / 0.35);
+  /* Soft, cool elevation on white. */
+  --shadow-lift: 0 18px 34px -26px rgb(6 24 38 / 0.32);
+  --shadow-float: 0 30px 60px -28px rgb(6 24 38 / 0.28);
+  --shadow-soft: 0 10px 24px -18px rgb(6 24 38 / 0.24);
 
   /* Motion curves */
   --ease-strong: cubic-bezier(0.23, 1, 0.32, 1);
@@ -111,8 +107,7 @@
   --ease-in-out-soft: cubic-bezier(0.77, 0, 0.175, 1);
 }
 
-/* Semantic tokens resolve per element, so a page can change its accent
-   without regenerating utilities. */
+/* Semantic tokens resolve per element. */
 @theme inline {
   --color-surface: var(--surface);
   --color-surface-raised: var(--surface-raised);
@@ -134,22 +129,26 @@
    --------------------------------------------------------------------------- */
 
 :root {
-  --surface: var(--color-ivory-50);
-  --surface-raised: #fffdf7;
-  --surface-sunken: var(--color-ivory-100);
-  --ink: var(--color-ink-900);
+  --surface: #ffffff;
+  --surface-raised: #ffffff;
+  --surface-sunken: var(--color-mist-50);
+  --ink: var(--color-ink-950);
   --ink-muted: var(--color-ink-500);
-  --line: rgb(21 19 15 / 0.12);
+  --line: rgb(6 24 38 / 0.12);
 
-  /* Default accent = Tours: saffron with deep teal fields. */
-  --accent: var(--color-saffron-500);
-  --accent-strong: #b9812a;
-  --accent-text: #8a5a0e;
-  --accent-soft: #f4e4bf;
-  --accent-ink: var(--color-ink-900);
-  /* Accent that stays visible on a dark photographic field. */
-  --accent-bright: var(--color-saffron-400);
-  --field: var(--color-teal-900);
+  /* Sky is the structural brand colour. Accent text and white-on-blue
+     buttons use sky-700 (5.26:1); sky-500 (2.23:1 on white) is reserved
+     for fills, shapes, icons and dividers. */
+  --accent: var(--color-sky-500);
+  --accent-strong: var(--color-sky-700);
+  --accent-text: var(--color-sky-700);
+  --accent-soft: var(--color-sky-50);
+  /* Ink, not white: white on sky-500 is only 2.23:1. */
+  --accent-ink: var(--color-ink-950);
+  /* Stays visible on a dark photographic field. */
+  --accent-bright: var(--color-sky-300);
+  /* Backing field behind photography. */
+  --field: var(--color-ink-950);
 
   --page-max: 82.5rem;
   --header-h: 4.5rem;
@@ -159,82 +158,6 @@
   :root {
     --header-h: 5.5rem;
   }
-}
-
-/* Per-page accents. Set data-accent on the page wrapper. */
-[data-accent="tours"] {
-  --accent: var(--color-saffron-500);
-  --accent-strong: #b9812a;
-  --accent-text: #8a5a0e;
-  --accent-soft: #f4e4bf;
-  --accent-ink: var(--color-ink-900);
-  --accent-bright: var(--color-saffron-400);
-  --field: var(--color-teal-900);
-}
-
-[data-accent="farms"] {
-  --accent: var(--color-leaf-700);
-  --accent-strong: var(--color-leaf-600);
-  --accent-text: #3f6630;
-  --accent-soft: #e7ebd9;
-  --accent-ink: var(--color-ivory-50);
-  --accent-bright: #a9c98a;
-  --field: #2e4a24;
-}
-
-[data-accent="freight"] {
-  --accent: var(--color-navy-900);
-  --accent-strong: var(--color-navy-800);
-  --accent-text: #102e4a;
-  --accent-soft: #dde8ef;
-  --accent-ink: var(--color-ivory-50);
-  --accent-bright: var(--color-sky-300);
-  --field: #0a2237;
-}
-
-[data-accent="engineering"] {
-  --accent: var(--color-amber-500);
-  --accent-strong: #c98c12;
-  --accent-text: #7a5606;
-  --accent-soft: #f6e7c4;
-  --accent-ink: var(--color-ink-900);
-  --accent-bright: var(--color-amber-500);
-  --field: var(--color-slate-900);
-}
-
-[data-accent="business"] {
-  --accent: #123c2e;
-  --accent-strong: #1b5340;
-  --accent-text: #123c2e;
-  --accent-soft: #e3e9dc;
-  --accent-ink: var(--color-ivory-50);
-  /* The gold note is only legible on the deep green field (5.07:1), so it is
-     exposed as the bright variant and never used as text on ivory (2.26:1). */
-  --accent-bright: var(--color-gold-400);
-  --field: var(--color-jungle-950);
-}
-
-[data-accent="realestate"] {
-  /* Laterite. Ivory on the accent fill measures 5.19:1, accent-text on ivory
-     measures 6.45:1 and on accent-soft 5.47:1. The bright note is only used on
-     the deep jungle field (8.17:1). */
-  --accent: #a5502c;
-  --accent-strong: #8a4322;
-  --accent-text: #8f4526;
-  --accent-soft: #f1e3d4;
-  --accent-ink: var(--color-ivory-50);
-  --accent-bright: #eda878;
-  --field: var(--color-jungle-950);
-}
-
-[data-accent="brand"] {
-  --accent: var(--color-saffron-500);
-  --accent-strong: #b9812a;
-  --accent-text: #8a5a0e;
-  --accent-soft: #f4e4bf;
-  --accent-ink: var(--color-ink-900);
-  --accent-bright: var(--color-saffron-400);
-  --field: var(--color-jungle-950);
 }
 
 /* ---------------------------------------------------------------------------
@@ -272,7 +195,7 @@
   }
 
   :focus-visible {
-    outline: 2px solid currentColor;
+    outline: 2px solid var(--color-sky-700);
     outline-offset: 3px;
     border-radius: 1px;
   }
@@ -285,8 +208,8 @@
   }
 
   ::selection {
-    background-color: var(--accent);
-    color: var(--accent-ink);
+    background-color: var(--color-sky-500);
+    color: var(--color-ink-950);
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -332,11 +255,12 @@
     align-items: center;
     gap: 0.5rem;
     padding: 0.75rem 1.25rem;
-    background-color: var(--color-ivory-50);
-    color: var(--color-ink-900);
+    background-color: #ffffff;
+    color: var(--color-ink-950);
     font-size: var(--text-small);
     font-weight: 600;
     border-radius: var(--radius-sm);
+    border: 1px solid var(--color-sky-200);
     box-shadow: var(--shadow-float);
     transform: translateY(-160%);
     transition: transform 180ms var(--ease-strong);
@@ -346,44 +270,45 @@
     transform: translateY(0);
   }
 
-  /* Fine grain over the whole page. Fixed, so it does not scroll. */
+  /* Fine grain over the whole page. Fixed, so it does not scroll. Kept very
+     low on white so it reads as paper, not as noise. */
   .grain-overlay {
     position: fixed;
     inset: 0;
     z-index: 90;
     pointer-events: none;
-    opacity: 0.045;
+    opacity: 0.028;
     mix-blend-mode: multiply;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='0.6'/%3E%3C/svg%3E");
     background-size: 160px 160px;
   }
 
-  /* Legibility scrim for text over photography. */
+  /* Legibility scrim for text over photography. Deep ink, never green. */
   .scrim-photo {
     background-image: linear-gradient(
       to top,
-      rgb(10 36 28 / 0.82) 0%,
-      rgb(10 36 28 / 0.45) 38%,
-      rgb(10 36 28 / 0.12) 68%,
-      rgb(10 36 28 / 0.35) 100%
+      rgb(6 24 38 / 0.82) 0%,
+      rgb(6 24 38 / 0.45) 38%,
+      rgb(6 24 38 / 0.12) 68%,
+      rgb(6 24 38 / 0.35) 100%
     );
   }
 
   /* Hero scrim: heavy at the bottom-left where the copy sits, softer at the
-     top so the transparent header still reads over a bright photograph. */
+     top so the photograph still reads. */
   .scrim-hero {
     background-image:
       linear-gradient(
         to top,
-        rgb(6 18 14 / 0.93) 0%,
-        rgb(6 18 14 / 0.62) 30%,
-        rgb(6 18 14 / 0.18) 62%,
-        rgb(6 18 14 / 0.44) 100%
+        rgb(6 24 38 / 0.93) 0%,
+        rgb(6 24 38 / 0.62) 30%,
+        rgb(6 24 38 / 0.18) 62%,
+        rgb(6 24 38 / 0.44) 100%
       ),
       linear-gradient(
         to right,
-        rgb(6 18 14 / 0.55) 0%,
-        rgb(6 18 14 / 0.12) 55%,
+        rgb(6 24 38 / 0.55) 0%,
+        rgb(6 24 38 / 0.12) 55%,
         transparent 78%
       );
   }
@@ -392,6 +317,24 @@
     text-wrap: balance;
     text-wrap: pretty;
   }
+}
+
+/* ---------------------------------------------------------------------------
+   Seasonal logo
+   The inline script in the root layout writes data-seasonal-logo on <html>
+   before the body paints. Both files are in the DOM; only one is displayed,
+   so there is no source swap after hydration and no layout shift.
+   --------------------------------------------------------------------------- */
+.logo-seasonal__christmas {
+  display: none;
+}
+
+html[data-seasonal-logo="christmas"] .logo-seasonal__main {
+  display: none;
+}
+
+html[data-seasonal-logo="christmas"] .logo-seasonal__christmas {
+  display: block;
 }
 
 /* Hero carousel. The 6s progress animation must stay in step with ROTATE_MS
@@ -425,4 +368,3 @@
     animation: hero-ken-burns 9s var(--ease-soft) both;
   }
 }
-

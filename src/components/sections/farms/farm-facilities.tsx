@@ -60,7 +60,7 @@ export function FarmFacilities() {
   return (
     <Section
       id="farm-facilities"
-      tone="sand"
+      tone="tint"
       topDivider="dune"
       spacing="md"
       labelledBy={headingId}
@@ -114,7 +114,7 @@ export function FarmFacilities() {
                 className="group border-t border-ink-900/15 pt-4 sm:pt-5"
               >
                 <div className="grid grid-cols-[auto_1fr_auto] items-center gap-x-4 gap-y-3 sm:grid-cols-[1fr_auto] sm:items-start">
-                  <span className="col-start-1 row-start-1 flex h-10 w-10 shrink-0 items-center justify-center rounded-sm bg-accent-soft text-accent-text transition-colors duration-200 motion-safe:hover-fine:group-hover:bg-clay-500 motion-safe:hover-fine:group-hover:text-ivory-50 motion-reduce:transition-none sm:h-11 sm:w-11">
+                  <span className="col-start-1 row-start-1 flex h-10 w-10 shrink-0 items-center justify-center rounded-sm bg-accent-soft text-accent-text transition-colors duration-200 motion-safe:hover-fine:group-hover:bg-red-600 motion-safe:hover-fine:group-hover:text-white motion-reduce:transition-none sm:h-11 sm:w-11">
                     <Icon aria-hidden="true" size={20} strokeWidth={1.6} />
                   </span>
                   <span className="col-start-3 row-start-1 justify-self-end font-display text-small tabular-nums leading-none text-ink-500 sm:col-start-2 sm:row-start-1">

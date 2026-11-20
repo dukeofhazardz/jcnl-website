@@ -73,29 +73,27 @@ export function MobileMenu({ onClose }: { onClose: () => void }) {
       animate={{ opacity: 1 }}
       exit={reduceMotion ? undefined : { opacity: 0 }}
       transition={{ duration: 0.24, ease: [0.23, 1, 0.32, 1] }}
-      className="fixed inset-0 z-[70] flex flex-col overflow-y-auto overscroll-contain bg-jungle-950 text-ivory-50"
+      className="fixed inset-0 z-[70] flex flex-col overflow-y-auto overscroll-contain bg-white text-ink-950"
     >
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 opacity-[0.06] [background-image:repeating-linear-gradient(135deg,transparent_0_38px,var(--color-ivory-50)_38px_39px)]"
+        className="pointer-events-none absolute inset-0 opacity-[0.05] [background-image:repeating-linear-gradient(135deg,transparent_0_38px,var(--color-sky-500)_38px_39px)]"
       />
 
-      <div className="relative flex items-center justify-between px-gutter pt-5">
-        {/* The full-screen panel is dark, so the cream mark is the only logo
-            inside it. The header sits underneath at z-60 and is not visible. */}
-        <Logo variant="cream" size="md" onClick={onClose} />
+      <div className="relative flex items-center justify-between border-b border-line px-gutter py-4">
+        <Logo size="md" onClick={onClose} />
         <button
           ref={closeRef}
           type="button"
           onClick={onClose}
           aria-label="Close menu"
-          className="inline-flex h-11 w-11 items-center justify-center rounded-xs border border-ivory-50/20 text-ivory-50 transition-colors duration-200 ease-strong hover:border-ivory-50/50 hover:bg-ivory-50/5"
+          className="inline-flex h-11 w-11 items-center justify-center rounded-xs border border-ink-950/15 text-ink-900 transition-colors duration-200 ease-strong hover:border-sky-700/60 hover:bg-sky-50"
         >
           <X aria-hidden="true" size={20} strokeWidth={1.5} />
         </button>
       </div>
 
-      <nav aria-label="Primary" className="relative mt-8 flex-1 px-gutter">
+      <nav aria-label="Primary" className="relative mt-6 flex-1 px-gutter">
         <ul>
           {nav.map((item, index) => {
             const active =
@@ -117,15 +115,15 @@ export function MobileMenu({ onClose }: { onClose: () => void }) {
                         ease: [0.16, 1, 0.3, 1],
                       }
                 }
-                className="border-b border-ivory-50/10"
+                className="border-b border-line"
               >
                 <Link
                   href={item.href}
                   onClick={onClose}
                   aria-current={active ? "page" : undefined}
                   className={cn(
-                    "group flex items-baseline justify-between gap-4 py-4",
-                    active ? "text-saffron-300" : "text-ivory-50",
+                    "group flex items-baseline justify-between gap-4 py-4 transition-colors duration-200 hover:text-sky-700",
+                    active ? "text-red-600" : "text-ink-950",
                   )}
                 >
                   <span className="font-display text-[clamp(1.7rem,6.5vw,2.4rem)] leading-none tracking-[-0.03em]">
@@ -135,7 +133,7 @@ export function MobileMenu({ onClose }: { onClose: () => void }) {
                     aria-hidden="true"
                     size={18}
                     strokeWidth={1.5}
-                    className="shrink-0 translate-y-[-0.15em] text-ivory-100/40 transition-transform duration-200 ease-strong group-hover:translate-x-0.5 group-hover:-translate-y-[0.2em]"
+                    className="shrink-0 translate-y-[-0.15em] text-ink-500 transition-transform duration-200 ease-strong group-hover:translate-x-0.5 group-hover:-translate-y-[0.2em]"
                   />
                 </Link>
               </motion.li>
@@ -144,13 +142,13 @@ export function MobileMenu({ onClose }: { onClose: () => void }) {
         </ul>
       </nav>
 
-      <div className="relative mt-10 border-t border-ivory-50/10 px-gutter py-6">
-        <p className="text-micro uppercase text-ivory-100/65">Talk to us</p>
+      <div className="relative mt-8 border-t border-line bg-sky-50 px-gutter py-6">
+        <p className="text-micro uppercase text-ink-500">Talk to us</p>
         <ul className="mt-4 grid gap-3 text-small">
           <li>
             <a
               href={contact.phone.href}
-              className="inline-flex items-center gap-3 text-ivory-100/85 transition-colors hover:text-saffron-300"
+              className="inline-flex items-center gap-3 text-ink-700 transition-colors hover:text-sky-700"
             >
               <Phone aria-hidden="true" size={16} strokeWidth={1.5} />
               {contact.phone.display}
@@ -161,7 +159,7 @@ export function MobileMenu({ onClose }: { onClose: () => void }) {
               href={whatsappHref()}
               target="_blank"
               rel="noreferrer noopener"
-              className="inline-flex items-center gap-3 text-ivory-100/85 transition-colors hover:text-saffron-300"
+              className="inline-flex items-center gap-3 text-ink-700 transition-colors hover:text-sky-700"
             >
               <MessageCircle aria-hidden="true" size={16} strokeWidth={1.5} />
               WhatsApp {contact.whatsapp.display}
@@ -171,7 +169,7 @@ export function MobileMenu({ onClose }: { onClose: () => void }) {
           <li>
             <a
               href={contact.email.href}
-              className="inline-flex items-center gap-3 text-ivory-100/85 transition-colors hover:text-saffron-300"
+              className="inline-flex items-center gap-3 text-ink-700 transition-colors hover:text-sky-700"
             >
               <Mail aria-hidden="true" size={16} strokeWidth={1.5} />
               {contact.email.display}

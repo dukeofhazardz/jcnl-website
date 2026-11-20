@@ -11,12 +11,10 @@ import path from "node:path";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
-import { AccentScope } from "@/components/sections/accent-scope";
 import { PropertyDetail } from "@/components/sections/realestate/property-detail";
 import { PropertyMasthead } from "@/components/sections/realestate/property-masthead";
 import { PropertyNavigation } from "@/components/sections/realestate/property-navigation";
 import { SimilarProperties } from "@/components/sections/realestate/similar-properties";
-import { pageMeta } from "@/content/page-copy";
 import {
   getAdjacentProperties,
   getPropertyBySlug,
@@ -80,7 +78,6 @@ export default async function PropertyPage({
 
   if (!property) notFound();
 
-  const meta = pageMeta.realestate;
   const { previous, next } = getAdjacentProperties(property.slug);
   const similar = getSimilarProperties(property);
   const listing = realEstateListingJsonLd(
@@ -97,7 +94,7 @@ export default async function PropertyPage({
   ]);
 
   return (
-    <AccentScope accent={meta.accent}>
+    <>
       <PropertyMasthead property={property} />
       <PropertyDetail property={property} />
       <PropertyNavigation previous={previous} next={next} />
@@ -113,6 +110,6 @@ export default async function PropertyPage({
           dangerouslySetInnerHTML={{ __html: jsonLdString(listing) }}
         />
       ) : null}
-    </AccentScope>
+    </>
   );
 }

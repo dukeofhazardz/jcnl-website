@@ -16,7 +16,7 @@ export function AboutServices() {
 
   return (
     <Section
-      tone="sand"
+      tone="tint"
       topDivider="dune"
       spacing="md"
       labelledBy={headingId}

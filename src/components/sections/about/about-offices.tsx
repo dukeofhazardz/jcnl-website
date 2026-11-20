@@ -21,7 +21,7 @@ export function AboutOffices() {
 
   return (
     <Section
-      tone="ivory"
+      tone="white"
       topDivider="arch"
       spacing="md"
       labelledBy={headingId}

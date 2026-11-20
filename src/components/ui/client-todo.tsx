@@ -6,10 +6,10 @@ import { cn } from "@/lib/cn";
 type ClientTodoTone = "light" | "dark";
 
 const tones: Record<ClientTodoTone, string> = {
-  /** On ivory, sand or the amber band. */
-  light: "border-accent-text/45 bg-accent-soft/70 text-accent-text",
-  /** On the slate band, where accent-text would disappear. */
-  dark: "border-[var(--accent)]/60 bg-[var(--accent)]/10 text-[var(--accent)]",
+  /** On white, sky tint or the sky field. */
+  light: "border-sky-700/45 bg-white/70 text-sky-800",
+  /** On the deep ink band, where sky-700 would disappear. */
+  dark: "border-sky-300/60 bg-sky-300/10 text-sky-300",
 };
 
 /**

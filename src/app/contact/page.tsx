@@ -17,7 +17,6 @@ import {
 import type { ReactNode } from "react";
 
 import { HeroCarousel } from "@/components/carousel/hero-carousel";
-import { AccentScope } from "@/components/sections/accent-scope";
 import { ContactForm } from "@/components/sections/contact/contact-form";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
@@ -72,16 +71,15 @@ export default function ContactPage() {
   const meta = pageMeta.contact;
 
   return (
-    <AccentScope accent={meta.accent}>
+    <>
       <HeroCarousel
         slides={heroSlides.contact}
         eyebrow={meta.eyebrow}
         label={meta.label}
-        accent={meta.accent}
       />
 
       <Section
-        tone="ivory"
+        tone="white"
         topDivider="arch"
         spacing="md"
         labelledBy="offices-heading"
@@ -134,7 +132,7 @@ export default function ContactPage() {
 
       <Section
         id="channels"
-        tone="sand"
+        tone="tint"
         spacing="md"
         topDivider="dune"
         labelledBy="channels-heading"
@@ -283,7 +281,7 @@ export default function ContactPage() {
                 <Button
                   href={whatsappHref()}
                   external
-                  variant="dark"
+                  variant="secondary"
                   size="lg"
                   fullWidth
                   icon={
@@ -317,7 +315,7 @@ export default function ContactPage() {
       </Section>
 
       <Section
-        tone="jungle"
+        tone="ink"
         spacing="md"
         topDivider="arch"
         pattern
@@ -330,7 +328,7 @@ export default function ContactPage() {
                 <Eyebrow tone="light">{contactPage.tagline.eyebrow}</Eyebrow>
                 <h2
                   id="contact-tagline"
-                  className="mt-6 max-w-[18ch] font-display text-[clamp(2.25rem,1.2rem+4.4vw,4.5rem)] leading-[0.98] tracking-[-0.034em] text-ivory-50"
+                  className="mt-6 max-w-[18ch] font-display text-[clamp(2.25rem,1.2rem+4.4vw,4.5rem)] leading-[0.98] tracking-[-0.034em] text-white"
                 >
                   {taglineDisplay}
                 </h2>
@@ -338,10 +336,10 @@ export default function ContactPage() {
             </div>
             <div className="lg:col-span-4">
               <Reveal delay={0.08}>
-                <p className="font-display text-title leading-tight text-ivory-50">
+                <p className="font-display text-title leading-tight text-white">
                   {contactPage.tagline.lead}
                 </p>
-                <p className="mt-3 max-w-[34ch] text-small text-ivory-100/70">
+                <p className="mt-3 max-w-[34ch] text-small text-sky-100/70">
                   {contactPage.tagline.support}
                 </p>
               </Reveal>
@@ -349,6 +347,6 @@ export default function ContactPage() {
           </div>
         </Container>
       </Section>
-    </AccentScope>
+    </>
   );
 }

@@ -38,7 +38,7 @@ export function BusinessSectors() {
   return (
     <Section
       id="sectors"
-      tone="sand"
+      tone="tint"
       topDivider="dune"
       spacing="md"
       labelledBy={headingId}
@@ -81,7 +81,7 @@ export function BusinessSectors() {
                     <h3 className="min-w-0 flex-1 font-display text-[clamp(1.5rem,1.15rem+1.9vw,2.75rem)] leading-[1.05] tracking-[-0.024em]">
                       {sector.label}
                     </h3>
-                    <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-sm border border-ink-900/10 bg-ivory-50 text-accent-text">
+                    <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-sm border border-ink-900/10 bg-white text-accent-text">
                       <Icon aria-hidden="true" size={20} strokeWidth={1.5} />
                     </span>
                   </div>

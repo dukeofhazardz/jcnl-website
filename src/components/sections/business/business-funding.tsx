@@ -13,14 +13,14 @@ const columns = [
 ];
 
 /**
- * The investor-facing band, on the deep green ground. Gold carries the numerals
- * and the list label (5.07:1 on #123c2e); body copy is ivory-100 (10.72:1).
+ * The investor-facing band, on the deep ink ground. Sky-300 carries the
+ * numerals and the list label; body copy is white at 80%.
  */
 export function BusinessFunding() {
   return (
     <Section
       id="funding"
-      tone="accent"
+      tone="ink"
       topDivider="blade"
       spacing="md"
       pattern
@@ -30,7 +30,7 @@ export function BusinessFunding() {
         <div className="grid gap-8 lg:grid-cols-12 lg:items-end lg:gap-12">
           <div className="lg:col-span-8">
             <Reveal>
-              <Eyebrow tone="ivory" className="text-[var(--accent-bright)]">
+              <Eyebrow tone="light" className="text-sky-300">
                 {businessFunding.eyebrow}
               </Eyebrow>
               <Heading
@@ -45,7 +45,7 @@ export function BusinessFunding() {
           </div>
           <div className="lg:col-span-4">
             <Reveal delay={0.06}>
-              <p className="max-w-[38ch] text-small text-ivory-100 lg:ml-auto">
+              <p className="max-w-[38ch] text-small text-white/80 lg:ml-auto">
                 {businessFunding.intro}
               </p>
             </Reveal>
@@ -54,7 +54,7 @@ export function BusinessFunding() {
 
         <div className="mt-12 lg:mt-16">
           <Reveal>
-            <p className="text-micro font-semibold uppercase text-[var(--accent-bright)]">
+            <p className="text-micro font-semibold uppercase text-sky-300">
               {businessFunding.listLabel}
             </p>
           </Reveal>
@@ -64,18 +64,18 @@ export function BusinessFunding() {
               <ol
                 key={columnIndex}
                 start={columnIndex === 0 ? 1 : columns[0].length + 1}
-                className="border-b border-ivory-50/25"
+                className="border-b border-white/20"
               >
                 {column.map((item, index) => {
                   const number = columnIndex === 0 ? index + 1 : columns[0].length + index + 1;
 
                   return (
-                    <li key={item.id} className="border-t border-ivory-50/25">
+                    <li key={item.id} className="border-t border-white/20">
                       <Reveal delay={Math.min(index * 0.05, 0.2)}>
                         <div className="flex items-baseline gap-4 py-4">
                           <span
                             aria-hidden="true"
-                            className="w-6 shrink-0 font-display text-small tabular-nums leading-none text-[var(--accent-bright)]"
+                            className="w-6 shrink-0 font-display text-small tabular-nums leading-none text-sky-300"
                           >
                             {String(number).padStart(2, "0")}
                           </span>
@@ -92,7 +92,7 @@ export function BusinessFunding() {
           </div>
 
           <Reveal delay={0.08}>
-            <p className="mt-8 max-w-[52ch] border-l-2 border-[var(--accent-bright)] pl-4 text-small text-ivory-100">
+            <p className="mt-8 max-w-[52ch] border-l-2 border-sky-300 pl-4 text-small text-white/80">
               {businessFunding.closing}
             </p>
           </Reveal>

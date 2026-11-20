@@ -32,7 +32,7 @@ export function BusinessIntro() {
   return (
     <Section
       id="services"
-      tone="ivory"
+      tone="white"
       topDivider="arch"
       spacing="md"
       labelledBy={headingId}

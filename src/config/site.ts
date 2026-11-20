@@ -4,24 +4,38 @@
  * not in the brief.
  */
 
-export type AccentKey =
-  | "tours"
-  | "farms"
-  | "freight"
-  | "engineering"
-  | "business"
-  | "realestate"
-  | "brand";
+export type LogoAsset = {
+  src: string;
+  /** Real intrinsic pixel size of the supplied artwork. */
+  width: number;
+  height: number;
+};
 
-/** The two supplied logo colourways and where each belongs. */
-export type LogoVariant = "cream" | "black";
+/**
+ * A date window that shows an alternate logo. Dates are local calendar dates
+ * in `timeZone`, inclusive at both ends. Add a new entry each year; nothing
+ * else needs to change.
+ */
+export type SeasonalLogo = {
+  id: string;
+  src: string;
+  width: number;
+  height: number;
+  /** First day the logo shows, YYYY-MM-DD. */
+  start: string;
+  /** Last day the logo shows, YYYY-MM-DD, through 23:59. */
+  end: string;
+  /** IANA zone used for the calendar-day comparison. */
+  timeZone: string;
+  /** Appended to the alt text while the window is open. */
+  altSuffix: string;
+};
 
 export type NavItem = {
   label: string;
   href: string;
   /** One line shown in the mobile menu. Service names only. */
   blurb: string;
-  accent: AccentKey;
 };
 
 export type Office = {
@@ -52,88 +66,100 @@ export const site = {
   established: 2003,
   country: "Nigeria",
   headquarters: "Lagos",
+  /** Registration number printed inside the logo. Confirm with the client. */
+  registration: "RC471840",
   url: siteUrl,
   description:
     "JESRUDEB@CONNECT NIGERIA LIMITED (JCNL) is an indigenous Nigerian logistics and business services company, established in 2003, serving private and public sector clients from offices in Lagos and Abuja.",
   /**
-   * The two logo colourways. Kept here so the artwork can be replaced without
-   * touching a component. The cream file is for dark or photographic grounds;
-   * the black file is for light grounds.
+   * One logo, always on white. The file paths live here so the artwork can be
+   * replaced without touching a component.
    *
-   * The client's original `cream-logo.png` and `black-logo.png` arrived with a
-   * checkerboard baked into the pixels (no alpha channel). These transparent
-   * derivatives were built from the alpha of `white-logo.png`; the originals
-   * are untouched. Swap these paths if the client supplies clean exports.
+   * `logo-christmas-transparent.png` is a derived copy: the supplied
+   * `logo-christmas.png` was exported on a solid black field with no alpha,
+   * which cannot sit on white. The original is untouched; replace the derived
+   * file if the client supplies a clean transparent export.
    */
   logo: {
-    cream: {
-      src: "/logos/cream-logo-transparent.png",
-      width: 1989,
-      height: 791,
+    main: {
+      src: "/logos/logo.png",
+      width: 1991,
+      height: 789,
     },
-    black: {
-      src: "/logos/black-logo-transparent.png",
-      width: 1989,
-      height: 791,
+    christmas: {
+      src: "/logos/logo-christmas-transparent.png",
+      width: 1994,
+      height: 789,
     },
-    alt: "Jesrudeb@Connect Nigeria Limited (JCNL)",
+    alt: "Jesrudeb@Connect Nigeria Limited (JCNL), Logistics & Business Service Company",
   },
 } as const;
+
+/**
+ * Seasonal artwork windows. Christmas runs from 20 November through 14
+ * January inclusive, in Lagos time, then the main logo returns automatically.
+ * The site is statically generated, so the active logo is resolved in the
+ * browser before first paint (see `SeasonalLogoScript` in `app/layout.tsx`),
+ * not at build time.
+ */
+export const seasonalLogos: readonly SeasonalLogo[] = [
+  {
+    id: "christmas",
+    src: site.logo.christmas.src,
+    width: site.logo.christmas.width,
+    height: site.logo.christmas.height,
+    start: "2026-11-20",
+    end: "2027-01-14",
+    timeZone: "Africa/Lagos",
+    altSuffix: "Christmas edition",
+  },
+] as const;
 
 export const nav: readonly NavItem[] = [
   {
     label: "Home",
     href: "/",
     blurb: "Logistics and business services, from Lagos and Abuja.",
-    accent: "tours",
   },
   {
     label: "About",
     href: "/about",
     blurb: "Indigenous Nigerian, established 2003.",
-    accent: "brand",
   },
   {
     label: "Visa & Tours",
     href: "/visa-and-tours",
     blurb: "Travel logistics and tours.",
-    accent: "tours",
   },
   {
     label: "Business Services",
     href: "/business-services",
     blurb: "Designs, training, hospitality and facilities.",
-    accent: "business",
   },
   {
     label: "Cargo & Freight",
     href: "/cargo-and-freight",
     blurb: "Cargo and freight enquiries.",
-    accent: "freight",
   },
   {
     label: "Integrated Farms",
     href: "/integrated-farms",
     blurb: "The JCNL farms business line.",
-    accent: "farms",
   },
   {
     label: "Engineering",
     href: "/engineering",
     blurb: "Civil engineering works and construction.",
-    accent: "engineering",
   },
   {
     label: "Real Estate",
     href: "/real-estate",
     blurb: "Land, homes and commercial space for sale.",
-    accent: "realestate",
   },
   {
     label: "Contact",
     href: "/contact",
     blurb: "Two offices. Call, WhatsApp or email.",
-    accent: "brand",
   },
 ] as const;
 
@@ -175,10 +201,7 @@ export const contact = {
     display: "info.services@jesrudebconnect.org",
     href: "mailto:info.services@jesrudebconnect.org",
   },
-  cargoEmails: [
-    "info.jcnl@gmail.com",
-    "jesrudeb.connect@gmail.com",
-  ] as readonly string[],
+  cargoEmails: ["info.jcnl@gmail.com", "jesrudeb.connect@gmail.com"] as readonly string[],
 } as const;
 
 export const socials = [
@@ -217,7 +240,3 @@ export const copyrightRange = `${site.established}–${currentYear()}`;
  * the dash, never before it.
  */
 export const taglineDisplay = site.taglineParts.join("\u00A0— ");
-
-export function navAccent(href: string): AccentKey {
-  return nav.find((item) => item.href === href)?.accent ?? "brand";
-}

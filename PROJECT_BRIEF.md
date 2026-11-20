@@ -77,31 +77,53 @@ numbers are current.
 - SEO: metadata API per page, Open Graph, sitemap.ts, robots.ts,
   Organization JSON-LD, custom not-found.tsx and loading states.
 
-# DESIGN DIRECTION: "EXOTIC"
-- Mood: warm, lush, cinematic, like a luxury safari/island travel brand
-  that also does serious logistics and engineering. Tours lead the
-  identity; Farms, Freight, Engineering and Business Services each get a
-  distinct accent while staying one family.
-- Palette tokens: deep jungle green, terracotta/laterite, saffron-gold,
-  warm ivory, ink charcoal. Per-page accent via CSS variables set in the
-  page layout:
-  Tours = saffron + deep teal | Farms = leaf green + clay |
-  Freight = ocean navy + sky | Engineering = slate + safety amber |
-  Business Services = deep green + gold.
+# DESIGN DIRECTION: "ONE BRAND, ON WHITE"
+- Mood: clean, confident, corporate-Nigerian. White space does the work;
+  sky blue carries structure, red punctuates, gold is a hairline. It must
+  read as one company across every service line, not a template with
+  per-page skins.
+- One palette, no per-page accents. Every page shares the same tokens.
+  Personality comes from photography, layout and copy, never from hue.
+  - Ground: pure white (#ffffff), soft grey (#f6f9fb / #eef3f7) and a
+    very light sky tint (#eff9fe / #d9f1fd).
+  - Sky structure, sampled from the logo letter fill (#01BAFC): sky-50
+    through sky-900. sky-500 is the logo blue and is used only for
+    fills, shapes, icons, dividers and large graphics. Text, links and
+    small UI use sky-700 (5.26:1 on white); buttons are sky-700 with
+    white text.
+  - Red accent, from the orbit ring (#FC0000 lit to #970000 shadow):
+    primary CTA emphasis, badges, status and "new" marks, short
+    underlines, active states, hover accents. Controlled, never dominant.
+    red-600/700 are the text-safe steps on white.
+  - Gold, sparing: thin rules, small ornaments, star/rating details,
+    badge borders, card hairlines. Never a large fill. gold-600 is the
+    text-safe step on white.
+  - Ink: cool, blue-tinted near-black (#061826) for body and headings;
+    mid grey (#556b78) for secondary text.
+  - Dark bands are rare feature bands only, deep ink/navy from the sky
+    scale, never green. The logo never sits on one.
+- Logo: the supplied artwork, always on pure white. It carries a fine
+  white glow, so any tint behind it reads as a pale box. Header, footer,
+  mobile menu, styleguide, 404 and splash all give it white. The
+  Christmas edition replaces it from 20 November to 14 January (Lagos
+  time) via `seasonalLogos` in `src/config/site.ts`.
 - Typography: expressive display serif for headlines, clean sans for
   body, large confident scale, generous whitespace.
-- Texture: subtle grain overlay, soft gradients, curved SVG section
-  dividers, low-opacity African-inspired geometric pattern accents.
-  Tasteful, never clip-art.
+- Texture: very low grain on white, soft cool gradients, curved SVG
+  section dividers in sky tints and white, low-opacity sky/gold
+  geometric pattern accents. Tasteful, never clip-art.
 - Motion (apply emilkowalski skill): purposeful, fast-feeling,
   spring/ease-out curves, 150–300ms micro-interactions, 500–800ms
-  reveals, staggered lists, transform/opacity only. Animated nav
-  underline, magnetic-feel primary buttons, card hover lifts, image
-  parallax, smooth anchor scrolling, polished route transitions.
-  Respect prefers-reduced-motion everywhere.
+  reveals, staggered lists, transform/opacity only. Animated sky nav
+  underline with a red active detail, magnetic-feel primary buttons,
+  card hover lifts, image parallax, smooth anchor scrolling, polished
+  route transitions. Respect prefers-reduced-motion everywhere.
 - Accessibility: WCAG AA, semantic landmarks, visible focus,
   keyboard-operable everything, alt text on every image, skip link.
-- Responsive: mobile-first, 360px to 1920px+.
+  Logo sky on white fails as text (2.23:1); sky-700 is the minimum for
+  type. White on sky-500 also fails; that pairing is graphics only.
+- Responsive: mobile-first, 360px to 1920px+. The header is solid white
+  from the first pixel; the page starts below it.
 
 # HERO CAROUSEL SPEC (every page; built ONCE as <HeroCarousel>)
 - Full-width, ~85–100svh, 4–6 slides per page; props: slides[] + page

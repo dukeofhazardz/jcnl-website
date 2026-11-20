@@ -47,7 +47,7 @@ function sortProperties(list: Property[], sort: PropertySort): Property[] {
 }
 
 const selectClass =
-  "h-11 w-full appearance-none rounded-xs border border-ink-900/20 bg-ivory-50 px-3 pr-9 text-small text-ink-900 transition-colors duration-200 hover:border-ink-900/40 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-text";
+  "h-11 w-full appearance-none rounded-xs border border-ink-900/20 bg-white px-3 pr-9 text-small text-ink-900 transition-colors duration-200 hover:border-ink-900/40 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-text";
 
 function FilterSelect({
   id,
@@ -274,7 +274,7 @@ export function PropertyExplorer({
           </AnimatePresence>
         </motion.ul>
       ) : (
-        <div className="mt-8 rounded-md border border-line bg-ivory-100 p-8 text-center sm:p-10">
+        <div className="mt-8 rounded-md border border-line bg-sky-100 p-8 text-center sm:p-10">
           <h3 className="font-display text-title text-ink-900">
             {empty ? copy.emptyAll.heading : copy.emptyFiltered.heading}
           </h3>

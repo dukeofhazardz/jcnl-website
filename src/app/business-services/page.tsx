@@ -8,7 +8,6 @@
  * due-diligence note, and both CTA paths carry their subject to /contact.
  */
 import { HeroCarousel } from "@/components/carousel/hero-carousel";
-import { AccentScope } from "@/components/sections/accent-scope";
 import { BusinessCta } from "@/components/sections/business/business-cta";
 import { BusinessFunding } from "@/components/sections/business/business-funding";
 import { BusinessInstruments } from "@/components/sections/business/business-instruments";
@@ -29,12 +28,11 @@ export default function BusinessServicesPage() {
   const meta = pageMeta.business;
 
   return (
-    <AccentScope accent={meta.accent}>
+    <>
       <HeroCarousel
         slides={heroSlides.business}
         eyebrow={meta.eyebrow}
         label={meta.label}
-        accent={meta.accent}
       />
 
       <BusinessIntro />
@@ -42,6 +40,6 @@ export default function BusinessServicesPage() {
       <BusinessFunding />
       <BusinessInstruments />
       <BusinessCta />
-    </AccentScope>
+    </>
   );
 }

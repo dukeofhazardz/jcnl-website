@@ -25,7 +25,7 @@ export function BusinessCta() {
   return (
     <Section
       id="start"
-      tone="sand"
+      tone="tint"
       topDivider="wave"
       spacing="md"
       labelledBy={headingId}
@@ -48,8 +48,8 @@ export function BusinessCta() {
                 className={cn(
                   "group relative flex h-full flex-col overflow-hidden rounded-md p-6 transition-colors duration-200 motion-reduce:transition-none sm:p-8",
                   index === 0
-                    ? "bg-accent text-accent-ink hover-fine:bg-accent-strong"
-                    : "border border-ink-900/15 bg-ivory-50 text-ink-900 hover-fine:bg-ivory-100",
+                    ? "bg-sky-500 text-ink-950 hover-fine:bg-sky-400"
+                    : "border border-ink-900/15 bg-white text-ink-900 hover-fine:bg-sky-50",
                 )}
               >
                 <span
@@ -57,15 +57,15 @@ export function BusinessCta() {
                   className={cn(
                     "block h-px w-12",
                     index === 0
-                      ? "bg-[var(--accent-bright)]"
-                      : "bg-accent",
+                      ? "bg-ink-950"
+                      : "bg-sky-500",
                   )}
                 />
 
                 <p
                   className={cn(
                     "mt-5 text-micro font-semibold uppercase",
-                    index === 0 ? "text-ivory-100" : "text-ink-500",
+                    index === 0 ? "text-ink-800" : "text-ink-500",
                   )}
                 >
                   {businessCta.pathLabels[index] ?? "Path"}
@@ -83,7 +83,7 @@ export function BusinessCta() {
                 <p
                   className={cn(
                     "mt-4 max-w-[38ch] text-small",
-                    index === 0 ? "text-ivory-100" : "text-ink-700",
+                    index === 0 ? "text-ink-900" : "text-ink-700",
                   )}
                 >
                   {intent.body}

@@ -16,7 +16,7 @@ export function VisaAssistSection() {
   return (
     <Section
       id={product.id}
-      tone="ivory"
+      tone="white"
       spacing="md"
       labelledBy={`${product.id}-heading`}
     >
@@ -85,7 +85,7 @@ export function VisaAssistSection() {
 
           <div className="lg:col-span-5">
             <Reveal delay={0.08}>
-              <div className="aspect-4/3 overflow-hidden rounded-md bg-jungle-950 lg:aspect-4/5">
+              <div className="aspect-4/3 overflow-hidden rounded-md bg-ink-950 lg:aspect-4/5">
                 <SmartImage
                   src={product.image?.src}
                   alt={product.alt ?? ""}

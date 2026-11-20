@@ -13,7 +13,6 @@
  * outstanding items.
  */
 import { HeroCarousel } from "@/components/carousel/hero-carousel";
-import { AccentScope } from "@/components/sections/accent-scope";
 import { EngineeringApproach } from "@/components/sections/engineering/engineering-approach";
 import { EngineeringCapabilities } from "@/components/sections/engineering/engineering-capabilities";
 import { EngineeringCta } from "@/components/sections/engineering/engineering-cta";
@@ -34,12 +33,11 @@ export default function EngineeringPage() {
   const meta = pageMeta.engineering;
 
   return (
-    <AccentScope accent={meta.accent}>
+    <>
       <HeroCarousel
         slides={heroSlides.engineering}
         eyebrow={meta.eyebrow}
         label={meta.label}
-        accent={meta.accent}
       />
 
       <EngineeringCapabilities />
@@ -47,6 +45,6 @@ export default function EngineeringPage() {
       <EngineeringApproach />
       <EngineeringPortfolio />
       <EngineeringCta />
-    </AccentScope>
+    </>
   );
 }

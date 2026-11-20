@@ -8,8 +8,7 @@ import { cn } from "@/lib/cn";
 
 type SmartImageProps = {
   /** Path under /public. Omit to force the placeholder. */
-  src?: string | null;
-  /** Required. Every image on the site carries alt text. */
+  src?: string | null;  /** Required. Every image on the site carries alt text. */
   alt: string;
   /** Intended subject, shown on the placeholder. */
   subject?: string;
@@ -40,7 +39,7 @@ type SmartImageProps = {
 
 /**
  * next/image plus a branded placeholder. If the file is missing or fails to
- * load, the placeholder renders in the page accent. Dropping a real file in
+ * load, the placeholder renders in the brand sky. Dropping a real file in
  * at the same path is all that is needed to replace it.
  */
 export function SmartImage({
@@ -69,8 +68,13 @@ export function SmartImage({
    * The branded field is visible before the file loads, not only after it
    * fails: a missing or slow image should never leave a bare gradient on
    * screen. When the real file paints, the field is removed.
+   *
+   * Priority images are the exception: they are the LCP candidate, so waiting
+   * for hydration and an opacity transition before showing them costs ~0.7s.
+   * They paint as soon as the browser has the bytes, and the field only comes
+   * back if the file is missing or fails.
    */
-  const showField = showPlaceholder || !loaded;
+  const showField = showPlaceholder || (!loaded && !priority);
 
   const dimensions = width && height ? `${width}×${height}` : undefined;
   // One line, as in the shot list: role · subject · dimensions.
@@ -79,7 +83,7 @@ export function SmartImage({
   return (
     <div
       className={cn(
-        "relative isolate w-full overflow-hidden bg-jungle-950",
+        "relative isolate w-full overflow-hidden bg-sky-50",
         // `fill` means "the parent owns the frame". The next/image inside is
         // absolutely positioned, so the wrapper needs its own height: `h-full`
         // takes it from the parent, which must have one (an aspect box or a
@@ -91,9 +95,10 @@ export function SmartImage({
       style={{
         ...(fill ? {} : { aspectRatio }),
         // Present before a file loads, so a slow or missing image still shows
-        // the branded field rather than a blank box.
+        // the branded field rather than a blank box. Light on white, with a
+        // sky tint at the foot.
         backgroundImage:
-          "linear-gradient(155deg, color-mix(in oklab, var(--field) 88%, var(--color-ivory-50)) 0%, var(--field) 62%, color-mix(in oklab, var(--field) 82%, var(--color-ink-900)) 100%)",
+          "linear-gradient(155deg, #ffffff 0%, var(--color-sky-50) 58%, var(--color-sky-100) 100%)",
       }}
     >
       {src && !failed ? (
@@ -103,11 +108,14 @@ export function SmartImage({
           fill
           sizes={sizes}
           priority={priority}
+          // `priority` only adds the preload; without this the preload has no
+          // fetchpriority hint and the LCP image waits behind other requests.
+          fetchPriority={priority ? "high" : undefined}
           onLoad={() => setLoaded(true)}
           onError={() => setFailed(true)}
           className={cn(
             "object-cover transition-opacity duration-300",
-            loaded ? "opacity-100" : "opacity-0",
+            loaded || priority ? "opacity-100" : "opacity-0",
             imageClassName,
           )}
         />
@@ -128,14 +136,14 @@ export function SmartImage({
         >
           <GeometricPattern
             variant="lattice"
-            className="absolute inset-0 text-[var(--accent-soft)] opacity-[0.14]"
+            className="absolute inset-0 text-sky-500 opacity-[0.14]"
           />
 
           {variant === "background" ? (
-            <div className="absolute right-[9%] top-[15%] flex max-w-[24ch] items-start justify-end gap-2 text-right text-[0.6875rem] font-medium uppercase leading-[1.5] tracking-[0.12em] text-ivory-50/70">
+            <div className="absolute right-[9%] top-[15%] flex max-w-[24ch] items-start justify-end gap-2 text-right text-[0.6875rem] font-medium uppercase leading-[1.5] tracking-[0.12em] text-ink-700">
               <span
                 aria-hidden="true"
-                className="mt-[0.45em] h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--accent-bright)]"
+                className="mt-[0.45em] h-1.5 w-1.5 shrink-0 rounded-full bg-sky-500"
               />
               <span className="min-w-0 break-words">{label || "Image placeholder"}</span>
             </div>
@@ -144,23 +152,23 @@ export function SmartImage({
               {/* Framing marks: a shot-list cue, not decoration. */}
               <span
                 aria-hidden="true"
-                className="absolute left-4 top-4 h-6 w-6 border-l border-t border-ivory-50/35"
+                className="absolute left-4 top-4 h-6 w-6 border-l border-t border-sky-700/30"
               />
               <span
                 aria-hidden="true"
-                className="absolute bottom-4 right-4 h-6 w-6 border-b border-r border-ivory-50/35"
+                className="absolute bottom-4 right-4 h-6 w-6 border-b border-r border-sky-700/30"
               />
 
-              <div className="relative flex items-center gap-2 text-micro font-medium uppercase text-ivory-50/80">
+              <div className="relative flex items-center gap-2 text-micro font-medium uppercase text-ink-700">
                 <span
                   aria-hidden="true"
-                  className="h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--accent-bright)]"
+                  className="h-1.5 w-1.5 shrink-0 rounded-full bg-sky-500"
                 />
                 <span className="min-w-0 break-words">{label || "Image placeholder"}</span>
               </div>
 
               <div className="relative max-w-[26ch]">
-                <p className="font-display text-[clamp(1.125rem,2.4vw,1.825rem)] leading-[1.08] tracking-[-0.02em] text-ivory-50">
+                <p className="font-display text-[clamp(1.125rem,2.4vw,1.825rem)] leading-[1.08] tracking-[-0.02em] text-ink-950">
                   {subject ?? alt}
                 </p>
               </div>
@@ -170,7 +178,7 @@ export function SmartImage({
       ) : null}
 
       {caption ? (
-        <p className="scrim-photo absolute inset-x-0 bottom-0 p-4 text-small text-ivory-50">
+        <p className="scrim-photo absolute inset-x-0 bottom-0 p-4 text-small text-white">
           {caption}
         </p>
       ) : null}

@@ -26,7 +26,7 @@ const icons: Record<EngineeringSectorIcon, LucideIcon> = {
 export function EngineeringSectors() {
   return (
     <Section
-      tone="sand"
+      tone="tint"
       topDivider="dune"
       spacing="md"
       labelledBy={headingId}
@@ -69,7 +69,7 @@ export function EngineeringSectors() {
                     <h3 className="min-w-0 flex-1 font-display text-display-3 leading-[1.05]">
                       {sector.label}
                     </h3>
-                    <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-sm bg-ivory-50 text-accent-text">
+                    <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-sm bg-white text-accent-text">
                       <Icon aria-hidden="true" size={19} strokeWidth={1.6} />
                     </span>
                   </div>

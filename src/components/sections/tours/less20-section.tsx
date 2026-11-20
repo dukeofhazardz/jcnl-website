@@ -53,7 +53,7 @@ export function Less20Section() {
   return (
     <Section
       id={product.id}
-      tone="sand"
+      tone="tint"
       topDivider="wave"
       spacing="md"
       labelledBy={`${product.id}-heading`}

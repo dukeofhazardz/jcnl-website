@@ -3,37 +3,27 @@ import type { ReactNode } from "react";
 import { GeometricPattern } from "@/components/ui/geometric-pattern";
 import { cn } from "@/lib/cn";
 
-export type SectionTone =
-  | "ivory"
-  | "sand"
-  | "jungle"
-  | "ink"
-  | "accent"
-  | "clay"
-  | "slate";
+export type SectionTone = "white" | "tint" | "mist" | "ink" | "accent";
 export type DividerVariant = "arch" | "dune" | "blade" | "wave";
 
 const toneClasses: Record<SectionTone, string> = {
-  ivory: "bg-ivory-50 text-ink-900",
-  sand: "bg-ivory-100 text-ink-900",
-  jungle: "bg-jungle-950 text-ivory-50",
-  ink: "bg-ink-900 text-ivory-50",
-  accent: "bg-accent text-accent-ink",
-  /** Fixed late-clay band. Used where the page accent would be too quiet. */
-  clay: "bg-clay-500 text-ivory-50",
-  /** Fixed slate band for the engineering page, whose accent is a colour, not
-      a ground: amber carries ink, slate carries ivory. */
-  slate: "bg-slate-900 text-ivory-50",
+  white: "bg-white text-ink-950",
+  /** Very light sky: the default secondary surface. */
+  tint: "bg-sky-50 text-ink-950",
+  /** Soft cool grey, for a quieter band. */
+  mist: "bg-mist-50 text-ink-950",
+  /** Rare feature band. Deep ink from the sky scale; never green. */
+  ink: "bg-ink-950 text-white",
+  /** Sky field: dark ink text at 8.08:1. */
+  accent: "bg-sky-500 text-ink-950",
 };
 
 const dividerFills: Record<SectionTone, string> = {
-  ivory: "fill-ivory-50",
-  sand: "fill-ivory-100",
-  jungle: "fill-jungle-950",
-  ink: "fill-ink-900",
-  accent: "fill-accent",
-  clay: "fill-clay-500",
-  slate: "fill-slate-900",
+  white: "fill-white",
+  tint: "fill-sky-50",
+  mist: "fill-mist-50",
+  ink: "fill-ink-950",
+  accent: "fill-sky-500",
 };
 
 const spacingClasses = {
@@ -53,7 +43,7 @@ const dividerPaths: Record<DividerVariant, string> = {
 
 export function SectionDivider({
   variant = "arch",
-  tone = "ivory",
+  tone = "white",
   className,
 }: {
   variant?: DividerVariant;
@@ -97,7 +87,7 @@ type SectionProps = {
 export function Section({
   children,
   id,
-  tone = "ivory",
+  tone = "white",
   spacing = "md",
   topDivider,
   pattern = false,

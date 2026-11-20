@@ -61,7 +61,7 @@ export function TourGallery() {
   return (
     <Section
       id="tour-gallery"
-      tone="sand"
+      tone="tint"
       topDivider="dune"
       spacing="md"
       labelledBy="tour-gallery-heading"
@@ -98,7 +98,7 @@ export function TourGallery() {
                   onFocus={preload}
                   onClick={() => open(index)}
                   aria-label={`Open larger image: ${item.caption}`}
-                  className="group relative block w-full overflow-hidden rounded-md bg-jungle-950 text-left"
+                  className="group relative block w-full overflow-hidden rounded-md bg-ink-950 text-left"
                 >
                   <div
                     className={cn(
@@ -132,14 +132,14 @@ export function TourGallery() {
                   />
                   <span className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-4 p-5">
                     <span>
-                      <span className="block font-display text-title text-ivory-50">
+                      <span className="block font-display text-title text-white">
                         {item.caption}
                       </span>
-                      <span className="mt-1 block text-small text-ivory-100/75">
+                      <span className="mt-1 block text-small text-sky-100/75">
                         {item.detail}
                       </span>
                     </span>
-                    <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-ivory-50/40 bg-ink-900/30 text-ivory-50 transition-colors duration-200 group-hover:border-ivory-50 group-hover:bg-ink-900/55">
+                    <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-white/40 bg-ink-900/30 text-white transition-colors duration-200 group-hover:border-white group-hover:bg-ink-900/55">
                       <Maximize2
                         aria-hidden="true"
                         size={15}

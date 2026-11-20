@@ -9,7 +9,6 @@ export function TourEnquiry() {
       body="Call the travel desk or send a WhatsApp message with your dates. If you already know the product you want, say so: Tour360, TRAVELCredit, VISA-Assist247 or LESS 20.0."
       whatsappLabel="WhatsApp the travel desk"
       whatsappMessage="Hello JCNL, I would like to plan a trip. Product:"
-      textTone="ink"
     />
   );
 }

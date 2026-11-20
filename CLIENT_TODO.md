@@ -137,16 +137,25 @@ These affect every page, not just Engineering.
 
 ### Brand assets
 
-- [x] Logo supplied in three colourways at `public/logos/`. The cream and black
-      exports arrived flattened onto a checkerboard (no alpha channel), so the
-      site uses transparent derivatives built from `white-logo.png`. Please send
-      clean transparent exports of the cream and black artwork to replace them.
+- [x] Main logo supplied at `public/logos/logo.png` (1991×789, transparent) and
+      used all year, always on white.
+- [ ] **Christmas logo:** `logo-christmas.png` arrived flattened onto a solid
+      black field with no alpha channel, so it cannot sit on white. The site
+      currently uses `logo-christmas-transparent.png`, a derived copy; at 100%
+      zoom there is minor dark speckle around the hat and fur edge. Please send a
+      clean transparent export (PNG, same white background removed) and drop it
+      in at the same path.
+- [ ] Confirm the Christmas window: the site shows it from 20 November through
+      14 January inclusive (Lagos time). Change the dates in
+      `src/config/site.ts` if the firm prefers a different run.
 - [ ] Favicon / Apple touch icon: the current four are drawn from a `J` mark and
       the wordmark, not from the supplied logo. Confirm whether to regenerate
-      them from the logo mark.
+      them from the globe/orbit mark (square crop on white).
 - [ ] Confirm the registered name, the acronym and the descriptor wording. The
       site uses "JESRUDEB@CONNECT NIGERIA LIMITED", "JCNL" and "A LOGISTICS &
       BUSINESS SERVICES COMPANY", and the tagline "EVOLVE – INNOVATE – RELAX".
+- [ ] Confirm the registration number printed in the logo, **RC471840**. The
+      footer prints it in the copyright line; it needs a yes/no before launch.
 
 ### Photography
 

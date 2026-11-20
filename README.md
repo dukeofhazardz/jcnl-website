@@ -39,8 +39,8 @@ blocks. Run the scripts as `cmd /c "npm.cmd run build"` instead.
 | `/contact` | Live: two offices, four direct channels, message form with `?service=` preselection, WhatsApp band, closing tagline |
 | `/styleguide` | Dev only. Returns 404 in production. |
 
-Every route opens with the same `<HeroCarousel>`: 4–6 slides, 6s autoplay, and
-that page's accent. Every route also has its own `<h1>`, its own
+Every route opens with the same `<HeroCarousel>`: 4–6 slides and 6s autoplay.
+Every route also has its own `<h1>`, its own
 `title`/`description`/canonical, and its own social card title, so a shared link
 describes the page it points at. The property detail route is the one exception:
 a listing must lead with its own facts, so it opens with a dark masthead instead.
@@ -57,7 +57,7 @@ focus-trapped lightbox) and `tour-enquiry`. All of its copy lives in
 
 `/integrated-farms` is assembled from `src/components/sections/farms/`:
 `farm-story`, `farm-facilities` (the sixteen-item animated grid),
-`farm-values` (the clay band), `farm-location` and `farm-enquiry`. Copy and the
+`farm-values` (the sky-tint band), `farm-location` and `farm-enquiry`. Copy and the
 facility list live in `src/content/farms.ts`. Both service pages close with the
 shared `components/sections/enquiry-band.tsx`.
 
@@ -70,13 +70,13 @@ scroll), `freight-contact` (the cargo desk) and `freight-quote`. Copy lives in
 `/engineering` is assembled from `src/components/sections/engineering/`:
 `engineering-capabilities` (four service lines), `engineering-sectors` (the
 three sectors as a numbered list), `engineering-approach` (consult, design,
-build, maintain on the slate band), `engineering-portfolio` (six empty project
-records) and `engineering-cta` (the amber closing band). Copy lives in
+build, maintain on the deep ink band), `engineering-portfolio` (six empty project
+records) and `engineering-cta` (the sky closing band). Copy lives in
 `src/content/engineering.ts`.
 
 `/business-services` is assembled from `src/components/sections/business/`:
 `business-intro` (the positioning and four service lines), `business-sectors`
-(seven sectors as a ruled index), `business-funding` (the deep green band and
+(seven sectors as a ruled index), `business-funding` (the deep ink band and
 the HYP project types), `business-instruments` (eight documents and the
 due-diligence note) and `business-cta` (the two enquiry paths). Copy lives in
 `src/content/business-services.ts`.
@@ -142,7 +142,7 @@ src/
   components/
     carousel/          hero-carousel
     layout/            header, mobile menu, footer, WhatsApp FAB
-    sections/          accent scope, enquiry band, about/*, tours/*, farms/*,
+    sections/          enquiry band, about/*, tours/*, farms/*,
                        freight/*, engineering/*, business/*, realestate/*,
                        contact/*
     ui/                button, card, section, container, typography, reveal,
@@ -212,32 +212,93 @@ when real records and files replace the samples.
 - Icons: `src/app/favicon.ico`, `src/app/apple-icon.png` and
   `src/app/manifest.ts` (with `/icons/icon-192.png` and `/icons/icon-512.png`).
 
+## Design system
+
+One palette for every route. Tokens live in `src/app/globals.css` under `@theme`;
+`/styleguide` renders the swatches, contrast pairings and components. There are
+no per-page accent overrides.
+
+| Role | Token | Value | Use |
+|---|---|---|---|
+| Ground | `white` | `#ffffff` | page, cards, header, footer, logo ground |
+| Soft grey | `mist-50` / `mist-100` | `#f6f9fb` / `#eef3f7` | quiet bands, cards |
+| Sky tint | `sky-50` / `sky-100` | `#eff9fe` / `#d9f1fd` | secondary surfaces |
+| Brand sky | `sky-500` | `#00bafc` | logo fill; shapes, icons, dividers, large graphics only |
+| Sky text | `sky-700` / `sky-800` | `#0072ab` / `#075a85` | links, small UI, primary button ground |
+| Red | `red-500` / `red-600` / `red-700` | `#d71920` / `#b31217` / `#8f0d12` | CTA emphasis, badges, status, active details |
+| Gold | `gold-300` / `gold-400` / `gold-600` | `#e8cf8a` / `#d4af4a` / `#8a6a14` | thin rules, ornaments, badge borders; text uses gold-600 |
+| Ink | `ink-950` … `ink-500` | `#061826` … `#556b78` | body, headings, secondary text |
+
+Checked pairings (WCAG AA): ink-950 on white 18.00:1; sky-700 on white 5.26:1;
+white on sky-700 5.26:1; white on red-600 6.09:1; ink-950 on sky-500 8.08:1;
+gold-600 on white 5.06:1. **sky-500 on white is 2.23:1** — graphics only, never
+text. **white on sky-500 is also 2.23:1** — never a label on the sky field.
+
+Dark bands are limited to deep ink (`ink-950`) feature bands on freight,
+engineering, business, real estate and the home contact block. The logo is never
+placed on one.
+
 ## Assets
 
 ### Logo
 
-The real logo is used in the header, mobile menu and footer. The two colourways
-and their intrinsic dimensions live in `src/config/site.ts` under `logo`:
+One logo, always on pure white. It carries a fine white glow, so any tint behind
+it reads as a pale box; the header, footer, mobile menu, 404, styleguide and
+splash all give it white. The files and their real intrinsic dimensions live in
+`src/config/site.ts` under `logo`:
 
-| Variant | File | Ground |
-|---|---|---|
-| Cream | `public/logos/cream-logo-transparent.png` | dark or photographic |
-| Black | `public/logos/black-logo-transparent.png` | ivory / light |
+| Variant | File | Size | Ground |
+|---|---|---|---|
+| Main (all year) | `public/logos/logo.png` | 1991×789 | pure white only |
+| Christmas | `public/logos/logo-christmas-transparent.png` | 1994×789 | pure white only |
 
-`src/components/ui/Logo.tsx` wraps the image in a link home. The header stacks
-both colourways and cross-fades on opacity as the header turns solid, so the
-artwork and layout never jump. Replace the paths in `site.ts` to swap files.
+`src/components/ui/Logo.tsx` wraps the image in a link home and renders both
+variants in one grid cell. Only one is displayed, chosen by
+`data-seasonal-logo` on `<html>`. CSS does the swap, so there is no image
+request after hydration, no flash and no layout shift. The two files are within
+0.15% of the same aspect ratio, so the reserved box does not move.
 
-`public/logos/cream-logo.png` and `black-logo.png` are the client's originals.
-Both arrived flattened onto a checkerboard with no alpha channel. The
-`*-transparent.png` files were derived from the alpha of `white-logo.png`; the
-originals are kept untouched.
+**How the Christmas switch works.** `seasonalLogos` in `src/config/site.ts` is a
+list of date windows. One exists now:
+
+```ts
+{
+  id: "christmas",
+  start: "2026-11-20",   // first day it shows
+  end:   "2027-01-14",   // last day it shows, through 23:59
+  timeZone: "Africa/Lagos",
+  altSuffix: "Christmas edition",
+}
+```
+
+The site is statically generated, so the date is not checked at build time. A
+tiny blocking script (`src/components/brand/seasonal-logo-script.tsx`) runs
+before the body paints, compares today's calendar date in Lagos time against the
+windows and writes `data-seasonal-logo`. The main logo returns automatically the
+next day. To change the dates, edit `start`/`end`. To add a window (Easter,
+Independence Day), add another object to the list; nothing else changes. With
+JavaScript off, or if anything throws, the main logo stays visible.
+
+QA overrides: `?logo=christmas` and `?logo=main` force a variant for the current
+page view only. They are never stored, so a refresh without the query string
+returns to the date-driven logo.
+
+`public/logos/logo-christmas.png` is the client's original. It arrived flattened
+onto a solid black field with no alpha channel, so it cannot sit on white. The
+`-transparent.png` copy was derived from it with an edge-connected flood fill;
+the original is untouched. **Ask the client for a proper transparent export and
+drop it in at the same path** — at 100% zoom there is minor dark speckle around
+the hat and fur edge.
+
+The old cream/black/white wordmarks (`cream-logo*.png`, `black-logo*.png`,
+`white-logo.png`) have been removed from the working tree; they are still in git
+history if needed.
 
 ### Photography
 
 Every image is referenced from the typed manifest in `src/content/images.ts`.
 `<SmartImage>` reads the path; if the file is missing or fails to load it renders
-a branded placeholder in the page accent, so the site never shows a broken image
+a branded white-on-sky placeholder, so the site never shows a broken image
 and never shows a blank box. To publish a real photo, drop the file at the exact
 path in the manifest and rebuild. The shot list, dimensions and framing rules are
 in `public/images/README.md`; attribution goes in `public/images/CREDITS.md`.
@@ -251,18 +312,18 @@ in `public/images/README.md`; attribution goes in `public/images/CREDITS.md`.
 | `src/app/apple-icon.png` | 180×180 | iOS home screen |
 | `public/icons/icon-192.png`, `icon-512.png` | 192, 512 | web app manifest |
 
-The icon PNGs are generated from the brand field and the `JCNL` wordmark, and the
-social card is the brand field with the name and descriptor. Replace any of them
-with artwork from the client at the same path and size; nothing else needs to
-change. If the client supplies a square logo, regenerate all four from it so the
-tab, the home-screen icon and the manifest stay consistent.
+The icon PNGs and the social card are built from the logo on white: the mark on
+plain white for the card, the same mark cropped square for the tab and home
+screen. Replace any of them with artwork from the client at the same path and
+size; nothing else needs to change. The Organization JSON-LD `logo`, the Open
+Graph image and the favicon always use the **main** logo, never the seasonal one.
 
 ## Editing content
 
 - **Contact details, nav, socials:** `src/config/site.ts`. Nothing else should
   contain a phone number, email or address.
 - **Hero slides:** `src/content/slides.ts`. One entry per slide: `id`, `image`,
-  `alt`, `headline`, `sub`, `cta`. Page-level framing (label, eyebrow, accent)
+  `alt`, `headline`, `sub`, `cta`. Page-level framing (label, eyebrow)
   is in `src/content/page-copy.ts`.
 - **About copy:** `src/content/about.ts`. The story, mission, six service lines,
   office framing and the closing band. Offices themselves come from
@@ -368,7 +429,8 @@ Any Node host that supports Next 16 (Vercel is the path of least resistance).
 Before the first deploy:
 
 1. Set `NEXT_PUBLIC_SITE_URL` to the real domain.
-2. Upload the client's photography and the logo (see `CLIENT_TODO.md`).
+2. Upload the client's photography and a transparent Christmas logo export (see
+   `CLIENT_TODO.md`).
 3. Point the contact API route at an email provider, or leave it returning
    `{ ok: true }` and rely on the WhatsApp and mailto channels.
 4. Re-run Lighthouse on the deployed URL, not locally.

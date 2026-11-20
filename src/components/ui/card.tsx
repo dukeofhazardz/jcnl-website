@@ -2,14 +2,16 @@ import type { ElementType, ReactNode } from "react";
 
 import { cn } from "@/lib/cn";
 
-type CardTone = "surface" | "raised" | "sand" | "ink" | "outline";
+type CardTone = "surface" | "raised" | "tint" | "ink" | "outline";
 
 const tones: Record<CardTone, string> = {
-  surface: "bg-ivory-100 text-ink-900",
-  raised: "bg-[var(--surface-raised)] text-ink-900",
-  sand: "bg-ivory-200 text-ink-900",
-  ink: "bg-jungle-950 text-ivory-50",
-  outline: "border border-line bg-transparent text-ink-900",
+  /** Soft grey, one step off white. */
+  surface: "bg-mist-50 text-ink-950",
+  raised: "bg-white text-ink-950",
+  /** Very light sky. */
+  tint: "bg-sky-50 text-ink-950",
+  ink: "bg-ink-950 text-white",
+  outline: "border border-line bg-transparent text-ink-950",
 };
 
 export function Card({

@@ -20,7 +20,7 @@ export function AboutStory() {
 
   return (
     <Section
-      tone="ivory"
+      tone="white"
       topDivider="arch"
       spacing="md"
       labelledBy={headingId}
@@ -62,7 +62,7 @@ export function AboutStory() {
           <div className="lg:col-span-6">
             <Reveal delay={0.06}>
               <Parallax
-                className="aspect-4/3 overflow-hidden rounded-md bg-jungle-950"
+                className="aspect-4/3 overflow-hidden rounded-md bg-ink-950"
                 distance={24}
               >
                 <SmartImage
