@@ -65,15 +65,17 @@ export function HeroCarousel({
   const [hasNavigated, setHasNavigated] = useState(false);
 
   /**
-   * Slides whose photograph has been mounted. Slides that have not been seen
-   * yet render no image at all: six full-width photographs on a phone put the
-   * first one seconds behind on a slow connection, and the carousel only ever
-   * crossfades between neighbours. The current slide and the one after it are
-   * always mounted; every slide visited stays mounted so going back is instant.
+   * Slides that render a photograph. Six full-width photographs on a phone put
+   * the first one seconds behind on a slow connection, and the carousel only
+   * ever crossfades between neighbours, so just the current slide and the two
+   * beside it are mounted: the next one is decoded before the crossfade starts
+   * and the outgoing one stays painted while it fades out.
    */
-  const [mountedSlides, setMountedSlides] = useState<readonly number[]>(() =>
-    count > 1 ? [0, 1] : [0],
-  );
+  const mountedSlides = [
+    count > 1 ? (index - 1 + count) % count : index,
+    index,
+    count > 1 ? (index + 1) % count : index,
+  ];
 
   const tabHidden = useDocumentHidden();
   const reduceMotion = usePrefersReducedMotion();
@@ -116,17 +118,10 @@ export function HeroCarousel({
   const goNext = useCallback(() => goTo(index + 1), [goTo, index]);
   const goPrev = useCallback(() => goTo(index - 1), [goTo, index]);
 
-  // Keep the current slide and its neighbour mounted; nothing else loads.
-  useEffect(() => {
-    setMountedSlides((prev) => {
-      const next = count > 1 ? [index, (index + 1) % count] : [index];
-      return next.every((item) => prev.includes(item)) ? prev : [...prev, ...next];
-    });
-  }, [index, count]);
-
   // Autoplay clock. The timeout carries the remaining time across a pause, and
   // the CSS progress animation is paused with it, so the two stay in step.
-  useEffect(() => {    if (!playing) return;
+  useEffect(() => {
+    if (!playing) return;
 
     startedAt.current = performance.now();
     const remaining = Math.max(300, ROTATE_MS - elapsed.current);

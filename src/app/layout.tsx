@@ -5,7 +5,6 @@ import { SeasonalLogoScript } from "@/components/brand/seasonal-logo-script";
 import { Footer } from "@/components/layout/footer";
 import { Header } from "@/components/layout/header";
 import { WhatsAppFab } from "@/components/layout/whatsapp-fab";
-import { MotionProvider } from "@/components/providers/motion-provider";
 import { site } from "@/config/site";
 import { siteImages } from "@/content/images";
 import { defaultTitle } from "@/lib/metadata";
@@ -84,7 +83,8 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
-  themeColor: "#ffffff",
+  // Matches the web app manifest and the logo's sky fill.
+  themeColor: "#00bafc",
   colorScheme: "light",
 };
 
@@ -110,22 +110,20 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
 
         <div aria-hidden="true" className="grain-overlay" />
 
-        <MotionProvider>
-          <Header />
+        <Header />
 
-          {/* The header is fixed and opaque from the first pixel, so the page
-              starts below it rather than underneath it. */}
-          <main
-            id="main"
-            tabIndex={-1}
-            className="flex-1 pt-[var(--header-h)] outline-none"
-          >
-            {children}
-          </main>
+        {/* The header is fixed and opaque from the first pixel, so the page
+            starts below it rather than underneath it. */}
+        <main
+          id="main"
+          tabIndex={-1}
+          className="flex-1 pt-[var(--header-h)] outline-none"
+        >
+          {children}
+        </main>
 
-          <Footer />
-          <WhatsAppFab />
-        </MotionProvider>
+        <Footer />
+        <WhatsAppFab />
 
         <script
           type="application/ld+json"
